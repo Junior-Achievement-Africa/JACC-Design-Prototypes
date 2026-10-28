@@ -1,31 +1,31 @@
-/* Avatars — photo first, initials only when missing / failed */
+/* Avatars — African youth photos first, initials only when missing / failed */
 window.JACC = window.JACC || {};
 
 JACC.ME = {
   name: 'Efua Boateng',
-  photo: 'https://randomuser.me/api/portraits/women/44.jpg',
+  photo: 'assets/avatars/efua.jpg',
   headline: 'Product Analyst · Accra',
 };
 
-/** Stable portrait URLs (randomuser) keyed by person name */
+/** Local African youth portraits keyed by person name */
 JACC.PHOTOS = {
-  'Efua Boateng': 'https://randomuser.me/api/portraits/women/44.jpg',
-  'Ama Mensah': 'https://randomuser.me/api/portraits/women/68.jpg',
-  'Kwame Osei': 'https://randomuser.me/api/portraits/men/32.jpg',
-  'Fatou Diallo': 'https://randomuser.me/api/portraits/women/90.jpg',
+  'Efua Boateng': 'assets/avatars/efua.jpg',
+  'Ama Mensah': 'assets/avatars/ama.jpg',
+  'Kwame Osei': 'assets/avatars/kwame.jpg',
+  'Fatou Diallo': 'assets/avatars/fatou.jpg',
   'James Okoro': null, // intentional: initials fallback demo
-  'Ngozi Adeyemi': 'https://randomuser.me/api/portraits/women/21.jpg',
-  'Samuel Kariuki': 'https://randomuser.me/api/portraits/men/75.jpg',
-  'Ibrahim Touré': 'https://randomuser.me/api/portraits/men/22.jpg',
-  'Wanjiru Kamau': 'https://randomuser.me/api/portraits/women/33.jpg',
-  'Adaobi Nwosu': 'https://randomuser.me/api/portraits/women/12.jpg',
-  'Yeboah Kofi': 'https://randomuser.me/api/portraits/men/45.jpg',
-  'Aisha Bello': 'https://randomuser.me/api/portraits/women/57.jpg',
-  "Pierre N'Guessan": 'https://randomuser.me/api/portraits/men/11.jpg',
-  'Kwesi Addo': 'https://randomuser.me/api/portraits/men/52.jpg',
-  'Mariama Sy': 'https://randomuser.me/api/portraits/women/28.jpg',
-  'Chinedu Okafor': 'https://randomuser.me/api/portraits/men/61.jpg',
-  'MTN Talent Team': 'https://randomuser.me/api/portraits/men/83.jpg',
+  'Ngozi Adeyemi': 'assets/avatars/ngozi.jpg',
+  'Samuel Kariuki': 'assets/avatars/samuel.jpg',
+  'Ibrahim Touré': 'assets/avatars/ibrahim.jpg',
+  'Wanjiru Kamau': 'assets/avatars/wanjiru.jpg',
+  'Adaobi Nwosu': 'assets/avatars/adaobi.jpg',
+  'Yeboah Kofi': 'assets/avatars/yeboah.jpg',
+  'Aisha Bello': 'assets/avatars/aisha.jpg',
+  "Pierre N'Guessan": 'assets/avatars/pierre.jpg',
+  'Kwesi Addo': 'assets/avatars/kwesi.jpg',
+  'Mariama Sy': 'assets/avatars/mariama.jpg',
+  'Chinedu Okafor': 'assets/avatars/chinedu.jpg',
+  'MTN Talent Team': 'assets/avatars/mtn.jpg',
   'JA Events': null,
 };
 
