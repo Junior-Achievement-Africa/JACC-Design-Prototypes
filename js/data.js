@@ -205,5 +205,6 @@ JACC.SCREENS = [
     { id: 'digest', label: 'Job digest email' },
     { id: 'a11y', label: 'Accessibility' },
     { id: 'bilingual', label: 'EN / FR language' },
+    { id: 'saved-searches', label: 'Saved searches' },
   ]},
 ];

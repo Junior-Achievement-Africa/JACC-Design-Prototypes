@@ -134,7 +134,7 @@ Object.assign(JACC.Screens, {
           ['Chinedu Okafor', 'JA Nigeria claim · 2019', '2d ago'],
         ].map(([n, c, t]) => `
           <div class="list-card" style="cursor:default">
-            <div class="avatar">${n[0]}</div>
+            ${JACC.avatar(n)}
             <div class="meta"><h3>${n}</h3><div class="tiny">${c} · ${t}</div></div>
             <button class="btn btn-sm btn-primary" data-toast="Approved · cohort assigned">Approve</button>
             <button class="btn btn-sm btn-ghost" data-toast="Rejected with note">Reject</button>
@@ -370,7 +370,7 @@ Object.assign(JACC.Screens, {
               <div class="row between"><strong>${col}</strong><span class="pill">${list.length}</span></div>
               ${list.map((a) => `
                 <div class="card" style="padding:12px;margin-top:8px">
-                  <strong>${a.name}</strong>
+                  <div class="row" style="margin-bottom:6px">${JACC.avatar(a, 'sm')}<strong>${a.name}</strong></div>
                   <div class="tiny">${a.skills} · ${a.match}%</div>
                 </div>`).join('') || '<div class="tiny" style="margin-top:8px">Empty</div>'}
             </div>`).join('')}
@@ -404,7 +404,7 @@ Object.assign(JACC.Screens, {
         <div class="section-title"><h1 style="font-size:1.5rem;margin:0">Session requests</h1></div>
         <div class="stack">
           <div class="list-card" style="cursor:default">
-            <div class="avatar">E</div>
+            ${JACC.avatar(JACC.ME)}
             <div class="meta"><h3>Efua Boateng</h3><div class="tiny">Thu 18:00 · Breaking into PM</div></div>
             <button class="btn btn-sm btn-primary" data-toast="Accepted">Accept</button>
             <button class="btn btn-sm btn-ghost" data-toast="Decline sent">Decline</button>
@@ -446,7 +446,7 @@ Object.assign(JACC.Screens, {
         <div class="section-title"><h1 style="font-size:1.5rem;margin:0">Verify mentors</h1></div>
         <div class="stack">${JACC.MENTORS.filter(m => !m.verified).concat(JACC.MENTORS.filter(m => m.verified).slice(0,1)).map((m) => `
           <div class="list-card" style="cursor:default">
-            <div class="avatar">${m.name[0]}</div>
+            ${JACC.avatar(m)}
             <div class="meta"><h3>${m.name}</h3><div class="tiny">${m.role}</div></div>
             ${m.verified ? '<span class="pill-success pill">Verified</span>' :
               '<button class="btn btn-sm btn-primary" data-toast="Mentor verified">Verify</button>'}
@@ -523,71 +523,105 @@ Object.assign(JACC.Screens, {
   },
 
   'match-explain'() {
+    const j = JACC.JOBS[0];
     return `
-      <div class="screen-enter" style="max-width:560px;margin:0 auto">
-        <div class="section-title"><h1 style="font-size:1.5rem;margin:0">Why 94% match?</h1></div>
-        <p class="muted">Product Analyst · MTN Ghana — explainable matching builds trust.</p>
-        <div class="card">
-          <div class="row between" style="margin-bottom:12px"><strong>Skills overlap</strong><span class="pill-match pill">+42</span></div>
-          <div class="bar-track"><div class="bar-fill" style="width:88%"></div></div>
-          <div class="tiny" style="margin-top:6px">SQL · Excel · Stakeholder management</div>
+      <div class="screen-enter" style="max-width:580px;margin:0 auto">
+        <div class="row" style="margin-bottom:16px;gap:14px">
+          <div class="thumb" style="width:64px;height:64px;border-radius:var(--radius-md);background:${j.img};display:grid;place-items:center;color:#fff;font-weight:800">${j.company[0]}</div>
+          <div>
+            <div class="pill-match pill">${j.match}% match</div>
+            <h1 style="font-size:1.45rem;margin:6px 0 0">${j.title}</h1>
+            <div class="tiny">${j.company} · ${j.loc}</div>
+          </div>
         </div>
+        <p class="muted">Transparent scoring so alumni trust recommendations — and employers see why JA talent fits.</p>
         <div class="card">
-          <div class="row between"><strong>Industry fit</strong><span class="pill-match pill">+28</span></div>
-          <div class="tiny">Technology / fintech adjacent</div>
+          ${[
+            ['Skills overlap', 42, 88, 'SQL · Excel · Stakeholder management'],
+            ['Industry fit', 28, 70, 'Technology / fintech adjacent'],
+            ['Location & type', 18, 90, 'Accra · Hybrid matches your prefs'],
+            ['JA alumni preferred', 6, 100, 'Employer boost for JA alumni'],
+          ].map(([label, pts, pct, hint]) => `
+            <div class="explain-row">
+              <div>
+                <strong>${label}</strong>
+                <div class="bar-track" style="margin-top:8px"><div class="bar-fill" style="width:${pct}%"></div></div>
+                <div class="tiny" style="margin-top:6px">${hint}</div>
+              </div>
+              <span class="pill-match pill">+${pts}</span>
+            </div>`).join('')}
         </div>
-        <div class="card">
-          <div class="row between"><strong>Location & type</strong><span class="pill-match pill">+18</span></div>
-          <div class="tiny">Accra · Hybrid matches your prefs</div>
+        <div class="row" style="gap:10px;margin-top:16px;flex-wrap:wrap">
+          <a class="btn btn-primary" href="#/apply">Apply</a>
+          <a class="btn btn-secondary" href="#/job">View role</a>
+          <button class="btn btn-ghost" data-toast="Saved search created">Alert me to similar</button>
         </div>
-        <div class="card">
-          <div class="row between"><strong>JA alumni preference</strong><span class="pill-success pill">+6</span></div>
-          <div class="tiny">Employer marked “JA alumni preferred”</div>
-        </div>
-        <a class="btn btn-primary btn-block" href="#/apply">Apply with this context</a>
       </div>`;
   },
 
   pathway() {
+    const steps = [
+      { y: '2019', t: 'Joined JA Ghana cohort', tag: 'Onboarding', who: null },
+      { y: '2022', t: 'First mentor session', tag: 'Mentorship', who: 'Ama Mensah' },
+      { y: '2023', t: 'Applied to 4 roles · shortlisted twice', tag: 'Careers', who: null },
+      { y: '2024', t: 'CV health 82 after AI parse', tag: 'CV studio', who: null },
+      { y: 'Now', t: 'Summit RSVP · 12 fresh matches', tag: 'Today', who: null },
+    ];
     return `
       <div class="screen-enter" style="max-width:640px;margin:0 auto">
         <div class="hero">
           <span class="eyebrow"><i></i> Career pathway</span>
           <h1>From JA Company to Product</h1>
-          <p>A living timeline of skills, mentors, jobs and events — your hub history as a story.</p>
+          <p>Your hub history as a living story — skills, mentors, jobs and events in one timeline.</p>
         </div>
-        <div class="stack">
-          ${[
-            ['2019', 'Joined JA Ghana cohort', 'Onboarding'],
-            ['2022', 'First mentor session · Ama Mensah', 'Mentorship'],
-            ['2023', 'Applied · 4 roles · 1 hire path', 'Careers'],
-            ['2024', 'CV health 82 · AI parse', 'CV studio'],
-            ['Now', 'Summit RSVP · 12 job matches', 'Today'],
-          ].map(([y, t, tag]) => `
-            <div class="list-card" style="cursor:default">
-              <div class="thumb" style="background:var(--primary);font-size:11px">${y}</div>
-              <div class="meta"><h3>${t}</h3><div class="tiny">${tag}</div></div>
+        <div class="row" style="margin-bottom:18px;gap:12px">
+          ${JACC.avatar(JACC.ME, 'lg')}
+          <div>
+            <strong>Efua Boateng</strong>
+            <div class="tiny">Product track · JA Ghana 2019</div>
+            <div class="avatar-stack" style="margin-top:8px">
+              ${JACC.avatar('Ama Mensah', 'sm')}
+              ${JACC.avatar('Kwame Osei', 'sm')}
+              ${JACC.avatar('Ngozi Adeyemi', 'sm')}
+              <span class="tiny" style="margin-left:8px">Mentors on your path</span>
+            </div>
+          </div>
+        </div>
+        <div class="timeline">
+          ${steps.map((s) => `
+            <div class="timeline-item">
+              <div class="card" style="margin:0">
+                <div class="row between"><span class="pill">${s.y}</span><span class="tiny">${s.tag}</span></div>
+                <h3 style="margin:8px 0 0;font-size:1rem">${s.t}</h3>
+                ${s.who ? `<div class="row" style="margin-top:10px">${JACC.avatar(s.who, 'sm')}<span class="tiny">${s.who}</span></div>` : ''}
+              </div>
             </div>`).join('')}
         </div>
       </div>`;
   },
 
   'impact-map'() {
+    const dots = [
+      { left: '32%', top: '48%', label: 'Ghana · 2.1k' },
+      { left: '38%', top: '52%', label: 'Nigeria · 3.4k' },
+      { left: '58%', top: '58%', label: 'Kenya · 1.8k' },
+      { left: '28%', top: '55%', label: "Côte d'Ivoire · 0.9k" },
+      { left: '52%', top: '72%', label: 'South Africa · 1.1k' },
+    ];
     return `
       <div class="screen-enter">
         <div class="section-title"><h1 style="font-size:1.5rem;margin:0">Africa engagement map</h1>
           <a class="btn btn-sm btn-secondary" href="#/analytics">M&E view</a></div>
-        <p class="muted">Where alumni are active this month — useful for country offices & funders.</p>
-        <div class="card" style="min-height:280px;display:grid;place-items:center;background:
-          radial-gradient(circle at 30% 45%, color-mix(in srgb, var(--ja-enterprise-aqua) 45%, transparent) 0 8%, transparent 9%),
-          radial-gradient(circle at 48% 55%, color-mix(in srgb, var(--ja-leadership-lime) 50%, transparent) 0 12%, transparent 13%),
-          radial-gradient(circle at 55% 48%, color-mix(in srgb, var(--ja-empowered-yellow) 40%, transparent) 0 6%, transparent 7%),
-          radial-gradient(circle at 42% 62%, color-mix(in srgb, var(--ja-startup-jade) 40%, transparent) 0 7%, transparent 8%),
-          var(--sunken)">
-          <div style="text-align:center">
-            <strong>Live pulse</strong>
-            <div class="tiny">Ghana · Nigeria · Kenya · Côte d'Ivoire</div>
+        <p class="muted">Where alumni are active this month — for country offices and funders.</p>
+        <div class="map-stage">
+          ${dots.map((d) => `<button type="button" class="map-dot" style="left:${d.left};top:${d.top}" title="${d.label}" data-toast="${d.label}"></button>`).join('')}
+          <div style="position:absolute;inset:auto 16px 16px 16px">
+            <strong>Live pulse · 30 days</strong>
+            <div class="tiny">Tap a glow for country detail</div>
           </div>
+        </div>
+        <div class="map-legend">
+          ${dots.map((d) => `<span class="pill">${d.label}</span>`).join('')}
         </div>
         <div class="stat-grid" style="margin-top:14px">
           <div class="stat"><div class="n">12.4k</div><div class="l">Active 30d</div></div>
@@ -600,30 +634,51 @@ Object.assign(JACC.Screens, {
 
   ticket() {
     return `
-      <div class="auth-panel screen-enter" style="margin:24px auto;max-width:400px;text-align:center">
-        <div class="pill-success pill">You’re going</div>
-        <h1 style="margin-top:12px">Regional Alumni Summit</h1>
+      <div class="auth-panel ticket-card screen-enter" style="margin:24px auto;max-width:400px;text-align:center">
+        <div class="row between">
+          ${JACC.avatar(JACC.ME)}
+          <span class="pill-success pill">You’re going</span>
+        </div>
+        <h1 style="margin-top:14px;font-size:1.35rem">Regional Alumni Summit</h1>
         <p class="muted">Sat 14 Mar · 09:00 WAT · Accra + Online</p>
         <div class="scan-frame" style="margin:20px auto" title="QR for Organise check-in"></div>
-        <div class="tiny">Ticket · EFUA-SUMMIT-2026</div>
-        <div class="row" style="gap:8px;justify-content:center;margin-top:16px;flex-wrap:wrap">
-          <button class="btn btn-secondary btn-sm" data-toast="Added to Moodle calendar">Moodle calendar</button>
-          <button class="btn btn-primary btn-sm" data-toast="Join link copied">Join link</button>
+        <div class="ticket-stub">
+          <div class="tiny">Ticket · EFUA-SUMMIT-2026</div>
+          <div class="row" style="gap:8px;justify-content:center;margin-top:16px;flex-wrap:wrap">
+            <button class="btn btn-secondary btn-sm" data-toast="Added to Moodle calendar">Moodle calendar</button>
+            <button class="btn btn-primary btn-sm" data-toast="Join link copied">Join link</button>
+          </div>
+          <p class="tiny" style="margin-top:14px">Reminder via Moodle notification · 24h before</p>
         </div>
-        <p class="tiny" style="margin-top:14px">Reminders fire through Moodle notifications 24h before.</p>
       </div>`;
   },
 
   endorsements() {
+    const rows = [
+      { skill: 'Product sense', who: 'Ama Mensah', role: 'Mentor', n: 4 },
+      { skill: 'SQL', who: 'Kwame Osei', role: 'Peer', n: 2 },
+      { skill: 'Stakeholder mgmt', who: 'Ngozi Adeyemi', role: 'Mentor', n: 3 },
+      { skill: 'Interview prep', who: 'James Okoro', role: 'Mentor', n: 1 },
+    ];
     return `
       <div class="screen-enter" style="max-width:560px;margin:0 auto">
-        <h1 style="font-size:1.5rem">Skill endorsements</h1>
-        <p class="muted">Mentors and peers can endorse skills after sessions — strengthens job match.</p>
+        <div class="row" style="margin-bottom:8px;gap:12px">
+          ${JACC.avatar(JACC.ME, 'lg')}
+          <div>
+            <h1 style="font-size:1.45rem;margin:0">Skill endorsements</h1>
+            <p class="muted" style="margin:4px 0 0">After sessions, mentors endorse skills — improves match %.</p>
+          </div>
+        </div>
         <div class="stack">
-          ${[['Product sense', 'Ama Mensah · mentor', 4],['SQL', 'Kwame Osei · peer', 2],['Stakeholder mgmt', 'Ngozi Adeyemi · mentor', 3]].map(([s, w, n]) => `
+          ${rows.map((r) => `
             <div class="list-card" style="cursor:default">
-              <div class="meta"><h3>${s}</h3><div class="tiny">${w}</div></div>
-              <span class="pill-accent pill">${n} endorsements</span>
+              ${JACC.avatar(r.who)}
+              <div class="meta">
+                <h3>${r.skill}</h3>
+                <div class="tiny">${r.who} · ${r.role}</div>
+                <div class="endorsement-bar" aria-label="${r.n} endorsements">${'★'.repeat(Math.min(r.n, 5))}</div>
+              </div>
+              <span class="pill-accent pill">${r.n}</span>
             </div>`).join('')}
         </div>
         <button class="btn btn-secondary" style="margin-top:14px" data-toast="Request sent via Moodle message">Ask mentor to endorse</button>
@@ -634,15 +689,22 @@ Object.assign(JACC.Screens, {
     return `
       <div class="screen-enter" style="max-width:720px;margin:0 auto">
         <div class="moodle-core-note">
-          <div><strong>Moodle dashboard block</strong> — Career Hub can appear as a block on the Moodle /my dashboard so alumni see matches without leaving core Moodle.</div>
+          <div><strong>Moodle dashboard block</strong> — Career Hub appears on <code>/my</code> so alumni see matches without leaving core Moodle. Uses the same cohort capability checks.</div>
         </div>
         <div class="card" style="background:var(--sunken);padding:20px">
-          <div class="tiny" style="margin-bottom:10px">Moodle · Dashboard</div>
+          <div class="tiny" style="margin-bottom:10px">Moodle · My dashboard</div>
           <div class="card">
-            <div class="row between"><strong>JACC Career Hub</strong><span class="pill">Block</span></div>
+            <div class="row between">
+              <div class="row">${JACC.avatar(JACC.ME, 'sm')}<strong>JACC Career Hub</strong></div>
+              <span class="pill">Block</span>
+            </div>
             <div class="stat-grid" style="margin:12px 0">
               <div class="stat"><div class="n">12</div><div class="l">Matches</div></div>
               <div class="stat"><div class="n">1</div><div class="l">Session</div></div>
+            </div>
+            <div class="avatar-stack" style="margin-bottom:12px">
+              ${JACC.MENTORS.slice(0, 3).map((m) => JACC.avatar(m, 'sm')).join('')}
+              <span class="tiny" style="margin-left:8px">Mentors online</span>
             </div>
             <a class="btn btn-sm btn-primary" href="#/home">Open hub</a>
           </div>
@@ -654,16 +716,20 @@ Object.assign(JACC.Screens, {
     return `
       <div class="screen-enter" style="max-width:520px;margin:0 auto">
         <h1 style="font-size:1.5rem">Weekly job digest</h1>
-        <div class="moodle-core-note"><div>Sent as a <strong>Moodle notification email</strong> (and optional popup) — not a separate ESP.</div></div>
+        <div class="moodle-core-note"><div>Delivered as a <strong>Moodle notification email</strong> (+ optional popup) — not a separate email service.</div></div>
         <div class="card">
-          <div class="tiny">Preview · Monday 08:00 WAT</div>
-          <h3 style="margin:8px 0">3 roles matched your skills</h3>
+          <div class="row between">
+            <div class="tiny">Preview · Monday 08:00 WAT</div>
+            ${JACC.avatar(JACC.ME, 'sm')}
+          </div>
+          <h3 style="margin:10px 0">Hi Efua — 3 roles matched your skills</h3>
           ${JACC.JOBS.slice(0, 3).map((j) => `
-            <div class="row between" style="padding:8px 0;border-bottom:1px solid var(--line)">
-              <span>${j.title}<div class="tiny">${j.company}</div></span>
+            <div class="row between" style="padding:10px 0;border-bottom:1px solid var(--line)">
+              <span><strong>${j.title}</strong><div class="tiny">${j.company}</div></span>
               <span class="pill-match pill">${j.match}%</span>
             </div>`).join('')}
           <a class="btn btn-primary btn-block" style="margin-top:12px" href="#/careers">See all matches</a>
+          <a class="btn btn-ghost btn-block" href="#/notifications">Notification prefs</a>
         </div>
       </div>`;
   },
@@ -672,11 +738,11 @@ Object.assign(JACC.Screens, {
     return `
       <div class="auth-panel screen-enter" style="margin:0 auto;max-width:520px">
         <h1>Accessibility</h1>
-        <p class="muted">NFR-04 · WCAG 2.1 AA on hub pages — prototype of user-facing controls.</p>
-        <label class="row between" style="padding:12px 0;border-bottom:1px solid var(--line)"><span>Larger text</span><input type="checkbox"></label>
-        <label class="row between" style="padding:12px 0;border-bottom:1px solid var(--line)"><span>Reduce motion</span><input type="checkbox"></label>
-        <label class="row between" style="padding:12px 0;border-bottom:1px solid var(--line)"><span>High contrast</span><input type="checkbox"></label>
-        <label class="row between" style="padding:12px 0;border-bottom:1px solid var(--line)"><span>Underline links</span><input type="checkbox" checked></label>
+        <p class="muted">NFR-04 · WCAG 2.1 AA — user-facing controls on top of Moodle themes.</p>
+        <label class="row between" style="padding:12px 0;border-bottom:1px solid var(--line)"><span><strong>Larger text</strong><div class="tiny">Increases hub type scale</div></span><input type="checkbox"></label>
+        <label class="row between" style="padding:12px 0;border-bottom:1px solid var(--line)"><span><strong>Reduce motion</strong><div class="tiny">Respects prefers-reduced-motion</div></span><input type="checkbox"></label>
+        <label class="row between" style="padding:12px 0;border-bottom:1px solid var(--line)"><span><strong>High contrast</strong></span><input type="checkbox"></label>
+        <label class="row between" style="padding:12px 0;border-bottom:1px solid var(--line)"><span><strong>Underline links</strong></span><input type="checkbox" checked></label>
         <button class="btn btn-primary btn-block" style="margin-top:16px" data-toast="Accessibility prefs saved">Save</button>
       </div>`;
   },
@@ -685,16 +751,39 @@ Object.assign(JACC.Screens, {
     return `
       <div class="screen-enter" style="max-width:560px;margin:0 auto">
         <div class="section-title"><h1 style="font-size:1.5rem;margin:0">Language · Langue</h1></div>
-        <p class="muted">US-02 — follows Moodle language pack; French starter strings ship with the plugin.</p>
+        <p class="muted">US-02 — follows the user’s Moodle language pack; French starter strings ship with the plugin.</p>
         <div class="choice-grid">
           <button class="choice is-on" type="button">English</button>
           <button class="choice" type="button">Français</button>
         </div>
         <div class="card" style="margin-top:16px">
-          <strong>Aperçu</strong>
-          <p class="muted" style="margin:8px 0 0">Trouvez un emploi. Trouvez un mentor. Restez connectés.</p>
+          <div class="row">${JACC.avatar(JACC.ME, 'sm')}<strong>Aperçu FR</strong></div>
+          <p class="muted" style="margin:10px 0 0">Trouvez un emploi. Trouvez un mentor. Restez connectés.</p>
         </div>
-        <button class="btn btn-primary" style="margin-top:14px" data-toast="Would set Moodle lang preferred">Use French in Moodle</button>
+        <button class="btn btn-primary" style="margin-top:14px" data-toast="Would set Moodle preferred language">Use French in Moodle</button>
+      </div>`;
+  },
+
+  'saved-searches'() {
+    return `
+      <div class="screen-enter" style="max-width:560px;margin:0 auto">
+        <div class="section-title">
+          <h1 style="font-size:1.5rem;margin:0">Saved searches</h1>
+          <button class="btn btn-sm btn-primary" data-toast="Search saved from job board">New</button>
+        </div>
+        <p class="muted">US-12 — digests use Moodle notifications when new roles match.</p>
+        <div class="stack">
+          ${[
+            ['Product analyst · Accra · Hybrid', '12 new · weekly digest on'],
+            ['Remote · React · Africa', '3 new · weekly digest on'],
+            ['Internship · Marketing · Lagos', '0 new · alerts off'],
+          ].map(([q, s], i) => `
+            <div class="list-card" style="cursor:default">
+              <div class="meta"><h3>${q}</h3><div class="tiny">${s}</div></div>
+              <a class="btn btn-sm btn-secondary" href="#/careers">Run</a>
+              <button class="btn btn-sm btn-ghost" data-toast="${i < 2 ? 'Digest paused' : 'Digest enabled'}">${i < 2 ? 'Pause' : 'Enable'}</button>
+            </div>`).join('')}
+        </div>
       </div>`;
   },
 });

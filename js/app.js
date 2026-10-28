@@ -241,7 +241,7 @@
         <div class="header-actions">
           <button class="icon-btn hide-mobile" data-toast="Search (prototype)">${JACC.icon('search')}</button>
           <a class="icon-btn" href="#/${state.theme}/messages">${JACC.icon('bell')}<span class="badge">3</span></a>
-          <a class="avatar" href="#/${state.theme}/profile" title="${p.label}">${p.short[0]}</a>
+          <a href="#/${state.theme}/profile" title="${p.label}" class="avatar-link">${JACC.avatar(p.id === 'alumni' || p.id === 'mentor' || p.id === 'locked' || p.id === 'pending' ? JACC.ME : { name: p.label, photo: null })}</a>
           ${p.id === 'employer' || p.id === 'admin' || p.id === 'coordinator'
             ? `<a class="btn btn-sm btn-primary hide-mobile" href="#/${state.theme}/${p.id === 'coordinator' ? 'create-event' : p.id === 'admin' ? 'plugin-settings' : 'post-job'}">Create</a>`
             : `<a class="btn btn-sm btn-secondary hide-mobile" href="#/${state.theme}/cv-start">CV studio</a>`}

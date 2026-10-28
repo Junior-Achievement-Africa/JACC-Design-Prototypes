@@ -267,12 +267,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   border-radius: 999px; background: var(--danger); color: #fff;
   font-size: 10px; font-weight: 700; display: grid; place-items: center;
 }
-.avatar {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--ja-startup-jade), var(--ja-boundless-blue));
-  color: #fff; display: grid; place-items: center; font-weight: 700; font-size: 13px;
-  border: 2px solid var(--surface);
-}
+/* Avatar base lives in polish.css (photo-first, initials fallback) */
+.avatar-link { display: inline-flex; line-height: 0; }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   min-height: 44px; padding: 0 18px;

@@ -54,6 +54,8 @@ JACC.PERSONAS = [
       { id: 'applications', label: 'Applications' },
       { id: 'saved', label: 'Saved' },
       { id: 'cv-start', label: 'CV studio' },
+      { id: 'pathway', label: 'Pathway' },
+      { id: 'ticket', label: 'My ticket' },
       { id: 'stories', label: 'Stories' },
       { id: 'profile', label: 'Profile' },
       { id: 'settings', label: 'Settings' },

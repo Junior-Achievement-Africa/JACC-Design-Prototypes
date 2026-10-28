@@ -56,7 +56,7 @@ JACC.Screens = {
       <div class="grid-3">${JACC.STORIES.map(s => `
         <div class="card">
           <div class="row gap-sm" style="margin-bottom:10px">
-            <div class="avatar">${s.name[0]}</div>
+            ${JACC.avatar(s)}
             <div><strong>${esc(s.name)}</strong><div class="tiny">${esc(s.cohort)}</div></div>
           </div>
           <p style="margin:0;font-style:italic">“${esc(s.quote)}”</p>
@@ -207,7 +207,7 @@ JACC.Screens = {
           </div>
 
           <div class="card composer">
-            <div class="row"><div class="avatar">E</div>
+            <div class="row">${JACC.avatar(JACC.ME)}
               <input class="composer-input" placeholder="Share an update with your cohort…" readonly>
             </div>
             <div class="row between" style="margin-top:10px">
@@ -220,19 +220,23 @@ JACC.Screens = {
           <div class="h-scroll">${jobs}</div>
           <div class="stack horizon-hide-when-scroll">${jobs}</div>
 
-          <div class="section-title" style="margin-top:22px"><h2>Explore</h2></div>
-          <div class="filters" style="margin-top:0">
-            <a class="filter-chip" href="#/match-explain">Why this match?</a>
-            <a class="filter-chip" href="#/pathway">Career pathway</a>
-            <a class="filter-chip" href="#/impact-map">Africa impact map</a>
-            <a class="filter-chip" href="#/ticket">Event ticket</a>
-            <a class="filter-chip" href="#/endorsements">Endorsements</a>
-            <a class="filter-chip" href="#/moodle-block">Moodle block</a>
+          <div class="section-title" style="margin-top:18px"><h2>Ideas to try</h2></div>
+          <div class="idea-rail">
+            <a href="#/match-explain"><span class="ico">🎯</span> Why this match</a>
+            <a href="#/pathway"><span class="ico">🗺️</span> Pathway</a>
+            <a href="#/impact-map"><span class="ico">🌍</span> Impact map</a>
+            <a href="#/ticket"><span class="ico">🎫</span> Event ticket</a>
+            <a href="#/endorsements"><span class="ico">⭐</span> Endorsements</a>
+            <a href="#/digest"><span class="ico">📬</span> Job digest</a>
+            <a href="#/moodle-block"><span class="ico">🧩</span> Moodle block</a>
+            <a href="#/bilingual"><span class="ico">🌐</span> EN / FR</a>
+            <a href="#/a11y"><span class="ico">♿</span> Accessibility</a>
+            <a href="#/saved-searches"><span class="ico">🔔</span> Saved searches</a>
           </div>
 
           <div class="section-title" style="margin-top:22px"><h2>Cohort wins</h2></div>
           <div class="card">
-            <div class="row"><div class="avatar">K</div><div><strong>Kwame landed Andela</strong><div class="tiny">Yesterday · JA Ghana 2019</div></div></div>
+            <div class="row">${JACC.avatar("Kwame Osei")}<div><strong>Kwame landed Andela</strong><div class="tiny">Yesterday · JA Ghana 2019</div></div></div>
             <button class="btn btn-sm btn-secondary" style="margin-top:10px" data-toast="Congrats sent via Moodle message">Congratulate</button>
           </div>
           <div class="section-title" style="margin-top:22px"><h2>Success stories</h2><a href="#/stories">More</a></div>
@@ -248,7 +252,7 @@ JACC.Screens = {
           <div class="card">
             <div class="row between" style="margin-bottom:12px"><strong>Profile strength</strong><a class="tiny" href="#/profile">Edit</a></div>
             <div class="row" style="margin-bottom:12px">
-              <div class="avatar" style="width:52px;height:52px;font-size:18px">E</div>
+              ${JACC.avatar(JACC.ME, "lg")}
               <div><strong>Efua Boateng</strong><div class="tiny">Product · JA Ghana 2019 cohort</div></div>
             </div>
             <div class="bar-track"><div class="bar-fill" style="width:72%"></div></div>
@@ -279,7 +283,7 @@ JACC.Screens = {
         <div class="card" style="padding:0;overflow:hidden;margin-bottom:16px">
           <div style="height:120px;background:linear-gradient(135deg,var(--primary),var(--accent))"></div>
           <div style="padding:0 20px 20px;margin-top:-36px">
-            <div class="avatar" style="width:72px;height:72px;font-size:28px;border-width:4px">E</div>
+            ${JACC.avatar(JACC.ME, "xl")}
             <div class="row between" style="margin-top:10px;flex-wrap:wrap">
               <div>
                 <h1 style="margin:0;font-size:1.6rem">Efua Boateng</h1>
@@ -387,8 +391,8 @@ JACC.Screens = {
             <p class="muted">${esc(j.company)} · ${esc(j.loc)}</p>
             <div class="row" style="gap:10px;flex-wrap:wrap;margin:16px 0">
               <a class="btn btn-primary" href="#/apply">Apply now</a>
-              <button class="btn btn-secondary" data-toast="Job saved">Save</button>
-              <a class="btn btn-ghost" href="#/careers">Back</a>
+              <a class="btn btn-secondary" href="#/match-explain">Why ${j.match}%?</a>
+              <button class="btn btn-ghost" data-toast="Job saved">Save</button>
             </div>
             <h3>About the role</h3>
             <p class="muted">Join MTN’s consumer insights team to turn alumni-market data into product decisions. You’ll partner with PMs and share findings with leadership.</p>
@@ -507,7 +511,7 @@ JACC.Screens = {
         <p class="muted">US-11 — statuses: submitted → reviewing → shortlisted → not selected → hired.</p>
         <div class="stack">${JACC.APPLICANTS.map(a => `
           <div class="list-card" style="cursor:default">
-            <div class="avatar">${a.name[0]}</div>
+            ${JACC.avatar(a)}
             <div class="meta">
               <h3>${esc(a.name)}</h3>
               <div class="tiny">${esc(a.skills)} · ${a.match}% match</div>
@@ -555,7 +559,7 @@ JACC.Screens = {
         <div class="grid-2">${JACC.MENTORS.map(m => `
           <a class="card" href="#/mentor" style="display:block">
             <div class="row" style="margin-bottom:10px">
-              <div class="avatar">${m.name[0]}</div>
+              ${JACC.avatar(m)}
               <div style="flex:1">
                 <div class="row gap-sm"><strong>${esc(m.name)}</strong>
                   ${m.verified ? '<span class="pill-success pill">Verified</span>' : ''}
@@ -577,7 +581,7 @@ JACC.Screens = {
       <div class="screen-enter" style="max-width:640px;margin:0 auto">
         <div class="card">
           <div class="row" style="margin-bottom:16px">
-            <div class="avatar" style="width:64px;height:64px;font-size:24px">${m.name[0]}</div>
+            ${JACC.avatar(m, "xl")}
             <div>
               <div class="row gap-sm"><h1 style="margin:0;font-size:1.4rem">${esc(m.name)}</h1><span class="pill-success pill">Verified</span></div>
               <div class="muted">${esc(m.role)}</div>
@@ -621,7 +625,7 @@ JACC.Screens = {
             <h3>Pending requests</h3>
             <div class="stack">
               <div class="list-card" style="cursor:default">
-                <div class="avatar">E</div>
+                ${JACC.avatar(JACC.ME)}
                 <div class="meta"><h3>Efua Boateng</h3><div class="tiny">Thu 18:00 · Product careers</div></div>
                 <div class="row gap-sm">
                   <button class="btn btn-sm btn-primary" data-toast="Session accepted">Accept</button>
@@ -756,12 +760,13 @@ JACC.Screens = {
           <h1>Alumni success stories</h1>
           <p>Inspiration managed by hub admins — featured on every dashboard.</p>
         </div>
-        <div class="grid-3">${JACC.STORIES.map(s => `
-          <div class="card">
-            <img src="assets/story.jpg" alt="" style="width:100%;height:160px;object-fit:cover;border-radius:var(--radius-md);margin-bottom:12px">
-            <strong>${esc(s.name)}</strong>
-            <div class="tiny">${esc(s.role)} · ${esc(s.cohort)}</div>
-            <p style="margin:10px 0 0;font-style:italic">“${esc(s.quote)}”</p>
+        <div class="grid-3">${JACC.STORIES.map((s) => `
+          <div class="card story-card">
+            <div class="cover"><img src="assets/story.jpg" alt=""></div>
+            <div class="row">${JACC.avatar(s)}
+              <div><strong>${esc(s.name)}</strong><div class="tiny">${esc(s.role)} · ${esc(s.cohort)}</div></div>
+            </div>
+            <p style="margin:0;font-style:italic">“${esc(s.quote)}”</p>
           </div>`).join('')}
         </div>
       </div>`;
@@ -778,7 +783,7 @@ JACC.Screens = {
             <div class="tiny" style="padding:8px 10px 4px">Inbox · Moodle</div>
             ${JACC.MESSAGES.map((m, i) => `
               <div class="item ${i === 0 ? 'is-active' : ''}">
-                <div class="avatar">${m.name[0]}</div>
+                ${JACC.avatar(m)}
                 <div style="flex:1;min-width:0">
                   <div class="row between"><strong style="font-size:14px">${esc(m.name)}</strong><span class="tiny">${esc(m.time)}</span></div>
                   <div class="tiny" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(m.preview)}</div>
@@ -789,7 +794,7 @@ JACC.Screens = {
           </div>
           <div class="msg-thread">
             <div class="row between" style="margin-bottom:8px">
-              <div class="row"><div class="avatar">A</div><div><strong>Ama Mensah</strong><div class="tiny">Mentor · via Moodle messaging</div></div></div>
+              <div class="row">${JACC.avatar("Ama Mensah")}<div><strong>Ama Mensah</strong><div class="tiny">Mentor · via Moodle messaging</div></div></div>
               <button class="btn btn-sm btn-ghost" data-toast="Moodle conversation info">Info</button>
             </div>
             <div class="bubble them">Hi Efua — Thursday 18:00 still good for you?</div>
