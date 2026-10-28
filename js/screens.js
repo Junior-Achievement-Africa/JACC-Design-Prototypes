@@ -1,10 +1,12 @@
 /* Screen templates for JACC design prototype */
 window.JACC = window.JACC || {};
 
-const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({
+/** Shared escape helper — classic scripts share one lexical scope for const/let */
+JACC.esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
 }[c]));
 
+const esc = JACC.esc;
 const t = (key, vars) => JACC.t(key, vars);
 
 const icon = (name) => {

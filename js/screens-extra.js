@@ -2,9 +2,10 @@
 window.JACC = window.JACC || {};
 JACC.Screens = JACC.Screens || {};
 
-const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({
+(() => {
+const esc = JACC.esc || ((s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-}[c]));
+}[c])));
 
 Object.assign(JACC.Screens, {
   pending() {
@@ -870,3 +871,4 @@ Object.assign(JACC.Screens, {
       </div>`;
   },
 });
+})();
