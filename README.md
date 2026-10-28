@@ -42,6 +42,12 @@ cd JACC-Design-Prototypes
 python3 -m http.server 8080
 ```
 
+After clone, enable commit hooks so Cursor co-author trailers are stripped:
+
+```bash
+git config core.hooksPath .githooks
+```
+
 ## Note
 
 Static HTML/CSS/JS only. Production remains the Moodle plugin `local_jacc` in the private JACC-3.0 repo.

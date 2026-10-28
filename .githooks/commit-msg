@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Strip Cursor attribution trailers from commit messages.
+# Cursor may inject these after the agent writes the message; this hook removes them.
+set -euo pipefail
+
+MSG_FILE="${1:-}"
+[[ -n "$MSG_FILE" && -f "$MSG_FILE" ]] || exit 0
+
+# Remove Co-authored-by: Cursor ... and Made-with: Cursor / Made with Cursor lines
+tmp="$(mktemp)"
+grep -viE '^[[:space:]]*(Co-authored-by:[[:space:]]*Cursor[[:space:]]*<cursoragent@cursor\.com>[[:space:]]*|Made-with:[[:space:]]*Cursor[[:space:]]*|Made with Cursor[[:space:]]*)$' "$MSG_FILE" > "$tmp" || true
+# Also drop cursoragent co-author variants
+grep -viE '^[[:space:]]*Co-authored-by:[[:space:]]*.*cursoragent@cursor\.com' "$tmp" > "${tmp}.2" || true
+mv "${tmp}.2" "$MSG_FILE"
+rm -f "$tmp"
+exit 0
