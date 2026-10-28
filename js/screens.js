@@ -5,6 +5,8 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
 }[c]));
 
+const t = (key, vars) => JACC.t(key, vars);
+
 const icon = (name) => {
   const paths = {
     home: '<path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5z"/>',
@@ -25,34 +27,34 @@ const statusPill = (status) => {
     submitted: 'pill', reviewing: 'pill-accent', shortlisted: 'pill-success',
     hired: 'pill-success', 'not selected': 'pill-danger',
   };
-  return `<span class="pill ${map[status] || 'pill'}">${esc(status)}</span>`;
+  return `<span class="pill ${map[status] || 'pill'}">${esc(t(`status.${status}`))}</span>`;
 };
 
 JACC.Screens = {
   landing() {
     return `
       <section class="hero screen-enter" style="min-height:min(70vh,560px);display:flex;flex-direction:column;justify-content:flex-end;">
-        <span class="eyebrow"><i></i> JA Africa · Career Hub</span>
-        <h1>Find work. Grow your career. Stay connected.</h1>
-        <p>One Moodle-native home for 160,000+ JA alumni across Africa — jobs, events, and impact stories.</p>
+        <span class="eyebrow"><i></i> ${t('landing.eyebrow')}</span>
+        <h1>${t('landing.h1')}</h1>
+        <p>${t('landing.p')}</p>
         <div class="actions">
-          <a class="btn btn-primary" href="#/signup">Join the hub</a>
-          <a class="btn btn-secondary" href="#/login">Sign in</a>
-          <a class="btn btn-ghost" href="#/home" style="color:inherit">Preview as alumnus →</a>
+          <a class="btn btn-primary" href="#/signup">${t('landing.join')}</a>
+          <a class="btn btn-secondary" href="#/login">${t('landing.signIn')}</a>
+          <a class="btn btn-ghost" href="#/home" style="color:inherit">${t('landing.preview')}</a>
         </div>
       </section>
       <div class="stat-grid screen-enter" style="margin-bottom:24px">
-        <div class="stat"><div class="n">160k+</div><div class="l">Alumni accounts</div></div>
-        <div class="stat"><div class="n">2.1k</div><div class="l">Open roles</div></div>
-        <div class="stat"><div class="n">420</div><div class="l">Open roles</div></div>
-        <div class="stat"><div class="n">120</div><div class="l">Events / quarter</div></div>
+        <div class="stat"><div class="n">160k+</div><div class="l">${t('landing.statAlumni')}</div></div>
+        <div class="stat"><div class="n">2.1k</div><div class="l">${t('landing.statRoles')}</div></div>
+        <div class="stat"><div class="n">420</div><div class="l">${t('landing.statOpen')}</div></div>
+        <div class="stat"><div class="n">120</div><div class="l">${t('landing.statEvents')}</div></div>
       </div>
-      <div class="section-title"><h2>What you can do</h2></div>
+      <div class="section-title"><h2>${t('landing.what')}</h2></div>
       <div class="grid-3">
-        ${[['Careers','Search, match, apply, and track applications.'],['CV studio','Upload, AI-parse, and share a polished CV.'],['Events','RSVP, join links, calendar sync.']].map(([t,d]) => `
-          <div class="card"><h3>${t}</h3><p class="muted" style="margin:0">${d}</p></div>`).join('')}
+        ${[[t('landing.careers'),t('landing.careersD')],[t('landing.cv'),t('landing.cvD')],[t('landing.events'),t('landing.eventsD')]].map(([title,d]) => `
+          <div class="card"><h3>${title}</h3><p class="muted" style="margin:0">${d}</p></div>`).join('')}
       </div>
-      <div class="section-title" style="margin-top:28px"><h2>Alumni stories</h2><a href="#/stories">See all</a></div>
+      <div class="section-title" style="margin-top:28px"><h2>${t('landing.stories')}</h2><a href="#/stories">${t('landing.seeAll')}</a></div>
       <div class="grid-3">${JACC.STORIES.map(s => `
         <div class="card">
           <div class="row gap-sm" style="margin-bottom:10px">
@@ -68,17 +70,17 @@ JACC.Screens = {
     return `
       <div class="auth-wrap screen-enter">
         <div class="hero" style="min-height:320px;margin:0">
-          <span class="eyebrow"><i></i> Welcome back</span>
-          <h1>Your next opportunity is waiting.</h1>
-          <p>Jobs matched to your skills. Events across the region. Stories from alumni like you.</p>
+          <span class="eyebrow"><i></i> ${t('auth.welcome')}</span>
+          <h1>${t('auth.h1')}</h1>
+          <p>${t('auth.p')}</p>
         </div>
         <div class="auth-panel">
-          <h1>Sign in</h1>
-          <p class="muted">Use your JA Africa Moodle account.</p>
-          <div class="field"><label>Email</label><input type="email" value="efua.boateng@alumni.ja.org"></div>
-          <div class="field"><label>Password</label><input type="password" value="••••••••"></div>
-          <a class="btn btn-primary btn-block" href="#/verify">Continue</a>
-          <p class="tiny" style="text-align:center;margin-top:14px">New here? <a href="#/signup"><strong>Create an account</strong></a></p>
+          <h1>${t('auth.signIn')}</h1>
+          <p class="muted">${t('auth.moodle')}</p>
+          <div class="field"><label>${t('auth.email')}</label><input type="email" value="efua.boateng@alumni.ja.org"></div>
+          <div class="field"><label>${t('auth.password')}</label><input type="password" value="••••••••"></div>
+          <a class="btn btn-primary btn-block" href="#/verify">${t('auth.continue')}</a>
+          <p class="tiny" style="text-align:center;margin-top:14px">${t('auth.new')} <a href="#/signup"><strong>${t('auth.create')}</strong></a></p>
         </div>
       </div>`;
   },
@@ -86,28 +88,28 @@ JACC.Screens = {
   signup() {
     return `
       <div class="auth-panel screen-enter" style="margin:40px auto">
-        <h1>Create your alumni account</h1>
-        <p class="muted">We’ll verify your JA programme history.</p>
-        <div class="field"><label>Full name</label><input value="Efua Boateng"></div>
+        <h1>${t('auth.signupH1')}</h1>
+        <p class="muted">${t('auth.signupP')}</p>
+        <div class="field"><label>${t('auth.fullName')}</label><input value="Efua Boateng"></div>
         <div class="field"><label>Email</label><input type="email" placeholder="you@email.com"></div>
-        <div class="field"><label>Country</label>
+        <div class="field"><label>${t('auth.country')}</label>
           <select><option>Ghana</option><option>Nigeria</option><option>Kenya</option><option>Côte d'Ivoire</option><option>Other</option></select>
         </div>
-        <div class="field"><label>Cohort / programme year</label><input value="JA Company Programme · 2019"></div>
-        <a class="btn btn-primary btn-block" href="#/verify">Send verification code</a>
+        <div class="field"><label>${t('auth.cohort')}</label><input value="JA Company Programme · 2019"></div>
+        <a class="btn btn-primary btn-block" href="#/verify">${t('auth.sendCode')}</a>
       </div>`;
   },
 
   verify() {
     return `
       <div class="auth-panel screen-enter" style="margin:40px auto;text-align:center">
-        <h1>Enter your code</h1>
-        <p class="muted">We sent a 6-digit code to your email.</p>
+        <h1>${t('auth.verifyH1')}</h1>
+        <p class="muted">${t('auth.verifyP')}</p>
         <div class="code-inputs">
           ${[4,8,2,1,9,0].map(n => `<input maxlength="1" value="${n}">`).join('')}
         </div>
-        <a class="btn btn-primary btn-block" href="#/onboarding">Verify & continue</a>
-        <p class="tiny" style="margin-top:14px">Resend in 0:42</p>
+        <a class="btn btn-primary btn-block" href="#/onboarding">${t('auth.verifyBtn')}</a>
+        <p class="tiny" style="margin-top:14px">${t('auth.resend')}</p>
       </div>`;
   },
 
@@ -115,10 +117,10 @@ JACC.Screens = {
     return `
       <div class="auth-panel screen-enter" style="margin:24px auto;max-width:520px">
         <div class="steps"><span class="is-done"></span><span class="is-on"></span><span></span><span></span></div>
-        <h1>What are you here for?</h1>
-        <p class="muted">We’ll personalise jobs and events for you.</p>
+        <h1>${t('auth.onboardH1')}</h1>
+        <p class="muted">${t('auth.onboardP')}</p>
         <div class="choice-grid">
-          ${['Find a job','Build my CV','Attend events','Post jobs (employer)','Share my story','Explore first'].map((c,i) =>
+          ${[t('auth.goalJob'),t('auth.goalCv'),t('auth.goalEvents'),t('auth.goalEmployer'),t('auth.goalStory'),t('auth.goalExplore')].map((c,i) =>
             `<button class="choice ${i < 2 ? 'is-on' : ''}" type="button">${c}</button>`).join('')}
         </div>
         <div class="field" style="margin-top:18px"><label>Your industry</label>
@@ -127,18 +129,18 @@ JACC.Screens = {
         <div class="field"><label>Top skills (comma separated)</label>
           <input value="Product, SQL, Stakeholder management">
         </div>
-        <a class="btn btn-primary btn-block" href="#/home">Finish & open hub</a>
+        <a class="btn btn-primary btn-block" href="#/home">${t('auth.finish')}</a>
       </div>`;
   },
 
   home() {
     const jobs = JACC.JOBS.slice(0, 3).map((j) => `
       <a class="list-card" href="#/job">
-        <div class="thumb" style="background:${j.img}">${j.company[0]}</div>
+        ${JACC.jobThumb(j)}
         <div class="meta">
           <h3>${esc(j.title)}</h3>
           <div class="tiny">${esc(j.company)} · ${esc(j.loc)}</div>
-          <div class="row gap-sm" style="margin-top:6px">${j.tags.map((t) => `<span class="pill">${esc(t)}</span>`).join('')}</div>
+          <div class="row gap-sm" style="margin-top:6px">${j.tags.map((tag) => `<span class="pill">${esc(tag)}</span>`).join('')}</div>
         </div>
         <div class="match-ring" style="--m:${j.match}"><span>${j.match}%</span></div>
       </a>`).join('');
@@ -146,22 +148,22 @@ JACC.Screens = {
     return `
       <div class="baobab-home screen-enter">
         <aside class="home-rail hide-mobile">
-          <div class="t-eyebrow">Spaces</div>
+          <div class="t-eyebrow">${t('common.spaces')}</div>
           <a class="rail-item is-on" href="#/home"><span class="avatar sq">JG</span> JA Ghana 2019</a>
           <a class="rail-item is-soon" href="#/forum"><span class="avatar sq c2">PM</span> Product peers</a>
           <a class="rail-item is-soon" href="#/forum"><span class="avatar sq">+</span> New group</a>
-          <div class="t-eyebrow">Quick</div>
-          <a class="rail-item" href="#/careers"><span class="qa t1">💼</span> Jobs <span class="count">12</span></a>
-          <a class="rail-item" href="#/events"><span class="qa t3">📅</span> Events <span class="count">2</span></a>
-          <a class="rail-item" href="#/cv-start"><span class="qa t4">✨</span> CV studio</a>
-          <a class="rail-item" href="#/applications"><span class="qa t2">📋</span> Applications</a>
-          <a class="rail-item" href="#/profile"><span class="qa t1">👤</span> Profile</a>
+          <div class="t-eyebrow">${t('common.quick')}</div>
+          <a class="rail-item" href="#/careers"><span class="qa t1">💼</span> ${t('common.jobs')} <span class="count">12</span></a>
+          <a class="rail-item" href="#/events"><span class="qa t3">📅</span> ${t('common.events')} <span class="count">2</span></a>
+          <a class="rail-item" href="#/cv-start"><span class="qa t4">✨</span> ${t('common.cvStudio')}</a>
+          <a class="rail-item" href="#/applications"><span class="qa t2">📋</span> ${t('common.applications')}</a>
+          <a class="rail-item" href="#/profile"><span class="qa t1">👤</span> ${t('common.profile')}</a>
         </aside>
         <div class="home-feed">
           <div class="home-phone-top">
             <div class="accent-slash" aria-hidden="true"></div>
-            <h1 class="t-greet">Hey Efua</h1>
-            <p class="muted" style="margin:0">3 new jobs · CV health 82 · summit this month</p>
+            <h1 class="t-greet">${t('home.hey', { name: 'Efua' })}</h1>
+            <p class="muted" style="margin:0">${t('home.sub')}</p>
           </div>
 
           <div class="live-ticker" aria-hidden="true">
@@ -178,10 +180,10 @@ JACC.Screens = {
           </div>
 
           <div class="bento">
-            <a class="bento-tile t1" href="#/careers"><span class="n">12</span><span class="l">Job matches</span></a>
-            <a class="bento-tile t2" href="#/applications"><span class="n">3</span><span class="l">Applications</span></a>
-            <a class="bento-tile t3" href="#/cv-health"><span class="n">82</span><span class="l">CV health</span></a>
-            <a class="bento-tile t4" href="#/events"><span class="n">2</span><span class="l">RSVPs</span></a>
+            <a class="bento-tile t1" href="#/careers"><span class="n">12</span><span class="l">${t('home.jobMatches')}</span></a>
+            <a class="bento-tile t2" href="#/applications"><span class="n">3</span><span class="l">${t('home.apps')}</span></a>
+            <a class="bento-tile t3" href="#/cv-health"><span class="n">82</span><span class="l">${t('home.cvHealth')}</span></a>
+            <a class="bento-tile t4" href="#/events"><span class="n">2</span><span class="l">${t('home.rsvps')}</span></a>
           </div>
 
           <div class="pull-quote">“The job board matched me to Hubtel — I landed my first product role.” — ${esc(JACC.STORIES[0].name)}</div>
@@ -216,16 +218,16 @@ JACC.Screens = {
             </div>
           </div>
 
-          <div class="section-title"><h2>For you</h2><a href="#/careers">Job board</a></div>
+          <div class="section-title"><h2>${t('common.forYou')}</h2><a href="#/careers">${t('common.jobBoard')}</a></div>
           <div class="h-scroll">${jobs}</div>
           <div class="stack horizon-hide-when-scroll">${jobs}</div>
 
-          <div class="section-title" style="margin-top:22px"><h2>Cohort wins</h2></div>
+          <div class="section-title" style="margin-top:22px"><h2>${t('common.cohortWins')}</h2></div>
           <div class="card">
             <div class="row">${JACC.avatar("Kwame Osei")}<div><strong>Kwame landed Andela</strong><div class="tiny">Yesterday · JA Ghana 2019</div></div></div>
-            <button class="btn btn-sm btn-secondary" style="margin-top:10px" data-toast="Congrats sent via Moodle message">Congratulate</button>
+            <button class="btn btn-sm btn-secondary" style="margin-top:10px" data-toast="Moodle">${t('common.congratulate')}</button>
           </div>
-          <div class="section-title" style="margin-top:22px"><h2>Success stories</h2><a href="#/stories">More</a></div>
+          <div class="section-title" style="margin-top:22px"><h2>${t('common.successStories')}</h2><a href="#/stories">${t('common.more')}</a></div>
           <div class="card" style="display:flex;gap:14px;align-items:center">
             <img src="assets/story.jpg" alt="" style="width:88px;height:88px;border-radius:var(--radius-md);object-fit:cover">
             <div>
@@ -236,7 +238,7 @@ JACC.Screens = {
         </div>
         <aside class="home-side hide-mobile stack">
           <div class="card">
-            <div class="row between" style="margin-bottom:12px"><strong>Profile strength</strong><a class="tiny" href="#/profile">Edit</a></div>
+            <div class="row between" style="margin-bottom:12px"><strong>${t('common.profileStrength')}</strong><a class="tiny" href="#/profile">Edit</a></div>
             <div class="row" style="margin-bottom:12px">
               ${JACC.avatar(JACC.ME, "lg")}
               <div><strong>Efua Boateng</strong><div class="tiny">Product · JA Ghana 2019 cohort</div></div>
@@ -245,16 +247,16 @@ JACC.Screens = {
             <div class="tiny" style="margin-top:6px">72% · <a href="#/cv-start">AI-parse a CV</a></div>
           </div>
           <div class="card">
-            <strong>Upcoming</strong>
+            <strong>${t('common.upcoming')}</strong>
             <p style="margin:10px 0 0;font-size:14px"><strong>Sat 14 Mar</strong> — Regional Alumni Summit</p>
             <a class="btn btn-sm btn-secondary" style="margin-top:12px" href="#/ticket">Ticket</a>
           </div>
           <div class="card">
-            <strong>Moodle notifications</strong>
+            <strong>${t('home.moodleNotif')}</strong>
             <div class="tiny" style="margin-top:8px">Bell uses core notification drawer · <a href="#/notifications">prefs</a></div>
           </div>
           <div class="card">
-            <strong>Activity</strong>
+            <strong>${t('common.activity')}</strong>
             <ul style="margin-top:10px">${JACC.ACTIVITY.map((a) => `
               <li style="padding:8px 0;border-bottom:1px solid var(--line);font-size:13px">${esc(a.t)}<div class="tiny">${esc(a.d)}</div></li>`).join('')}
             </ul>
@@ -350,32 +352,32 @@ JACC.Screens = {
   careers() {
     return `
       <div class="screen-enter">
-        <div class="section-title"><h1 style="font-size:1.6rem;margin:0">Job board</h1>
+        <div class="section-title"><h1 style="font-size:1.6rem;margin:0">${t('careers.h1')}</h1>
           <div class="row gap-sm">
-            <a class="btn btn-sm btn-ghost" href="#/saved-searches">Saved searches</a>
-            <a class="btn btn-sm btn-secondary" href="#/saved">Saved</a>
+            <a class="btn btn-sm btn-ghost" href="#/saved-searches">${t('common.savedSearches')}</a>
+            <a class="btn btn-sm btn-secondary" href="#/saved">${t('common.saved')}</a>
           </div></div>
-        <div class="searchbar">${icon('search')}<input placeholder="Search roles, companies, skills…" value="product analyst"></div>
+        <div class="searchbar">${icon('search')}<input placeholder="${t('careers.searchPh')}" value="product analyst"></div>
         <div class="filters">
-          ${['All','Full-time','Internship','Remote','Hybrid','Matched'].map((f,i) =>
+          ${[t('careers.all'),t('careers.fulltime'),t('careers.internship'),t('careers.remote'),t('careers.hybrid'),t('careers.matched')].map((f,i) =>
             `<button class="filter-chip ${i === 5 || i === 0 ? 'is-active' : ''}" type="button">${f}</button>`).join('')}
         </div>
         <div class="card" style="margin-bottom:14px">
           <div class="row between" style="flex-wrap:wrap;gap:10px">
             <div>
-              <strong>Weekly job digest</strong>
-              <div class="tiny">3 new matches this week · delivered via Moodle email</div>
+              <strong>${t('common.digestTitle')}</strong>
+              <div class="tiny">${t('common.digestHint')}</div>
             </div>
-            <a class="btn btn-sm btn-secondary" href="#/digest">Preview digest</a>
+            <a class="btn btn-sm btn-secondary" href="#/digest">${t('common.digestPreview')}</a>
           </div>
         </div>
         <div class="stack">${JACC.JOBS.map(j => `
           <a class="list-card" href="#/job">
-            <div class="thumb" style="background:${j.img}">${j.company[0]}</div>
+            ${JACC.jobThumb(j)}
             <div class="meta">
               <div class="row gap-sm"><h3 style="margin:0">${esc(j.title)}</h3><span class="pill">${esc(j.type)}</span></div>
               <div class="tiny">${esc(j.company)} · ${esc(j.loc)}</div>
-              <div class="row gap-sm" style="margin-top:6px">${j.tags.map(t => `<span class="pill">${esc(t)}</span>`).join('')}</div>
+              <div class="row gap-sm" style="margin-top:6px">${j.tags.map((tag) => `<span class="pill">${esc(tag)}</span>`).join('')}</div>
             </div>
             <div class="match-ring" style="--m:${j.match}"><span>${j.match}%</span></div>
           </a>`).join('')}
@@ -388,22 +390,22 @@ JACC.Screens = {
     return `
       <div class="screen-enter" style="max-width:720px;margin:0 auto">
         <div class="card" style="padding:0;overflow:hidden">
-          <div style="height:160px;background:${j.img}"></div>
+          ${JACC.coverBand(j.cover, 160)}
           <div style="padding:20px">
             <div class="row gap-sm" style="margin-bottom:8px">
-              <span class="pill-match pill">${j.match}% match</span>
+              <span class="pill-match pill">${j.match}% ${t('common.match')}</span>
               <span class="pill">${esc(j.type)}</span>
             </div>
             <h1 style="margin:0 0 6px">${esc(j.title)}</h1>
             <p class="muted">${esc(j.company)} · ${esc(j.loc)}</p>
             <div class="row" style="gap:10px;flex-wrap:wrap;margin:16px 0">
-              <a class="btn btn-primary" href="#/apply">Apply now</a>
-              <a class="btn btn-secondary" href="#/match-explain">Why ${j.match}%?</a>
-              <button class="btn btn-ghost" data-toast="Job saved">Save</button>
+              <a class="btn btn-primary" href="#/apply">${t('common.apply')}</a>
+              <a class="btn btn-secondary" href="#/match-explain">${t('common.whyMatch', { n: j.match })}</a>
+              <button class="btn btn-ghost" data-toast="${t('common.saved')}">${t('common.save')}</button>
             </div>
-            <h3>About the role</h3>
+            <h3>${t('careers.about')}</h3>
             <p class="muted">Join MTN’s consumer insights team to turn alumni-market data into product decisions. You’ll partner with PMs and share findings with leadership.</p>
-            <h3>Requirements</h3>
+            <h3>${t('careers.requirements')}</h3>
             <ul class="muted">${['2+ years analytics or strong internship track','SQL & Excel','Stakeholder communication','JA alumni preferred'].map(x => `<li style="margin:6px 0 6px 1em;list-style:disc">${x}</li>`).join('')}</ul>
           </div>
         </div>
@@ -433,7 +435,7 @@ JACC.Screens = {
         <div class="section-title"><h1 style="font-size:1.5rem;margin:0">Saved jobs</h1></div>
         <div class="stack">${JACC.JOBS.slice(0, 3).map(j => `
           <div class="list-card">
-            <div class="thumb" style="background:${j.img}">${j.company[0]}</div>
+            ${JACC.jobThumb(j)}
             <div class="meta"><h3>${esc(j.title)}</h3><div class="tiny">${esc(j.company)}</div></div>
             <a class="btn btn-sm btn-primary" href="#/apply">Apply</a>
           </div>`).join('')}
@@ -447,7 +449,7 @@ JACC.Screens = {
         <div class="section-title"><h1 style="font-size:1.5rem;margin:0">My applications</h1></div>
         <div class="stack">${JACC.APPLICATIONS.map(a => `
           <div class="list-card" style="cursor:default">
-            <div class="thumb">AP</div>
+            <div class="thumb img"><img src="assets/logos/mtn.jpg" alt=""></div>
             <div class="meta">
               <h3>${esc(a.job)}</h3>
               <div class="tiny">Applied ${esc(a.date)}</div>
@@ -556,25 +558,23 @@ JACC.Screens = {
   events() {
     return `
       <div class="screen-enter">
-        <div class="section-title"><h1 style="font-size:1.5rem;margin:0">Events</h1>
+        <div class="section-title"><h1 style="font-size:1.5rem;margin:0">${t('events.h1')}</h1>
           <div class="row gap-sm">
-            <a class="btn btn-sm btn-ghost" href="#/ticket">My ticket</a>
-            <a class="btn btn-sm btn-secondary" href="#/create-event">Create</a>
+            <a class="btn btn-sm btn-ghost" href="#/ticket">${t('common.myTicket')}</a>
+            <a class="btn btn-sm btn-secondary" href="#/create-event">${t('common.create')}</a>
           </div></div>
         <div class="filters">
-          ${['All','Networking','Workshop','Community','Entrepreneurship'].map((f,i) =>
+          ${[t('events.all'),t('events.networking'),t('events.workshop'),t('events.community'),t('events.entrepreneurship')].map((f,i) =>
             `<button class="filter-chip ${i === 0 ? 'is-active' : ''}" type="button">${f}</button>`).join('')}
         </div>
         <div class="grid-2">${JACC.EVENTS.map(e => `
           <a class="media-card" href="${e.rsvp ? '#/ticket' : '#/event'}">
-            <div class="media" style="aspect-ratio:2/1;background:linear-gradient(135deg,var(--primary),var(--accent));display:grid;place-items:end start;padding:12px">
-              <span class="pill" style="background:rgba(255,255,255,.9);color:#22404D">${esc(e.cat)}</span>
-            </div>
+            ${JACC.eventMedia(e)}
             <div class="body">
               <h3>${esc(e.title)}</h3>
               <div class="tiny">${esc(e.when)}</div>
-              <div class="tiny">${esc(e.where)} · ${esc(e.spots)} seats</div>
-              <div style="margin-top:10px">${e.rsvp ? '<span class="pill-success pill">You’re going · ticket</span>' : '<span class="pill">RSVP open</span>'}</div>
+              <div class="tiny">${esc(e.where)} · ${esc(e.spots)} ${t('common.seats')}</div>
+              <div style="margin-top:10px">${e.rsvp ? `<span class="pill-success pill">${t('common.youreGoing')}</span>` : `<span class="pill">${t('common.rsvpOpen')}</span>`}</div>
             </div>
           </a>`).join('')}
         </div>
@@ -586,16 +586,16 @@ JACC.Screens = {
     return `
       <div class="screen-enter" style="max-width:720px;margin:0 auto">
         <div class="card" style="padding:0;overflow:hidden">
-          <div style="height:200px;background:url(assets/hero.jpg) center/cover"></div>
+          ${JACC.coverBand(e.cover, 200)}
           <div style="padding:20px">
             <span class="pill-accent pill">${esc(e.cat)}</span>
             <h1 style="margin:10px 0 6px">${esc(e.title)}</h1>
             <p class="muted">${esc(e.when)} · ${esc(e.where)}</p>
-            <p class="muted">Connect with alumni leaders and employers across JA Africa. Capacity enforced — ${esc(e.spots)} reserved.</p>
+            <p class="muted">${esc(e.spots)} ${t('common.seats')}</p>
             <div class="row" style="gap:10px;flex-wrap:wrap;margin:16px 0">
-              <a class="btn btn-primary" href="#/ticket">View ticket + QR</a>
-              <button class="btn btn-secondary" data-toast="Join link: meet.ja.africa/summit">Join link</button>
-              <button class="btn btn-ghost" data-toast="Added to Moodle calendar">Add to calendar</button>
+              <a class="btn btn-primary" href="#/ticket">${t('common.viewTicket')}</a>
+              <button class="btn btn-secondary" data-toast="meet.ja.africa/summit">${t('common.joinLink')}</button>
+              <button class="btn btn-ghost" data-toast="Moodle calendar">${t('common.addCalendar')}</button>
             </div>
           </div>
         </div>
@@ -761,14 +761,14 @@ JACC.Screens = {
   settings() {
     return `
       <div class="auth-panel screen-enter" style="margin:0 auto;max-width:560px">
-        <h1>Settings</h1>
+        <h1>${t('settings.h1')}</h1>
         <div class="stack">
-          <a class="list-card" href="#/notifications"><div class="thumb">🔔</div><div class="meta"><h3>Notifications</h3><div class="tiny">Jobs, digests, events</div></div></a>
-          <a class="list-card" href="#/digest"><div class="thumb">📬</div><div class="meta"><h3>Job digest preview</h3><div class="tiny">See this week’s matched roles email</div></div></a>
-          <a class="list-card" href="#/bilingual"><div class="thumb">🌐</div><div class="meta"><h3>Language · Langue</h3><div class="tiny">English · Français</div></div></a>
-          <a class="list-card" href="#/a11y"><div class="thumb">♿</div><div class="meta"><h3>Accessibility</h3><div class="tiny">Text size, motion, contrast</div></div></a>
-          <a class="list-card" href="#/privacy"><div class="thumb">🔒</div><div class="meta"><h3>Privacy</h3><div class="tiny">Profile visibility</div></div></a>
-          <a class="list-card" href="#/profile-edit"><div class="thumb">👤</div><div class="meta"><h3>Account</h3><div class="tiny">Name, email, headline</div></div></a>
+          <a class="list-card" href="#/notifications"><div class="thumb img"><img src="assets/logos/ja.jpg" alt=""></div><div class="meta"><h3>${t('common.notifications')}</h3><div class="tiny">${t('settings.notifD')}</div></div></a>
+          <a class="list-card" href="#/digest"><div class="thumb img"><img src="assets/jobs/mtn.jpg" alt=""></div><div class="meta"><h3>${t('settings.digest')}</h3><div class="tiny">${t('settings.digestD')}</div></div></a>
+          <a class="list-card" href="#/bilingual"><div class="thumb img"><img src="assets/logos/jumia.jpg" alt=""></div><div class="meta"><h3>${t('settings.lang')}</h3><div class="tiny">${t('settings.langD')}</div></div></a>
+          <a class="list-card" href="#/a11y"><div class="thumb img"><img src="assets/logos/andela.jpg" alt=""></div><div class="meta"><h3>${t('settings.a11y')}</h3><div class="tiny">${t('settings.a11yD')}</div></div></a>
+          <a class="list-card" href="#/privacy"><div class="thumb img"><img src="assets/avatars/efua.jpg" alt=""></div><div class="meta"><h3>${t('common.privacy')}</h3><div class="tiny">${t('settings.privacyD')}</div></div></a>
+          <a class="list-card" href="#/profile-edit"><div class="thumb img"><img src="assets/avatars/efua.jpg" alt=""></div><div class="meta"><h3>${t('settings.account')}</h3><div class="tiny">${t('settings.accountD')}</div></div></a>
         </div>
       </div>`;
   },
@@ -778,7 +778,7 @@ JACC.Screens = {
       <div class="auth-panel screen-enter" style="margin:0 auto;max-width:560px">
         <h1>Notification preferences</h1>
         <div class="moodle-core-note">
-          <div><strong>Moodle notifications</strong> — job digests, application updates, and event reminders use Moodle’s notification drawer and email channels.</div>
+          <div><strong>${t('home.moodleNotif')}</strong> — job digests, application updates, and event reminders use Moodle’s notification drawer and email channels.</div>
         </div>
         ${[
           ['New jobs matching my skills', 'Email digest · Moodle processor'],

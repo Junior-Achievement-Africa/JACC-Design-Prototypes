@@ -10,6 +10,9 @@
     screen: 'gallery',
   };
 
+  const navLabel = (n) => JACC.t(`nav.${n.id}`, {}) !== `nav.${n.id}` ? JACC.t(`nav.${n.id}`) : n.label;
+  const subLabel = (s) => JACC.t(`sub.${s.id}`, {}) !== `sub.${s.id}` ? JACC.t(`sub.${s.id}`) : s.label;
+
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
@@ -35,8 +38,13 @@
     document.documentElement.setAttribute('data-persona', p.id);
     $$('.persona-chip').forEach((el) => el.classList.toggle('is-active', el.dataset.persona === p.id));
     const tag = $('#persona-label');
-    if (tag) tag.textContent = `Viewing as ${p.label}`;
+    if (tag) tag.textContent = JACC.t('common.viewingAs', { name: p.label });
     if (navigateHome) navigate(`${state.theme}/${p.home}`);
+  }
+
+  function setLang(id) {
+    JACC.setLang(id);
+    render();
   }
 
   function navigate(path) {
@@ -163,12 +171,16 @@
           </button>`).join('')}
       </div>
       <div class="tb-actions">
-        <a class="tb-link" href="#/gallery">Gallery</a>
+        <div class="lang-switch" title="${JACC.t('common.langMoodle')}">
+          ${JACC.LANGS.map((l) => `
+            <button type="button" class="lang-btn ${JACC.lang() === l.id ? 'is-on' : ''}" data-lang="${l.id}">${l.id.toUpperCase()}</button>`).join('')}
+        </div>
+        <a class="tb-link" href="#/gallery">${JACC.t('common.gallery')}</a>
         <button type="button" class="tb-link" id="screen-menu-btn">Screens ▾</button>
       </div>`;
 
     pbar.innerHTML = `
-      <span class="persona-kicker" id="persona-label">Viewing as ${p.label}</span>
+      <span class="persona-kicker" id="persona-label">${JACC.t('common.viewingAs', { name: p.label })}</span>
       <div class="persona-chips">
         ${JACC.PERSONAS.map((x) => `
           <button type="button" class="persona-chip ${x.id === p.id ? 'is-active' : ''}" data-persona="${x.id}" title="${x.blurb}">
@@ -186,6 +198,9 @@
     });
     $$('.persona-chip', pbar).forEach((chip) => {
       chip.addEventListener('click', () => setPersona(chip.dataset.persona));
+    });
+    $$('.lang-btn', bar).forEach((btn) => {
+      btn.addEventListener('click', () => setLang(btn.dataset.lang));
     });
     $('#screen-menu-btn')?.addEventListener('click', toggleScreenMenu);
   }
@@ -229,36 +244,44 @@
         || (screen === 'job' && n.id === 'careers')
         || (screen.startsWith('cv-') && n.id === 'home' && p.id === 'alumni')
         || (screen === 'event' && n.id === 'events');
-      return `<a href="#/${state.theme}/${n.id}" class="${active ? 'is-active' : ''}">${n.label}</a>`;
+      return `<a href="#/${state.theme}/${n.id}" class="${active ? 'is-active' : ''}">${navLabel(n)}</a>`;
     }).join('');
 
     const homeLink = p.home;
+    const headerPhoto = (p.id === 'alumni' || p.id === 'locked' || p.id === 'pending')
+      ? JACC.ME
+      : p.id === 'employer'
+        ? { name: p.label, photo: 'assets/logos/mtn.jpg' }
+        : p.id === 'admin' || p.id === 'me' || p.id === 'coordinator'
+          ? { name: p.label, photo: 'assets/avatars/samuel.jpg' }
+          : { name: p.label, photo: 'assets/avatars/ngozi.jpg' };
+
     shell.innerHTML = `
       <div class="row">
         <a class="brandmark" href="#/${state.theme}/${homeLink}"><span class="logo">JA</span> Career Hub</a>
         <nav class="navpill">${nav}</nav>
         <div class="header-actions">
-          <button class="icon-btn hide-mobile" data-toast="Search (prototype)">${JACC.icon('search')}</button>
+          <button class="icon-btn hide-mobile" data-toast="Search">${JACC.icon('search')}</button>
           <a class="icon-btn" href="#/${state.theme}/messages">${JACC.icon('bell')}<span class="badge">3</span></a>
-          <a href="#/${state.theme}/profile" title="${p.label}" class="avatar-link">${JACC.avatar(p.id === 'alumni' || p.id === 'locked' || p.id === 'pending' ? JACC.ME : { name: p.label, photo: null })}</a>
+          <a href="#/${state.theme}/profile" title="${p.label}" class="avatar-link">${JACC.avatar(headerPhoto)}</a>
           ${p.id === 'employer' || p.id === 'admin' || p.id === 'coordinator'
-            ? `<a class="btn btn-sm btn-primary hide-mobile" href="#/${state.theme}/${p.id === 'coordinator' ? 'create-event' : p.id === 'admin' ? 'plugin-settings' : 'post-job'}">Create</a>`
-            : `<a class="btn btn-sm btn-secondary hide-mobile" href="#/${state.theme}/cv-start">CV studio</a>`}
+            ? `<a class="btn btn-sm btn-primary hide-mobile" href="#/${state.theme}/${p.id === 'coordinator' ? 'create-event' : p.id === 'admin' ? 'plugin-settings' : 'post-job'}">${JACC.t('common.create')}</a>`
+            : `<a class="btn btn-sm btn-secondary hide-mobile" href="#/${state.theme}/cv-start">${JACC.t('common.cvStudio')}</a>`}
         </div>
       </div>
       <nav class="subnav">
         ${(p.subnav || []).map((s) => `
-          <a href="#/${state.theme}/${s.id}" class="${screen === s.id ? 'is-active' : ''}">${s.label}</a>`).join('')}
+          <a href="#/${state.theme}/${s.id}" class="${screen === s.id ? 'is-active' : ''}">${subLabel(s)}</a>`).join('')}
       </nav>`;
 
     if (p.nav.length >= 2) {
       const mid = Math.min(2, p.nav.length);
       bottom.innerHTML = `
         ${p.nav.slice(0, mid).map((n) => `
-          <a href="#/${state.theme}/${n.id}" class="${n.id === screen ? 'is-active' : ''}">${JACC.icon(n.icon || 'home')}<span>${n.label}</span></a>`).join('')}
+          <a href="#/${state.theme}/${n.id}" class="${n.id === screen ? 'is-active' : ''}">${JACC.icon(n.icon || 'home')}<span>${navLabel(n)}</span></a>`).join('')}
         <a class="create" href="#/${state.theme}/${p.id === 'coordinator' ? 'create-event' : p.id === 'employer' ? 'post-job' : 'cv-start'}">${JACC.icon('plus')}</a>
         ${p.nav.slice(mid).map((n) => `
-          <a href="#/${state.theme}/${n.id}" class="${n.id === screen ? 'is-active' : ''}">${JACC.icon(n.icon || 'home')}<span>${n.label}</span></a>`).join('')}`;
+          <a href="#/${state.theme}/${n.id}" class="${n.id === screen ? 'is-active' : ''}">${JACC.icon(n.icon || 'home')}<span>${navLabel(n)}</span></a>`).join('')}`;
     }
   }
 
@@ -294,8 +317,15 @@
         if (el.dataset.nav) setTimeout(() => { location.hash = el.dataset.nav.replace('#/', `#/${state.theme}/`); }, 400);
       });
     });
+    $$('[data-set-lang]', root).forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        setLang(el.dataset.setLang);
+      });
+    });
     $$('.filter-chip, .choice', root).forEach((el) => {
       el.addEventListener('click', () => {
+        if (el.dataset.setLang) return;
         const group = el.parentElement;
         if (group?.classList.contains('filters') || group?.classList.contains('choice-grid')) {
           $$('.filter-chip, .choice', group).forEach((x) => x.classList.remove('is-active', 'is-on'));

@@ -13,7 +13,7 @@ JACC.PHOTOS = {
   'Ama Mensah': 'assets/avatars/ama.jpg',
   'Kwame Osei': 'assets/avatars/kwame.jpg',
   'Fatou Diallo': 'assets/avatars/fatou.jpg',
-  'James Okoro': null, // intentional: initials fallback demo
+  'James Okoro': 'assets/avatars/james.jpg',
   'Ngozi Adeyemi': 'assets/avatars/ngozi.jpg',
   'Samuel Kariuki': 'assets/avatars/samuel.jpg',
   'Ibrahim Touré': 'assets/avatars/ibrahim.jpg',

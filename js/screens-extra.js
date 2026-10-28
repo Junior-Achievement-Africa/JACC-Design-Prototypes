@@ -238,12 +238,12 @@ Object.assign(JACC.Screens, {
           <a class="btn btn-sm btn-primary" href="#/cv-start">New</a></div>
         <div class="stack">
           <a class="list-card" href="#/cv-builder">
-            <div class="thumb">CV</div>
+            <div class="thumb img"><img src="assets/jobs/ja.jpg" alt=""></div>
             <div class="meta"><h3>Product Analyst · default</h3><div class="tiny">Health 82 · Updated today</div></div>
             <span class="pill-success pill">Default</span>
           </a>
           <a class="list-card" href="#/cv-builder">
-            <div class="thumb">CV</div>
+            <div class="thumb img"><img src="assets/jobs/ja.jpg" alt=""></div>
             <div class="meta"><h3>UX Fellow tailored</h3><div class="tiny">Health 76 · From AI parse</div></div>
           </a>
         </div>
@@ -338,7 +338,7 @@ Object.assign(JACC.Screens, {
         </div>
         <div class="stack">${JACC.EVENTS.map((e) => `
           <div class="list-card" style="cursor:default">
-            <div class="thumb">EV</div>
+            <div class="thumb img"><img src="assets/events/summit.jpg" alt=""></div>
             <div class="meta"><h3>${e.title}</h3><div class="tiny">${e.when} · ${e.spots}</div></div>
             <a class="btn btn-sm btn-secondary" href="#/attendance">Attendance</a>
             <a class="btn btn-sm btn-ghost" href="#/organise-scan">Scan</a>
@@ -472,7 +472,7 @@ Object.assign(JACC.Screens, {
     return `
       <div class="screen-enter" style="max-width:580px;margin:0 auto">
         <div class="row" style="margin-bottom:16px;gap:14px">
-          <div class="thumb" style="width:64px;height:64px;border-radius:var(--radius-md);background:${j.img};display:grid;place-items:center;color:#fff;font-weight:800">${j.company[0]}</div>
+          <div class="thumb img" style="width:64px;height:64px;border-radius:var(--radius-md);overflow:hidden"><img src="${j.logo}" alt="" style="width:100%;height:100%;object-fit:cover"></div>
           <div>
             <div class="pill-match pill">${j.match}% match</div>
             <h1 style="font-size:1.45rem;margin:6px 0 0">${j.title}</h1>
@@ -693,19 +693,20 @@ Object.assign(JACC.Screens, {
   },
 
   bilingual() {
+    const lang = JACC.lang();
     return `
       <div class="screen-enter" style="max-width:560px;margin:0 auto">
-        <div class="section-title"><h1 style="font-size:1.5rem;margin:0">Language · Langue</h1></div>
-        <p class="muted">US-02 — follows the user’s Moodle language pack; French starter strings ship with the plugin.</p>
+        <div class="section-title"><h1 style="font-size:1.5rem;margin:0">${JACC.t('settings.langTitle')}</h1></div>
+        <p class="muted">${JACC.t('settings.langP')}</p>
         <div class="choice-grid">
-          <button class="choice is-on" type="button">English</button>
-          <button class="choice" type="button">Français</button>
+          <button class="choice ${lang === 'en' ? 'is-on' : ''}" type="button" data-set-lang="en">English ${lang === 'en' ? '· ' + JACC.t('settings.active') : ''}</button>
+          <button class="choice ${lang === 'fr' ? 'is-on' : ''}" type="button" data-set-lang="fr">Français ${lang === 'fr' ? '· ' + JACC.t('settings.active') : ''}</button>
         </div>
         <div class="card" style="margin-top:16px">
-          <div class="row">${JACC.avatar(JACC.ME, 'sm')}<strong>Aperçu FR</strong></div>
-          <p class="muted" style="margin:10px 0 0">Trouvez un emploi. Développez votre carrière. Restez connectés.</p>
+          <div class="row">${JACC.avatar(JACC.ME, 'sm')}<strong>${JACC.t('common.langMoodle')}</strong></div>
+          <p class="muted" style="margin:10px 0 0">${JACC.t('landing.h1')}</p>
         </div>
-        <button class="btn btn-primary" style="margin-top:14px" data-toast="Would set Moodle preferred language">Use French in Moodle</button>
+        <p class="tiny" style="margin-top:14px">Moodle profile language → Career Hub UI language (prototype).</p>
       </div>`;
   },
 

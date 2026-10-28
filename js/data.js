@@ -55,20 +55,34 @@ JACC.NAV = [
 ];
 
 JACC.JOBS = [
-  { id: 1, title: 'Product Analyst', company: 'MTN Ghana', loc: 'Accra · Hybrid', type: 'Full-time', match: 94, tags: ['Analytics', 'Excel', 'SQL'], img: 'linear-gradient(135deg,#285F74,#00C0CA)' },
-  { id: 2, title: 'Junior Software Engineer', company: 'Andela', loc: 'Remote · Africa', type: 'Full-time', match: 88, tags: ['JavaScript', 'React'], img: 'linear-gradient(135deg,#00763D,#46B17B)' },
-  { id: 3, title: 'Marketing Intern', company: 'Flutterwave', loc: 'Lagos', type: 'Internship', match: 76, tags: ['Social', 'Copy'], img: 'linear-gradient(135deg,#008B9C,#E3E24F)' },
-  { id: 4, title: 'Finance Associate', company: 'Equity Bank', loc: 'Nairobi', type: 'Full-time', match: 71, tags: ['Finance', 'Excel'], img: 'linear-gradient(135deg,#22404D,#8FC440)' },
-  { id: 5, title: 'UX Design Fellow', company: 'JA Africa', loc: 'Hybrid · Regional', type: 'Fellowship', match: 91, tags: ['Figma', 'Research'], img: 'linear-gradient(135deg,#F65F4E,#285F74)' },
-  { id: 6, title: 'Operations Coordinator', company: 'Jumia', loc: 'Abidjan', type: 'Contract', match: 64, tags: ['Ops', 'French'], img: 'linear-gradient(135deg,#00A0AF,#BBD153)' },
+  { id: 1, title: 'Product Analyst', company: 'MTN Ghana', loc: 'Accra · Hybrid', type: 'Full-time', match: 94, tags: ['Analytics', 'Excel', 'SQL'], cover: 'assets/jobs/mtn.jpg', logo: 'assets/logos/mtn.jpg' },
+  { id: 2, title: 'Junior Software Engineer', company: 'Andela', loc: 'Remote · Africa', type: 'Full-time', match: 88, tags: ['JavaScript', 'React'], cover: 'assets/jobs/andela.jpg', logo: 'assets/logos/andela.jpg' },
+  { id: 3, title: 'Marketing Intern', company: 'Flutterwave', loc: 'Lagos', type: 'Internship', match: 76, tags: ['Social', 'Copy'], cover: 'assets/jobs/flutterwave.jpg', logo: 'assets/logos/flutterwave.jpg' },
+  { id: 4, title: 'Finance Associate', company: 'Equity Bank', loc: 'Nairobi', type: 'Full-time', match: 71, tags: ['Finance', 'Excel'], cover: 'assets/jobs/equity.jpg', logo: 'assets/logos/equity.jpg' },
+  { id: 5, title: 'UX Design Fellow', company: 'JA Africa', loc: 'Hybrid · Regional', type: 'Fellowship', match: 91, tags: ['Figma', 'Research'], cover: 'assets/jobs/ja.jpg', logo: 'assets/logos/ja.jpg' },
+  { id: 6, title: 'Operations Coordinator', company: 'Jumia', loc: 'Abidjan', type: 'Contract', match: 64, tags: ['Ops', 'French'], cover: 'assets/jobs/jumia.jpg', logo: 'assets/logos/jumia.jpg' },
 ];
 
 JACC.EVENTS = [
-  { id: 1, title: 'Regional Alumni Summit 2026', cat: 'Networking', when: 'Sat 14 Mar · 09:00 WAT', where: 'Accra + Online', spots: '42 / 120', rsvp: true },
-  { id: 2, title: 'CV Clinic with Nestlé HR', cat: 'Workshop', when: 'Wed 4 Mar · 18:00 WAT', where: 'Online', spots: '18 / 40', rsvp: false },
-  { id: 3, title: 'Women in STEM Circle', cat: 'Community', when: 'Fri 20 Mar · 17:30 WAT', where: 'Lagos Hub', spots: '9 / 25', rsvp: false },
-  { id: 4, title: 'Startup Pitch Night', cat: 'Entrepreneurship', when: 'Thu 26 Mar · 19:00 WAT', where: 'Nairobi', spots: '55 / 80', rsvp: true },
+  { id: 1, title: 'Regional Alumni Summit 2026', cat: 'Networking', when: 'Sat 14 Mar · 09:00 WAT', where: 'Accra + Online', spots: '42 / 120', rsvp: true, cover: 'assets/events/summit.jpg' },
+  { id: 2, title: 'CV Clinic with Nestlé HR', cat: 'Workshop', when: 'Wed 4 Mar · 18:00 WAT', where: 'Online', spots: '18 / 40', rsvp: false, cover: 'assets/events/cvclinic.jpg' },
+  { id: 3, title: 'Women in STEM Circle', cat: 'Community', when: 'Fri 20 Mar · 17:30 WAT', where: 'Lagos Hub', spots: '9 / 25', rsvp: false, cover: 'assets/events/stem.jpg' },
+  { id: 4, title: 'Startup Pitch Night', cat: 'Entrepreneurship', when: 'Thu 26 Mar · 19:00 WAT', where: 'Nairobi', spots: '55 / 80', rsvp: true, cover: 'assets/events/pitch.jpg' },
 ];
+
+/** Job list thumb (logo photo) */
+JACC.jobThumb = (j) =>
+  `<div class="thumb img"><img src="${j.logo || j.cover}" alt="" loading="lazy" decoding="async"></div>`;
+
+/** Job / event cover band */
+JACC.coverBand = (src, minHeight = 160) =>
+  `<div class="cover-band" style="height:${minHeight}px;background:url(${src}) center/cover"></div>`;
+
+/** Event card media */
+JACC.eventMedia = (e) =>
+  `<div class="media" style="aspect-ratio:2/1;background:url('${e.cover}') center/cover;display:grid;place-items:end start;padding:12px">
+    <span class="pill" style="background:rgba(255,255,255,.92);color:#22404D">${String(e.cat).replace(/</g, '')}</span>
+  </div>`;
 
 JACC.STORIES = [
   { name: 'Efua Boateng', cohort: 'JA Ghana · 2019', quote: 'The job board matched me to Hubtel — I landed my first product role within a month.', role: 'Product Manager' },
