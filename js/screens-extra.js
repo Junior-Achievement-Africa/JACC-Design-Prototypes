@@ -521,4 +521,180 @@ Object.assign(JACC.Screens, {
           <button class="btn btn-sm btn-primary" data-toast="Survey opened">Take survey</button></div>
       </div>`;
   },
+
+  'match-explain'() {
+    return `
+      <div class="screen-enter" style="max-width:560px;margin:0 auto">
+        <div class="section-title"><h1 style="font-size:1.5rem;margin:0">Why 94% match?</h1></div>
+        <p class="muted">Product Analyst · MTN Ghana — explainable matching builds trust.</p>
+        <div class="card">
+          <div class="row between" style="margin-bottom:12px"><strong>Skills overlap</strong><span class="pill-match pill">+42</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:88%"></div></div>
+          <div class="tiny" style="margin-top:6px">SQL · Excel · Stakeholder management</div>
+        </div>
+        <div class="card">
+          <div class="row between"><strong>Industry fit</strong><span class="pill-match pill">+28</span></div>
+          <div class="tiny">Technology / fintech adjacent</div>
+        </div>
+        <div class="card">
+          <div class="row between"><strong>Location & type</strong><span class="pill-match pill">+18</span></div>
+          <div class="tiny">Accra · Hybrid matches your prefs</div>
+        </div>
+        <div class="card">
+          <div class="row between"><strong>JA alumni preference</strong><span class="pill-success pill">+6</span></div>
+          <div class="tiny">Employer marked “JA alumni preferred”</div>
+        </div>
+        <a class="btn btn-primary btn-block" href="#/apply">Apply with this context</a>
+      </div>`;
+  },
+
+  pathway() {
+    return `
+      <div class="screen-enter" style="max-width:640px;margin:0 auto">
+        <div class="hero">
+          <span class="eyebrow"><i></i> Career pathway</span>
+          <h1>From JA Company to Product</h1>
+          <p>A living timeline of skills, mentors, jobs and events — your hub history as a story.</p>
+        </div>
+        <div class="stack">
+          ${[
+            ['2019', 'Joined JA Ghana cohort', 'Onboarding'],
+            ['2022', 'First mentor session · Ama Mensah', 'Mentorship'],
+            ['2023', 'Applied · 4 roles · 1 hire path', 'Careers'],
+            ['2024', 'CV health 82 · AI parse', 'CV studio'],
+            ['Now', 'Summit RSVP · 12 job matches', 'Today'],
+          ].map(([y, t, tag]) => `
+            <div class="list-card" style="cursor:default">
+              <div class="thumb" style="background:var(--primary);font-size:11px">${y}</div>
+              <div class="meta"><h3>${t}</h3><div class="tiny">${tag}</div></div>
+            </div>`).join('')}
+        </div>
+      </div>`;
+  },
+
+  'impact-map'() {
+    return `
+      <div class="screen-enter">
+        <div class="section-title"><h1 style="font-size:1.5rem;margin:0">Africa engagement map</h1>
+          <a class="btn btn-sm btn-secondary" href="#/analytics">M&E view</a></div>
+        <p class="muted">Where alumni are active this month — useful for country offices & funders.</p>
+        <div class="card" style="min-height:280px;display:grid;place-items:center;background:
+          radial-gradient(circle at 30% 45%, color-mix(in srgb, var(--ja-enterprise-aqua) 45%, transparent) 0 8%, transparent 9%),
+          radial-gradient(circle at 48% 55%, color-mix(in srgb, var(--ja-leadership-lime) 50%, transparent) 0 12%, transparent 13%),
+          radial-gradient(circle at 55% 48%, color-mix(in srgb, var(--ja-empowered-yellow) 40%, transparent) 0 6%, transparent 7%),
+          radial-gradient(circle at 42% 62%, color-mix(in srgb, var(--ja-startup-jade) 40%, transparent) 0 7%, transparent 8%),
+          var(--sunken)">
+          <div style="text-align:center">
+            <strong>Live pulse</strong>
+            <div class="tiny">Ghana · Nigeria · Kenya · Côte d'Ivoire</div>
+          </div>
+        </div>
+        <div class="stat-grid" style="margin-top:14px">
+          <div class="stat"><div class="n">12.4k</div><div class="l">Active 30d</div></div>
+          <div class="stat"><div class="n">38</div><div class="l">Countries</div></div>
+          <div class="stat"><div class="n">638</div><div class="l">Sessions</div></div>
+          <div class="stat"><div class="n">74%</div><div class="l">Event show-up</div></div>
+        </div>
+      </div>`;
+  },
+
+  ticket() {
+    return `
+      <div class="auth-panel screen-enter" style="margin:24px auto;max-width:400px;text-align:center">
+        <div class="pill-success pill">You’re going</div>
+        <h1 style="margin-top:12px">Regional Alumni Summit</h1>
+        <p class="muted">Sat 14 Mar · 09:00 WAT · Accra + Online</p>
+        <div class="scan-frame" style="margin:20px auto" title="QR for Organise check-in"></div>
+        <div class="tiny">Ticket · EFUA-SUMMIT-2026</div>
+        <div class="row" style="gap:8px;justify-content:center;margin-top:16px;flex-wrap:wrap">
+          <button class="btn btn-secondary btn-sm" data-toast="Added to Moodle calendar">Moodle calendar</button>
+          <button class="btn btn-primary btn-sm" data-toast="Join link copied">Join link</button>
+        </div>
+        <p class="tiny" style="margin-top:14px">Reminders fire through Moodle notifications 24h before.</p>
+      </div>`;
+  },
+
+  endorsements() {
+    return `
+      <div class="screen-enter" style="max-width:560px;margin:0 auto">
+        <h1 style="font-size:1.5rem">Skill endorsements</h1>
+        <p class="muted">Mentors and peers can endorse skills after sessions — strengthens job match.</p>
+        <div class="stack">
+          ${[['Product sense', 'Ama Mensah · mentor', 4],['SQL', 'Kwame Osei · peer', 2],['Stakeholder mgmt', 'Ngozi Adeyemi · mentor', 3]].map(([s, w, n]) => `
+            <div class="list-card" style="cursor:default">
+              <div class="meta"><h3>${s}</h3><div class="tiny">${w}</div></div>
+              <span class="pill-accent pill">${n} endorsements</span>
+            </div>`).join('')}
+        </div>
+        <button class="btn btn-secondary" style="margin-top:14px" data-toast="Request sent via Moodle message">Ask mentor to endorse</button>
+      </div>`;
+  },
+
+  'moodle-block'() {
+    return `
+      <div class="screen-enter" style="max-width:720px;margin:0 auto">
+        <div class="moodle-core-note">
+          <div><strong>Moodle dashboard block</strong> — Career Hub can appear as a block on the Moodle /my dashboard so alumni see matches without leaving core Moodle.</div>
+        </div>
+        <div class="card" style="background:var(--sunken);padding:20px">
+          <div class="tiny" style="margin-bottom:10px">Moodle · Dashboard</div>
+          <div class="card">
+            <div class="row between"><strong>JACC Career Hub</strong><span class="pill">Block</span></div>
+            <div class="stat-grid" style="margin:12px 0">
+              <div class="stat"><div class="n">12</div><div class="l">Matches</div></div>
+              <div class="stat"><div class="n">1</div><div class="l">Session</div></div>
+            </div>
+            <a class="btn btn-sm btn-primary" href="#/home">Open hub</a>
+          </div>
+        </div>
+      </div>`;
+  },
+
+  digest() {
+    return `
+      <div class="screen-enter" style="max-width:520px;margin:0 auto">
+        <h1 style="font-size:1.5rem">Weekly job digest</h1>
+        <div class="moodle-core-note"><div>Sent as a <strong>Moodle notification email</strong> (and optional popup) — not a separate ESP.</div></div>
+        <div class="card">
+          <div class="tiny">Preview · Monday 08:00 WAT</div>
+          <h3 style="margin:8px 0">3 roles matched your skills</h3>
+          ${JACC.JOBS.slice(0, 3).map((j) => `
+            <div class="row between" style="padding:8px 0;border-bottom:1px solid var(--line)">
+              <span>${j.title}<div class="tiny">${j.company}</div></span>
+              <span class="pill-match pill">${j.match}%</span>
+            </div>`).join('')}
+          <a class="btn btn-primary btn-block" style="margin-top:12px" href="#/careers">See all matches</a>
+        </div>
+      </div>`;
+  },
+
+  a11y() {
+    return `
+      <div class="auth-panel screen-enter" style="margin:0 auto;max-width:520px">
+        <h1>Accessibility</h1>
+        <p class="muted">NFR-04 · WCAG 2.1 AA on hub pages — prototype of user-facing controls.</p>
+        <label class="row between" style="padding:12px 0;border-bottom:1px solid var(--line)"><span>Larger text</span><input type="checkbox"></label>
+        <label class="row between" style="padding:12px 0;border-bottom:1px solid var(--line)"><span>Reduce motion</span><input type="checkbox"></label>
+        <label class="row between" style="padding:12px 0;border-bottom:1px solid var(--line)"><span>High contrast</span><input type="checkbox"></label>
+        <label class="row between" style="padding:12px 0;border-bottom:1px solid var(--line)"><span>Underline links</span><input type="checkbox" checked></label>
+        <button class="btn btn-primary btn-block" style="margin-top:16px" data-toast="Accessibility prefs saved">Save</button>
+      </div>`;
+  },
+
+  bilingual() {
+    return `
+      <div class="screen-enter" style="max-width:560px;margin:0 auto">
+        <div class="section-title"><h1 style="font-size:1.5rem;margin:0">Language · Langue</h1></div>
+        <p class="muted">US-02 — follows Moodle language pack; French starter strings ship with the plugin.</p>
+        <div class="choice-grid">
+          <button class="choice is-on" type="button">English</button>
+          <button class="choice" type="button">Français</button>
+        </div>
+        <div class="card" style="margin-top:16px">
+          <strong>Aperçu</strong>
+          <p class="muted" style="margin:8px 0 0">Trouvez un emploi. Trouvez un mentor. Restez connectés.</p>
+        </div>
+        <button class="btn btn-primary" style="margin-top:14px" data-toast="Would set Moodle lang preferred">Use French in Moodle</button>
+      </div>`;
+  },
 });

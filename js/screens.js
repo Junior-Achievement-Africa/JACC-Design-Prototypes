@@ -132,6 +132,17 @@ JACC.Screens = {
   },
 
   home() {
+    const jobs = JACC.JOBS.slice(0, 3).map((j) => `
+      <a class="list-card" href="#/job">
+        <div class="thumb" style="background:${j.img}">${j.company[0]}</div>
+        <div class="meta">
+          <h3>${esc(j.title)}</h3>
+          <div class="tiny">${esc(j.company)} · ${esc(j.loc)}</div>
+          <div class="row gap-sm" style="margin-top:6px">${j.tags.map((t) => `<span class="pill">${esc(t)}</span>`).join('')}</div>
+        </div>
+        <div class="match-ring" style="--m:${j.match}"><span>${j.match}%</span></div>
+      </a>`).join('');
+
     return `
       <div class="baobab-home screen-enter">
         <aside class="home-rail hide-mobile">
@@ -144,18 +155,57 @@ JACC.Screens = {
           <a class="rail-item" href="#/mentors"><span class="qa t2">🤝</span> Mentors <span class="count">6</span></a>
           <a class="rail-item" href="#/events"><span class="qa t3">📅</span> Events <span class="count">2</span></a>
           <a class="rail-item" href="#/cv-start"><span class="qa t4">✨</span> CV studio</a>
+          <a class="rail-item" href="#/pathway"><span class="qa t1">🗺️</span> Pathway</a>
         </aside>
         <div class="home-feed">
           <div class="home-phone-top">
+            <div class="accent-slash" aria-hidden="true"></div>
             <h1 class="t-greet">Hey Efua</h1>
             <p class="muted" style="margin:0">3 new jobs · 1 mentor session · summit this month</p>
           </div>
+
+          <div class="live-ticker" aria-hidden="true">
+            <div class="live-ticker-track">
+              <span>🟢 Ama accepted your session</span>
+              <span>💼 MTN role 94% match</span>
+              <span>🎫 Summit ticket ready</span>
+              <span>✨ CV health climbed to 82</span>
+              <span>🟢 Ama accepted your session</span>
+              <span>💼 MTN role 94% match</span>
+              <span>🎫 Summit ticket ready</span>
+              <span>✨ CV health climbed to 82</span>
+            </div>
+          </div>
+
           <div class="bento">
             <a class="bento-tile t1" href="#/careers"><span class="n">12</span><span class="l">Job matches</span></a>
             <a class="bento-tile t2" href="#/applications"><span class="n">3</span><span class="l">Applications</span></a>
             <a class="bento-tile t3" href="#/mentors"><span class="n">1</span><span class="l">Session</span></a>
             <a class="bento-tile t4" href="#/events"><span class="n">2</span><span class="l">RSVPs</span></a>
           </div>
+
+          <div class="pull-quote">“Mentorship on the hub helped me land my first product role.” — ${esc(JACC.STORIES[0].name)}</div>
+
+          <div class="atlas-ops">
+            <div class="moodle-core-note"><strong>Atlas ops home</strong> — dense tables first; messaging still opens Moodle core_message.</div>
+            <div class="stat-grid">
+              <div class="stat"><div class="n">12</div><div class="l">Matches</div></div>
+              <div class="stat"><div class="n">3</div><div class="l">Apps</div></div>
+              <div class="stat"><div class="n">1</div><div class="l">Sessions</div></div>
+              <div class="stat"><div class="n">82</div><div class="l">CV health</div></div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Next action</th><th>Type</th><th>When</th><th></th></tr></thead>
+                <tbody>
+                  <tr><td>Apply · Product Analyst</td><td>Job</td><td>Today</td><td><a href="#/apply">Open</a></td></tr>
+                  <tr><td>Session · Ama Mensah</td><td>Mentor</td><td>Thu 18:00</td><td><a href="#/feedback">Open</a></td></tr>
+                  <tr><td>RSVP · Alumni Summit</td><td>Event</td><td>14 Mar</td><td><a href="#/event">Open</a></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
           <div class="card composer">
             <div class="row"><div class="avatar">E</div>
               <input class="composer-input" placeholder="Share an update with your cohort…" readonly>
@@ -165,22 +215,25 @@ JACC.Screens = {
               <button class="btn btn-sm btn-primary" data-toast="Composer (prototype)">Post</button>
             </div>
           </div>
+
           <div class="section-title"><h2>For you</h2><a href="#/careers">Job board</a></div>
-          <div class="stack">${JACC.JOBS.slice(0, 3).map(j => `
-            <a class="list-card" href="#/job">
-              <div class="thumb" style="background:${j.img}">${j.company[0]}</div>
-              <div class="meta">
-                <h3>${esc(j.title)}</h3>
-                <div class="tiny">${esc(j.company)} · ${esc(j.loc)}</div>
-                <div class="row gap-sm" style="margin-top:6px">${j.tags.map(t => `<span class="pill">${esc(t)}</span>`).join('')}</div>
-              </div>
-              <div class="match-ring" style="--m:${j.match}"><span>${j.match}%</span></div>
-            </a>`).join('')}
+          <div class="h-scroll">${jobs}</div>
+          <div class="stack horizon-hide-when-scroll">${jobs}</div>
+
+          <div class="section-title" style="margin-top:22px"><h2>Explore</h2></div>
+          <div class="filters" style="margin-top:0">
+            <a class="filter-chip" href="#/match-explain">Why this match?</a>
+            <a class="filter-chip" href="#/pathway">Career pathway</a>
+            <a class="filter-chip" href="#/impact-map">Africa impact map</a>
+            <a class="filter-chip" href="#/ticket">Event ticket</a>
+            <a class="filter-chip" href="#/endorsements">Endorsements</a>
+            <a class="filter-chip" href="#/moodle-block">Moodle block</a>
           </div>
+
           <div class="section-title" style="margin-top:22px"><h2>Cohort wins</h2></div>
           <div class="card">
             <div class="row"><div class="avatar">K</div><div><strong>Kwame landed Andela</strong><div class="tiny">Yesterday · JA Ghana 2019</div></div></div>
-            <button class="btn btn-sm btn-secondary" style="margin-top:10px" data-toast="Congrats sent">Congratulate</button>
+            <button class="btn btn-sm btn-secondary" style="margin-top:10px" data-toast="Congrats sent via Moodle message">Congratulate</button>
           </div>
           <div class="section-title" style="margin-top:22px"><h2>Success stories</h2><a href="#/stories">More</a></div>
           <div class="card" style="display:flex;gap:14px;align-items:center">
@@ -207,8 +260,12 @@ JACC.Screens = {
             <a class="btn btn-sm btn-secondary" style="margin-top:12px" href="#/feedback">Details</a>
           </div>
           <div class="card">
+            <strong>Moodle notifications</strong>
+            <div class="tiny" style="margin-top:8px">Bell uses core notification drawer · <a href="#/notifications">prefs</a></div>
+          </div>
+          <div class="card">
             <strong>Activity</strong>
-            <ul style="margin-top:10px">${JACC.ACTIVITY.map(a => `
+            <ul style="margin-top:10px">${JACC.ACTIVITY.map((a) => `
               <li style="padding:8px 0;border-bottom:1px solid var(--line);font-size:13px">${esc(a.t)}<div class="tiny">${esc(a.d)}</div></li>`).join('')}
             </ul>
           </div>
@@ -712,26 +769,36 @@ JACC.Screens = {
 
   messages() {
     return `
-      <div class="msg-layout screen-enter">
-        <div class="card msg-list" style="padding:8px">
-          ${JACC.MESSAGES.map((m,i) => `
-            <div class="item ${i === 0 ? 'is-active' : ''}">
-              <div class="avatar">${m.name[0]}</div>
-              <div style="flex:1;min-width:0">
-                <div class="row between"><strong style="font-size:14px">${esc(m.name)}</strong><span class="tiny">${esc(m.time)}</span></div>
-                <div class="tiny" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(m.preview)}</div>
-              </div>
-              ${m.unread ? `<span class="pill-danger pill">${m.unread}</span>` : ''}
-            </div>`).join('')}
+      <div class="screen-enter">
+        <div class="moodle-core-note">
+          <div><strong>Moodle core messaging</strong> — JACC does not ship a separate chat stack. Threads, requests, muting, and privacy use <code>core_message</code>. This screen is a Career Hub skin over Moodle’s messenger (respects profile messaging prefs).</div>
         </div>
-        <div class="msg-thread">
-          <div class="row" style="margin-bottom:8px"><div class="avatar">A</div><strong>Ama Mensah</strong></div>
-          <div class="bubble them">Hi Efua — Thursday 18:00 still good for you?</div>
-          <div class="bubble me">Yes! I’ve prepped questions on PM interviews.</div>
-          <div class="bubble them">Looking forward to our Thursday session!</div>
-          <div style="margin-top:auto;display:flex;gap:8px">
-            <input style="flex:1;min-height:44px;border-radius:var(--radius-pill);border:1px solid var(--line-strong);padding:0 16px;background:var(--sunken)" placeholder="Write a message…">
-            <button class="btn btn-primary btn-sm" data-toast="Message sent">Send</button>
+        <div class="msg-layout">
+          <div class="card msg-list" style="padding:8px">
+            <div class="tiny" style="padding:8px 10px 4px">Inbox · Moodle</div>
+            ${JACC.MESSAGES.map((m, i) => `
+              <div class="item ${i === 0 ? 'is-active' : ''}">
+                <div class="avatar">${m.name[0]}</div>
+                <div style="flex:1;min-width:0">
+                  <div class="row between"><strong style="font-size:14px">${esc(m.name)}</strong><span class="tiny">${esc(m.time)}</span></div>
+                  <div class="tiny" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(m.preview)}</div>
+                </div>
+                ${m.unread ? `<span class="pill-danger pill">${m.unread}</span>` : ''}
+              </div>`).join('')}
+            <a class="btn btn-sm btn-ghost btn-block" href="#/messages" data-toast="Opens Moodle message requests">Message requests</a>
+          </div>
+          <div class="msg-thread">
+            <div class="row between" style="margin-bottom:8px">
+              <div class="row"><div class="avatar">A</div><div><strong>Ama Mensah</strong><div class="tiny">Mentor · via Moodle messaging</div></div></div>
+              <button class="btn btn-sm btn-ghost" data-toast="Moodle conversation info">Info</button>
+            </div>
+            <div class="bubble them">Hi Efua — Thursday 18:00 still good for you?</div>
+            <div class="bubble me">Yes! I’ve prepped questions on PM interviews.</div>
+            <div class="bubble them">Looking forward to our Thursday session!</div>
+            <div style="margin-top:auto;display:flex;gap:8px">
+              <input style="flex:1;min-height:44px;border-radius:var(--radius-pill);border:1px solid var(--line-strong);padding:0 16px;background:var(--sunken)" placeholder="Message via Moodle…">
+              <button class="btn btn-primary btn-sm" data-toast="Sent through core_message">Send</button>
+            </div>
           </div>
         </div>
       </div>`;
@@ -807,13 +874,24 @@ JACC.Screens = {
     return `
       <div class="auth-panel screen-enter" style="margin:0 auto;max-width:560px">
         <h1>Notification preferences</h1>
-        <p class="muted">US-12 · US-24 — job digests and event reminders.</p>
-        ${[['New jobs matching my skills','Weekly digest'],['Application status changes','Immediate'],['Mentor booking updates','Immediate'],['Event reminder (24h before)','On'],['Marketing from JA Africa','Off']].map(([t,s],i) => `
+        <div class="moodle-core-note">
+          <div><strong>Moodle notifications</strong> — the header bell opens Moodle’s notification drawer. JACC registers processors for job digests, mentor bookings, and event reminders; delivery channels (popup, email, mobile) follow the user’s Moodle notification settings.</div>
+        </div>
+        <p class="muted">US-12 · US-24 — hub events mapped onto core notification prefs.</p>
+        ${[
+          ['New jobs matching my skills', 'Email digest · Moodle processor'],
+          ['Application status changes', 'Popup + email'],
+          ['Mentor booking updates', 'Popup + email'],
+          ['Event reminder (24h before)', 'Moodle + calendar'],
+          ['Moodle site messages', 'Core messaging (not duplicated)'],
+          ['Marketing from JA Africa', 'Off'],
+        ].map(([t, s], i) => `
           <label class="row between" style="padding:14px 0;border-bottom:1px solid var(--line)">
             <span><strong>${t}</strong><div class="tiny">${s}</div></span>
-            <input type="checkbox" ${i < 4 ? 'checked' : ''}>
+            <input type="checkbox" ${i < 5 ? 'checked' : ''}>
           </label>`).join('')}
-        <button class="btn btn-primary btn-block" style="margin-top:18px" data-toast="Preferences saved" data-nav="#/settings">Save</button>
+        <a class="btn btn-secondary btn-block" style="margin-top:12px" href="#/notifications" data-toast="Would deep-link to Moodle notification preferences">Open Moodle notification prefs</a>
+        <button class="btn btn-primary btn-block" style="margin-top:8px" data-toast="Hub prefs saved" data-nav="#/settings">Save hub prefs</button>
       </div>`;
   },
 };
