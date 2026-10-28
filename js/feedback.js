@@ -428,7 +428,7 @@
 
   function onPointer(e) {
     if (!annotating) return;
-    if (e.target.closest('#fb-root, .fb-pin, .fb-modal-backdrop, .theme-bar, .app-header, .bottom-nav, .fb-drawer')) return;
+    if (e.target.closest('#fb-root, .fb-pin, .fb-modal-backdrop, .theme-bar, .app-header, .bottom-nav, .fb-drawer, .mdl-drawer, .mdl-overlay, .user-menu-panel')) return;
     e.preventDefault();
     e.stopPropagation();
     const w = Math.max(document.documentElement.scrollWidth, window.innerWidth);

@@ -70,6 +70,200 @@
     return true;
   }
 
+  const escHtml = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  }[c]));
+
+  function umIcon(name) {
+    const paths = {
+      user: '<circle cx="12" cy="8" r="3.5"/><path d="M5 19c0-3.2 2.8-5.5 7-5.5s7 2.3 7 5.5"/>',
+      grades: '<path d="M6 4h9l3 3v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M14 4v4h4M8 13h8M8 17h5"/>',
+      cal: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+      files: '<path d="M4 6h7l2 2h7v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z"/><path d="M9 14h6"/>',
+      prefs: '<circle cx="12" cy="12" r="3"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4 7 17M17 7l1.4-1.4"/>',
+      lang: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>',
+      role: '<path d="M4 19V6a1 1 0 0 1 1-1h6l2 2h6a1 1 0 0 1 1 1v11"/><path d="M8 14h8M8 17h5"/>',
+      logout: '<path d="M10 17H6a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h4"/><path d="M14 12H21M18 8l4 4-4 4"/>',
+    };
+    return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${paths[name] || paths.user}</svg>`;
+  }
+
+  let msgThreadId = null;
+
+  function unreadNotifCount() {
+    return (JACC.NOTIFICATIONS || []).filter((n) => n.unread).length;
+  }
+  function unreadMsgCount() {
+    return (JACC.MESSAGES || []).reduce((s, m) => s + (m.unread || 0), 0);
+  }
+
+  function syncHeaderBadges() {
+    const nb = unreadNotifCount();
+    const mb = unreadMsgCount();
+    $$('[data-mdl-notif-badge]').forEach((el) => {
+      el.textContent = nb || '';
+      el.hidden = !nb;
+    });
+    $$('[data-mdl-msg-badge]').forEach((el) => {
+      el.textContent = mb || '';
+      el.hidden = !mb;
+    });
+  }
+
+  function ensureMoodleChrome() {
+    if ($('#mdl-overlay')) return;
+    const overlay = document.createElement('div');
+    overlay.id = 'mdl-overlay';
+    overlay.className = 'mdl-overlay';
+    overlay.setAttribute('hidden', '');
+    const notif = document.createElement('aside');
+    notif.id = 'mdl-notif-drawer';
+    notif.className = 'mdl-drawer';
+    notif.setAttribute('aria-hidden', 'true');
+    notif.setAttribute('aria-label', 'Notifications');
+    const msg = document.createElement('aside');
+    msg.id = 'mdl-msg-drawer';
+    msg.className = 'mdl-drawer';
+    msg.setAttribute('aria-hidden', 'true');
+    msg.setAttribute('aria-label', 'Messages');
+    document.body.append(overlay, notif, msg);
+  }
+
+  function closeUserMenu() {
+    const panel = $('#user-menu-panel');
+    const btn = $('#user-menu-btn');
+    if (!panel) return;
+    panel.classList.remove('is-open');
+    panel.hidden = true;
+    btn?.setAttribute('aria-expanded', 'false');
+  }
+
+  function toggleUserMenu() {
+    const panel = $('#user-menu-panel');
+    const btn = $('#user-menu-btn');
+    if (!panel) return;
+    const open = panel.classList.toggle('is-open');
+    panel.hidden = !open;
+    btn?.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open) closeDrawers({ keepOverlay: false });
+  }
+
+  function closeDrawers({ keepOverlay = false } = {}) {
+    ['mdl-notif-drawer', 'mdl-msg-drawer'].forEach((id) => {
+      const el = $(`#${id}`);
+      if (!el) return;
+      el.classList.remove('is-open');
+      el.setAttribute('aria-hidden', 'true');
+    });
+    if (!keepOverlay) {
+      const overlay = $('#mdl-overlay');
+      if (overlay) {
+        overlay.classList.remove('is-open');
+        overlay.setAttribute('hidden', '');
+      }
+      document.body.style.overflow = '';
+    }
+  }
+
+  function openDrawer(which) {
+    ensureMoodleChrome();
+    closeUserMenu();
+    closeDrawers({ keepOverlay: true });
+    const overlay = $('#mdl-overlay');
+    overlay.classList.add('is-open');
+    overlay.removeAttribute('hidden');
+    document.body.style.overflow = 'hidden';
+    if (which === 'notif') {
+      renderNotifDrawer();
+      const d = $('#mdl-notif-drawer');
+      d.classList.add('is-open');
+      d.setAttribute('aria-hidden', 'false');
+    } else {
+      msgThreadId = null;
+      renderMsgDrawer();
+      const d = $('#mdl-msg-drawer');
+      d.classList.add('is-open');
+      d.setAttribute('aria-hidden', 'false');
+    }
+  }
+
+  function renderNotifDrawer() {
+    const d = $('#mdl-notif-drawer');
+    if (!d) return;
+    const items = JACC.NOTIFICATIONS || [];
+    d.innerHTML = `
+      <header>
+        <h2>Notifications</h2>
+        <button type="button" class="icon-btn" data-mdl-close aria-label="Close"><span style="font-size:18px;line-height:1">×</span></button>
+      </header>
+      <div class="mdl-body">
+        <p class="mdl-note">Moodle notification drawer — Career Hub alerts (jobs, applications, events) appear here with unread counts on the bell.</p>
+        ${items.map((n) => `
+          <button type="button" class="mdl-item ${n.unread ? 'is-unread' : ''}" data-mdl-notif="${n.id}">
+            <span class="mdl-dot ${n.unread ? '' : 'is-read'}"></span>
+            <span class="mdl-meta">
+              <strong>${escHtml(n.title)}</strong>
+              <p>${escHtml(n.body)}</p>
+            </span>
+            <span class="mdl-time">${escHtml(n.time)}</span>
+          </button>`).join('') || '<p class="mdl-note">No notifications</p>'}
+      </div>
+      <div class="mdl-foot">
+        <button type="button" class="btn btn-sm btn-ghost" data-mdl-mark-all>Mark all as read</button>
+        <a class="btn btn-sm btn-secondary" href="#/${state.theme}/notifications" data-mdl-close>Notification preferences</a>
+      </div>`;
+  }
+
+  function renderMsgDrawer() {
+    const d = $('#mdl-msg-drawer');
+    if (!d) return;
+    if (msgThreadId) {
+      const m = (JACC.MESSAGES || []).find((x) => x.id === msgThreadId);
+      const thread = (JACC.MESSAGE_THREADS && JACC.MESSAGE_THREADS[msgThreadId]) || [];
+      d.innerHTML = `
+        <header>
+          <button type="button" class="icon-btn" data-mdl-msg-back aria-label="Back"><span style="font-size:18px">←</span></button>
+          <h2>${escHtml(m?.name || 'Conversation')}</h2>
+          <button type="button" class="icon-btn" data-mdl-close aria-label="Close"><span style="font-size:18px">×</span></button>
+        </header>
+        <div class="mdl-body" style="display:flex;flex-direction:column;padding:0">
+          <div class="mdl-thread-head">
+            ${JACC.avatar(m || { name: 'Peer' })}
+            <div><strong>${escHtml(m?.name || '')}</strong><div class="tiny">via Moodle messaging</div></div>
+          </div>
+          <div class="mdl-bubbles">
+            ${thread.map((b) => `<div class="bubble ${b.me ? 'me' : 'them'}">${escHtml(b.text)}</div>`).join('')}
+          </div>
+          <div class="mdl-compose">
+            <input type="text" placeholder="Message via Moodle…" aria-label="Message">
+            <button type="button" class="btn btn-sm btn-primary" data-mdl-send>Send</button>
+          </div>
+        </div>`;
+      return;
+    }
+    const items = JACC.MESSAGES || [];
+    d.innerHTML = `
+      <header>
+        <h2>Messages</h2>
+        <button type="button" class="icon-btn" data-mdl-close aria-label="Close"><span style="font-size:18px">×</span></button>
+      </header>
+      <div class="mdl-body">
+        <p class="mdl-note">Moodle <code>core_message</code> — no separate Career Hub chat. Use the header message icon (same as on staging).</p>
+        ${items.map((m) => `
+          <button type="button" class="mdl-item ${m.unread ? 'is-unread' : ''}" data-mdl-open-thread="${m.id}">
+            ${JACC.avatar(m)}
+            <span class="mdl-meta">
+              <strong>${escHtml(m.name)}</strong>
+              <p>${escHtml(m.preview)}</p>
+            </span>
+            <span class="mdl-time">${escHtml(m.time)}${m.unread ? `<br><span class="pill-danger pill" style="margin-top:4px">${m.unread}</span>` : ''}</span>
+          </button>`).join('')}
+      </div>
+      <div class="mdl-foot">
+        <button type="button" class="btn btn-sm btn-ghost" data-toast="Message requests (Moodle)">Message requests</button>
+      </div>`;
+  }
+
   function renderGallery() {
     document.body.classList.add('gallery-mode');
     $('#theme-bar')?.setAttribute('hidden', '');
@@ -261,9 +455,39 @@
         <a class="brandmark" href="#/${state.theme}/${homeLink}"><span class="logo">JA</span> Career Hub</a>
         <nav class="navpill">${nav}</nav>
         <div class="header-actions">
-          <button class="icon-btn" type="button" title="Moodle notifications" data-toast="Opens Moodle notification drawer">${JACC.icon('bell')}<span class="badge">2</span></button>
-          <button class="icon-btn" type="button" title="Moodle messages" data-toast="Opens Moodle messaging drawer">${JACC.icon('message')}<span class="badge">1</span></button>
-          <a href="#/${state.theme}/profile" title="${p.label}" class="avatar-link">${JACC.avatar(headerPhoto)}</a>
+          <button class="icon-btn" type="button" id="mdl-notif-btn" title="Notifications" aria-haspopup="dialog" aria-controls="mdl-notif-drawer">
+            ${JACC.icon('bell')}<span class="badge" data-mdl-notif-badge>${(JACC.NOTIFICATIONS || []).filter((n) => n.unread).length || ''}</span>
+          </button>
+          <button class="icon-btn" type="button" id="mdl-msg-btn" title="Messages" aria-haspopup="dialog" aria-controls="mdl-msg-drawer">
+            ${JACC.icon('message')}<span class="badge" data-mdl-msg-badge>${(JACC.MESSAGES || []).reduce((s, m) => s + (m.unread || 0), 0) || ''}</span>
+          </button>
+          <div class="user-menu" id="user-menu">
+            <button type="button" class="avatar-btn" id="user-menu-btn" title="${p.label}" aria-haspopup="menu" aria-expanded="false">
+              ${JACC.avatar(headerPhoto)}
+            </button>
+            <div class="user-menu-panel" id="user-menu-panel" role="menu" hidden>
+              <div class="um-head">
+                <strong>${escHtml(typeof headerPhoto === 'string' ? headerPhoto : headerPhoto.name || p.label)}</strong>
+                <div class="tiny">${escHtml(p.label)} · Moodle account</div>
+              </div>
+              <a role="menuitem" href="#/${state.theme}/profile"><span class="um-icon">${umIcon('user')}</span>Profile</a>
+              <button type="button" role="menuitem" data-toast="Moodle Grades (core)"><span class="um-icon">${umIcon('grades')}</span>Grades</button>
+              <button type="button" role="menuitem" data-toast="Moodle Calendar (core)"><span class="um-icon">${umIcon('cal')}</span>Calendar</button>
+              <button type="button" role="menuitem" data-toast="Moodle Private files (core)"><span class="um-icon">${umIcon('files')}</span>Private files</button>
+              <div class="um-divider"></div>
+              <a role="menuitem" href="#/${state.theme}/settings"><span class="um-icon">${umIcon('prefs')}</span>Preferences</a>
+              <div role="menuitem" style="display:flex;align-items:center;gap:12px;min-height:42px;padding:0 16px;font-size:14px;font-weight:550">
+                <span class="um-icon">${umIcon('lang')}</span>Language
+                <span class="um-lang">
+                  <button type="button" data-set-lang="en" class="${JACC.lang() === 'en' ? 'is-on' : ''}">EN</button>
+                  <button type="button" data-set-lang="fr" class="${JACC.lang() === 'fr' ? 'is-on' : ''}">FR</button>
+                </span>
+              </div>
+              <button type="button" role="menuitem" data-toast="Switch role… (Moodle core)"><span class="um-icon">${umIcon('role')}</span>Switch role to…</button>
+              <div class="um-divider"></div>
+              <a role="menuitem" href="#/${state.theme}/landing"><span class="um-icon">${umIcon('logout')}</span>Log out</a>
+            </div>
+          </div>
           ${p.id === 'employer' || p.id === 'admin' || p.id === 'coordinator'
             ? `<a class="btn btn-sm btn-primary hide-mobile" href="#/${state.theme}/${p.id === 'coordinator' ? 'create-event' : p.id === 'admin' ? 'plugin-settings' : 'post-job'}">${JACC.t('common.create')}</a>`
             : `<a class="btn btn-sm btn-secondary hide-mobile" href="#/${state.theme}/cv-start">${JACC.t('common.cvStudio')}</a>`}
@@ -283,6 +507,49 @@
         ${p.nav.slice(mid).map((n) => `
           <a href="#/${state.theme}/${n.id}" class="${n.id === screen ? 'is-active' : ''}">${JACC.icon(n.icon || 'home')}<span>${navLabel(n)}</span></a>`).join('')}`;
     }
+
+    ensureMoodleChrome();
+    syncHeaderBadges();
+    bindChromeActions(shell);
+  }
+
+  function bindChromeActions(shell) {
+    $('#mdl-notif-btn', shell)?.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openDrawer('notif');
+    });
+    $('#mdl-msg-btn', shell)?.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      openDrawer('msg');
+    });
+    $('#user-menu-btn', shell)?.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleUserMenu();
+    });
+    $$('[data-toast]', shell).forEach((el) => {
+      if (el.closest('.user-menu-panel')) {
+        el.addEventListener('click', (e) => {
+          if (el.tagName === 'A') return;
+          e.preventDefault();
+          showToast(el.dataset.toast);
+          closeUserMenu();
+        });
+      }
+    });
+    $$('[data-set-lang]', shell).forEach((el) => {
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setLang(el.dataset.setLang);
+      });
+    });
+    $$('a[href^="#/"]', $('#user-menu-panel', shell) || shell).forEach((a) => {
+      if (!a.closest('#user-menu-panel')) return;
+      a.addEventListener('click', () => closeUserMenu());
+    });
   }
 
   function showToast(msg) {
@@ -372,8 +639,79 @@
   }
 
   document.addEventListener('click', (e) => {
+    if (!e.target.closest('#user-menu')) closeUserMenu();
+
+    const closeEl = e.target.closest('[data-mdl-close]');
+    if (closeEl) {
+      closeDrawers();
+      if (closeEl.tagName !== 'A') return;
+    }
+    if (e.target.id === 'mdl-overlay' || e.target.closest('#mdl-overlay')) {
+      closeDrawers();
+      return;
+    }
+
+    const notifItem = e.target.closest('[data-mdl-notif]');
+    if (notifItem) {
+      const id = Number(notifItem.dataset.mdlNotif);
+      const n = (JACC.NOTIFICATIONS || []).find((x) => x.id === id);
+      if (n) {
+        n.unread = false;
+        syncHeaderBadges();
+        renderNotifDrawer();
+        if (n.href) {
+          closeDrawers();
+          const path = n.href.replace(/^#\//, '');
+          location.hash = `#/${state.theme}/${path}`;
+        }
+      }
+      return;
+    }
+
+    if (e.target.closest('[data-mdl-mark-all]')) {
+      (JACC.NOTIFICATIONS || []).forEach((n) => { n.unread = false; });
+      syncHeaderBadges();
+      renderNotifDrawer();
+      showToast('All notifications marked read');
+      return;
+    }
+
+    const openThread = e.target.closest('[data-mdl-open-thread]');
+    if (openThread) {
+      msgThreadId = Number(openThread.dataset.mdlOpenThread);
+      const m = (JACC.MESSAGES || []).find((x) => x.id === msgThreadId);
+      if (m) m.unread = 0;
+      syncHeaderBadges();
+      renderMsgDrawer();
+      return;
+    }
+
+    if (e.target.closest('[data-mdl-msg-back]')) {
+      msgThreadId = null;
+      renderMsgDrawer();
+      return;
+    }
+
+    if (e.target.closest('[data-mdl-send]')) {
+      const input = $('#mdl-msg-drawer input');
+      const text = input?.value?.trim();
+      if (!text || !msgThreadId) {
+        showToast('Type a message first');
+        return;
+      }
+      if (!JACC.MESSAGE_THREADS[msgThreadId]) JACC.MESSAGE_THREADS[msgThreadId] = [];
+      JACC.MESSAGE_THREADS[msgThreadId].push({ me: true, text });
+      const m = (JACC.MESSAGES || []).find((x) => x.id === msgThreadId);
+      if (m) { m.preview = text; m.time = 'Now'; }
+      input.value = '';
+      renderMsgDrawer();
+      showToast('Sent via Moodle messaging');
+      return;
+    }
+
     const a = e.target.closest('a[href^="#/"]');
     if (!a) return;
+    if (a.hasAttribute('data-mdl-close')) closeDrawers();
     const path = a.getAttribute('href').replace(/^#\//, '');
     const first = path.split('/')[0];
     if (first === 'gallery' || JACC.THEMES.some((t) => t.id === first)) return;
@@ -381,6 +719,20 @@
     location.hash = `#/${state.theme}/${path}`;
   });
 
-  window.addEventListener('hashchange', render);
-  document.addEventListener('DOMContentLoaded', render);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeUserMenu();
+      closeDrawers();
+    }
+  });
+
+  window.addEventListener('hashchange', () => {
+    closeUserMenu();
+    closeDrawers();
+    render();
+  });
+  document.addEventListener('DOMContentLoaded', () => {
+    ensureMoodleChrome();
+    render();
+  });
 })();

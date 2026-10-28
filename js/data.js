@@ -117,6 +117,28 @@ JACC.MESSAGES = [
   { id: 3, name: 'JA Events', preview: 'Your summit ticket is ready. Add to calendar?', time: 'Mon', unread: 1 },
 ];
 
+JACC.MESSAGE_THREADS = {
+  1: [
+    { me: false, text: 'Saw you applied to Andela — how’s it going?' },
+    { me: true, text: 'Shortlisted! Prepping for the product case round.' },
+    { me: false, text: 'Congrats on the Andela shortlist — you’ve got this!' },
+  ],
+  2: [
+    { me: false, text: 'Thanks for your application to Product Analyst.' },
+    { me: false, text: 'Next steps: we’ll invite shortlisted candidates to a case round.' },
+  ],
+  3: [
+    { me: false, text: 'Your summit ticket is ready. Add to calendar?' },
+  ],
+};
+
+JACC.NOTIFICATIONS = [
+  { id: 1, title: 'Application update', body: 'MTN Ghana marked your Product Analyst application as reviewing.', time: '12 min', unread: true, href: '#/applications' },
+  { id: 2, title: 'Event reminder', body: 'Regional Alumni Summit starts in 6 days — confirm your RSVP.', time: '1h', unread: true, href: '#/ticket' },
+  { id: 3, title: 'New job match', body: '3 roles match your Product + SQL skills this week.', time: 'Yesterday', unread: false, href: '#/careers' },
+  { id: 4, title: 'CV health tip', body: 'Add a quantified outcome to raise your CV health above 85.', time: '2 days', unread: false, href: '#/cv-health' },
+];
+
 JACC.KPIS = [
   { n: '12.4k', l: 'Active alumni (30d)' },
   { n: '1,842', l: 'Job applications' },
