@@ -67,30 +67,48 @@
   font-size: clamp(2rem, 4.8vw, 3.4rem);
   max-width: 16ch;
 }
+/* Board-page heroes stay inside the shell, not full-bleed */
+[data-theme="horizon"] .horizon-shell > .hero {
+  border-radius: var(--radius-xl);
+  min-height: auto;
+  padding: 28px 24px;
+  margin-bottom: 8px;
+}
+[data-theme="horizon"] .horizon-shell > .hero h1 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
 [data-theme="horizon"] .card,
-[data-theme="horizon"] .list-card,
-[data-theme="horizon"] .media-card {
+[data-theme="horizon"] .media-card,
+[data-theme="horizon"] .job-teaser,
+[data-theme="horizon"] .space-teaser,
+[data-theme="horizon"] .h-scroll .list-card {
   border: 0;
   box-shadow: var(--shadow-float);
 }
-[data-theme="horizon"] .list-card {
+/* Only carousel / teaser cards go vertical — not thread rows or app lists */
+[data-theme="horizon"] .h-scroll .list-card {
   flex-direction: column;
   align-items: stretch;
   padding: 0;
   overflow: hidden;
   position: relative;
 }
-[data-theme="horizon"] .list-card .thumb {
+[data-theme="horizon"] .h-scroll .list-card .thumb {
   width: 100%;
   height: 150px;
   border-radius: 0;
 }
-[data-theme="horizon"] .list-card .meta { padding: 14px 16px 16px; }
-[data-theme="horizon"] .list-card .match-ring {
+[data-theme="horizon"] .h-scroll .list-card .meta { padding: 14px 16px 16px; }
+[data-theme="horizon"] .h-scroll .list-card .match-ring {
   position: absolute;
   top: 12px;
   right: 12px;
   background: var(--white);
+}
+[data-theme="horizon"] .thread-row {
+  flex-direction: row;
+  align-items: center;
+  padding: 14px 16px;
 }
 [data-theme="horizon"] .btn-primary {
   border-radius: var(--radius-md);
@@ -253,36 +271,35 @@
 [data-theme="horizon"] .horizon-hide-when-scroll { display: none; }
 [data-theme="horizon"] .section-title { margin-top: 8px; }
 
-[data-theme="horizon"] .stat-grid,
-[data-theme="horizon"] .grid-2,
-[data-theme="horizon"] .grid-3,
-[data-theme="horizon"] .auth-panel,
-[data-theme="horizon"] .stack,
-[data-theme="horizon"] .searchbar,
-[data-theme="horizon"] .filters,
+/* Board pages: centered shell, not edge-to-edge rows */
+[data-theme="horizon"] .horizon-shell,
 [data-theme="horizon"] [data-careers-board],
-[data-theme="horizon"] .moodle-core-note {
+[data-theme="horizon"] .screen-enter.auth-panel {
   width: 100%;
-  max-width: none;
-  box-sizing: border-box;
-  padding-inline: var(--content-pad);
-}
-[data-theme="horizon"] [data-careers-board] {
-  padding: 24px var(--content-pad) 40px;
-  max-width: 1180px;
+  max-width: var(--horizon-shell-max, 1180px);
   margin-inline: auto;
+  padding: 24px var(--content-pad) 40px;
   box-sizing: border-box;
 }
+[data-theme="horizon"] .screen-enter.auth-panel {
+  max-width: 640px;
+}
+[data-theme="horizon"] .horizon-shell .stack,
+[data-theme="horizon"] .horizon-shell .searchbar,
+[data-theme="horizon"] .horizon-shell .filters,
+[data-theme="horizon"] .horizon-shell .moodle-core-note,
 [data-theme="horizon"] [data-careers-board] .careers-toolbar,
 [data-theme="horizon"] [data-careers-board] .careers-grid,
 [data-theme="horizon"] [data-careers-board] #careers-empty {
   padding-inline: 0;
   width: 100%;
+  max-width: none;
 }
-/* Teaser card grid — not full-bleed rows */
+
+/* Careers teaser grid — 1 / 2 / 3 columns */
 [data-theme="horizon"] [data-careers-board] .careers-grid {
   display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: 1fr;
   gap: 18px;
   flex-direction: unset;
 }
@@ -299,9 +316,7 @@
   transform: translateY(-4px);
   box-shadow: var(--shadow-float);
 }
-[data-theme="horizon"] [data-careers-board] .job-teaser .thumb {
-  display: none;
-}
+[data-theme="horizon"] [data-careers-board] .job-teaser .thumb { display: none; }
 [data-theme="horizon"] [data-careers-board] .job-teaser-media {
   display: block;
   position: relative;
@@ -333,6 +348,84 @@
   display: none !important;
 }
 
+/* Spaces teaser grid — 1 / 2 / 3 columns */
+[data-theme="horizon"] .spaces-grid {
+  display: grid !important;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  flex-direction: unset;
+}
+[data-theme="horizon"] .space-teaser {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  height: 100%;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+[data-theme="horizon"] .space-teaser:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-float);
+}
+[data-theme="horizon"] .space-teaser-media {
+  display: grid;
+  position: relative;
+  height: 120px;
+  place-items: center;
+  background:
+    linear-gradient(135deg, var(--ja-boundless-blue), var(--ja-enterprise-aqua));
+  color: #fff;
+}
+[data-theme="horizon"] .space-teaser-media[data-kind="Interest"] {
+  background: linear-gradient(135deg, var(--ja-transforming-teal), var(--ja-startup-jade));
+}
+[data-theme="horizon"] .space-teaser-media[data-kind="Chapter"] {
+  background: linear-gradient(135deg, var(--ja-adaptable-azure), var(--ja-leadership-lime));
+}
+[data-theme="horizon"] .space-initials {
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+[data-theme="horizon"] .space-unread {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+[data-theme="horizon"] .space-teaser .meta {
+  padding: 14px 16px 16px;
+}
+[data-theme="horizon"] .space-teaser .meta h3 {
+  font-size: 1.1rem;
+}
+
+/* Events grid — 1 / 2 / 3 columns */
+[data-theme="horizon"] .events-grid {
+  display: grid !important;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+[data-theme="horizon"] .events-grid .media-card {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  height: 100%;
+}
+
+/* Applications / saved / stories stay stacked inside shell */
+[data-theme="horizon"] .horizon-shell .stack:not(.spaces-grid):not(.careers-grid) {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 700px) {
+  [data-theme="horizon"] [data-careers-board] .careers-grid,
+  [data-theme="horizon"] .spaces-grid,
+  [data-theme="horizon"] .events-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
 @media (min-width: 900px) {
   [data-theme="horizon"] .horizon-hero {
     grid-template-columns: 1.4fr 1fr;
@@ -340,6 +433,13 @@
   }
   [data-theme="horizon"] .horizon-hero-stats {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1040px) {
+  [data-theme="horizon"] [data-careers-board] .careers-grid,
+  [data-theme="horizon"] .spaces-grid,
+  [data-theme="horizon"] .events-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 @media (min-width: 1100px) {

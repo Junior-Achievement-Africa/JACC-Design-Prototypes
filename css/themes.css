@@ -81,6 +81,7 @@
   --theme-tagline: "Cinematic · hero · featured · side rail";
   --content-max: none;
   --content-pad: clamp(16px, 3vw, 40px);
+  --horizon-shell-max: 1180px;
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;

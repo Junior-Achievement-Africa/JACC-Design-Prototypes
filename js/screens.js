@@ -433,7 +433,7 @@ JACC.Screens = {
         </div>
       </a>`;
     return `
-      <div class="screen-enter" data-careers-board>
+      <div class="screen-enter horizon-shell" data-careers-board>
         <div class="careers-toolbar">
           <div class="section-title"><h1 style="font-size:1.6rem;margin:0">${t('careers.h1')}</h1>
             <div class="row gap-sm">
@@ -516,7 +516,7 @@ JACC.Screens = {
 
   saved() {
     return `
-      <div class="screen-enter">
+      <div class="screen-enter horizon-shell">
         <div class="section-title"><h1 style="font-size:1.5rem;margin:0">Saved jobs</h1></div>
         <div class="stack">${JACC.JOBS.slice(0, 3).map(j => `
           <div class="list-card">
@@ -530,7 +530,7 @@ JACC.Screens = {
 
   applications() {
     return `
-      <div class="screen-enter">
+      <div class="screen-enter horizon-shell">
         <div class="section-title"><h1 style="font-size:1.5rem;margin:0">My applications</h1></div>
         <div class="stack">${JACC.APPLICATIONS.map(a => `
           <div class="list-card" style="cursor:default">
@@ -651,7 +651,7 @@ JACC.Screens = {
 
   events() {
     return `
-      <div class="screen-enter">
+      <div class="screen-enter horizon-shell">
         <div class="section-title"><h1 style="font-size:1.5rem;margin:0">${t('events.h1')}</h1>
           <div class="row gap-sm">
             <a class="btn btn-sm btn-ghost" href="#/stories">${t('landing.stories')}</a>
@@ -662,7 +662,7 @@ JACC.Screens = {
           ${[t('events.all'),t('events.networking'),t('events.workshop'),t('events.community'),t('events.entrepreneurship')].map((f,i) =>
             `<button class="filter-chip ${i === 0 ? 'is-active' : ''}" type="button">${f}</button>`).join('')}
         </div>
-        <div class="grid-2">${JACC.EVENTS.map(e => `
+        <div class="events-grid">${JACC.EVENTS.map((e) => `
           <a class="media-card" href="${e.rsvp ? '#/ticket' : '#/event'}">
             ${JACC.eventMedia(e)}
             <div class="body">
@@ -744,7 +744,7 @@ JACC.Screens = {
 
   stories() {
     return `
-      <div class="screen-enter">
+      <div class="screen-enter horizon-shell">
         <div class="hero">
           <span class="eyebrow"><i></i> Community</span>
           <h1>Alumni success stories</h1>

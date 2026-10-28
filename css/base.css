@@ -653,7 +653,8 @@ main.viewport {
   display: none !important;
 }
 .list-card:hover { transform: translateY(-2px); }
-.job-teaser-media { display: none; }
+.job-teaser-media,
+.space-teaser-media { display: none; }
 /* Default careers results stay a vertical stack; themes may promote .careers-grid */
 .careers-grid.stack { display: flex; flex-direction: column; gap: 12px; }
 .filter-chip.is-active {
