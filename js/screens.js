@@ -133,22 +133,37 @@ JACC.Screens = {
 
   home() {
     return `
-      <div class="split screen-enter">
-        <div>
-          <section class="hero">
-            <span class="eyebrow"><i></i> Good morning, Efua</span>
-            <h1>Your Career Hub</h1>
-            <p>3 new job matches · 1 mentor session tomorrow · Summit this month.</p>
-            <div class="actions">
-              <a class="btn btn-primary" href="#/careers">Browse jobs</a>
-              <a class="btn btn-secondary" href="#/mentors">Find a mentor</a>
+      <div class="baobab-home screen-enter">
+        <aside class="home-rail hide-mobile">
+          <div class="t-eyebrow">Spaces</div>
+          <a class="rail-item is-on" href="#/home"><span class="avatar sq">JG</span> JA Ghana 2019</a>
+          <a class="rail-item is-soon" href="#/forum"><span class="avatar sq c2">PM</span> Product peers</a>
+          <a class="rail-item is-soon" href="#/forum"><span class="avatar sq">+</span> New group</a>
+          <div class="t-eyebrow">Quick</div>
+          <a class="rail-item" href="#/careers"><span class="qa t1">💼</span> Jobs <span class="count">12</span></a>
+          <a class="rail-item" href="#/mentors"><span class="qa t2">🤝</span> Mentors <span class="count">6</span></a>
+          <a class="rail-item" href="#/events"><span class="qa t3">📅</span> Events <span class="count">2</span></a>
+          <a class="rail-item" href="#/cv-start"><span class="qa t4">✨</span> CV studio</a>
+        </aside>
+        <div class="home-feed">
+          <div class="home-phone-top">
+            <h1 class="t-greet">Hey Efua</h1>
+            <p class="muted" style="margin:0">3 new jobs · 1 mentor session · summit this month</p>
+          </div>
+          <div class="bento">
+            <a class="bento-tile t1" href="#/careers"><span class="n">12</span><span class="l">Job matches</span></a>
+            <a class="bento-tile t2" href="#/applications"><span class="n">3</span><span class="l">Applications</span></a>
+            <a class="bento-tile t3" href="#/mentors"><span class="n">1</span><span class="l">Session</span></a>
+            <a class="bento-tile t4" href="#/events"><span class="n">2</span><span class="l">RSVPs</span></a>
+          </div>
+          <div class="card composer">
+            <div class="row"><div class="avatar">E</div>
+              <input class="composer-input" placeholder="Share an update with your cohort…" readonly>
             </div>
-          </section>
-          <div class="stat-grid" style="margin-bottom:18px">
-            <div class="stat"><div class="n">12</div><div class="l">Job matches</div></div>
-            <div class="stat"><div class="n">3</div><div class="l">Applications</div></div>
-            <div class="stat"><div class="n">1</div><div class="l">Sessions</div></div>
-            <div class="stat"><div class="n">2</div><div class="l">RSVPs</div></div>
+            <div class="row between" style="margin-top:10px">
+              <span class="pill">My cohort</span>
+              <button class="btn btn-sm btn-primary" data-toast="Composer (prototype)">Post</button>
+            </div>
           </div>
           <div class="section-title"><h2>For you</h2><a href="#/careers">Job board</a></div>
           <div class="stack">${JACC.JOBS.slice(0, 3).map(j => `
@@ -162,6 +177,11 @@ JACC.Screens = {
               <div class="match-ring" style="--m:${j.match}"><span>${j.match}%</span></div>
             </a>`).join('')}
           </div>
+          <div class="section-title" style="margin-top:22px"><h2>Cohort wins</h2></div>
+          <div class="card">
+            <div class="row"><div class="avatar">K</div><div><strong>Kwame landed Andela</strong><div class="tiny">Yesterday · JA Ghana 2019</div></div></div>
+            <button class="btn btn-sm btn-secondary" style="margin-top:10px" data-toast="Congrats sent">Congratulate</button>
+          </div>
           <div class="section-title" style="margin-top:22px"><h2>Success stories</h2><a href="#/stories">More</a></div>
           <div class="card" style="display:flex;gap:14px;align-items:center">
             <img src="assets/story.jpg" alt="" style="width:88px;height:88px;border-radius:var(--radius-md);object-fit:cover">
@@ -171,35 +191,26 @@ JACC.Screens = {
             </div>
           </div>
         </div>
-        <aside class="stack hide-mobile">
+        <aside class="home-side hide-mobile stack">
           <div class="card">
-            <div class="row between" style="margin-bottom:12px">
-              <strong>Your profile</strong>
-              <a class="tiny" href="#/profile">Edit</a>
-            </div>
+            <div class="row between" style="margin-bottom:12px"><strong>Profile strength</strong><a class="tiny" href="#/profile">Edit</a></div>
             <div class="row" style="margin-bottom:12px">
               <div class="avatar" style="width:52px;height:52px;font-size:18px">E</div>
-              <div>
-                <strong>Efua Boateng</strong>
-                <div class="tiny">Product · Accra · JA Ghana 2019</div>
-              </div>
+              <div><strong>Efua Boateng</strong><div class="tiny">Product · JA Ghana 2019 cohort</div></div>
             </div>
             <div class="bar-track"><div class="bar-fill" style="width:72%"></div></div>
-            <div class="tiny" style="margin-top:6px">Profile 72% complete · <a href="#/cv">Add CV</a></div>
-          </div>
-          <div class="card">
-            <strong>Recent activity</strong>
-            <ul style="margin-top:12px">${JACC.ACTIVITY.map(a => `
-              <li style="padding:10px 0;border-bottom:1px solid var(--line)">
-                <div style="font-size:14px">${esc(a.t)}</div>
-                <div class="tiny">${esc(a.d)}</div>
-              </li>`).join('')}
-            </ul>
+            <div class="tiny" style="margin-top:6px">72% · <a href="#/cv-start">AI-parse a CV</a></div>
           </div>
           <div class="card">
             <strong>Upcoming</strong>
-            <p style="margin:10px 0 0;font-size:14px"><strong>Thu 18:00</strong> — Mentor session with Ama Mensah</p>
-            <a class="btn btn-sm btn-secondary" style="margin-top:12px" href="#/feedback">Session details</a>
+            <p style="margin:10px 0 0;font-size:14px"><strong>Thu 18:00</strong> — Ama Mensah (mentor)</p>
+            <a class="btn btn-sm btn-secondary" style="margin-top:12px" href="#/feedback">Details</a>
+          </div>
+          <div class="card">
+            <strong>Activity</strong>
+            <ul style="margin-top:10px">${JACC.ACTIVITY.map(a => `
+              <li style="padding:8px 0;border-bottom:1px solid var(--line);font-size:13px">${esc(a.t)}<div class="tiny">${esc(a.d)}</div></li>`).join('')}
+            </ul>
           </div>
         </aside>
       </div>`;
@@ -259,25 +270,7 @@ JACC.Screens = {
   },
 
   cv() {
-    return `
-      <div class="auth-panel screen-enter" style="margin:0 auto;max-width:560px">
-        <h1>Upload your CV</h1>
-        <p class="muted">Reuse it when applying — employers only see it when you apply or share.</p>
-        <div class="card" style="border-style:dashed;text-align:center;padding:40px;margin-bottom:16px;cursor:pointer" data-toast="CV selected: Efua_Boateng_CV.pdf">
-          <div style="font-size:2rem;margin-bottom:8px">📄</div>
-          <strong>Drop PDF or DOCX here</strong>
-          <div class="tiny">Max 5 MB</div>
-        </div>
-        <div class="list-card" style="cursor:default">
-          <div class="thumb">CV</div>
-          <div class="meta">
-            <h3>Efua_Boateng_CV.pdf</h3>
-            <div class="tiny">Uploaded 5 days ago · 240 KB</div>
-          </div>
-          <button class="btn btn-sm btn-secondary" data-toast="Share link copied">Share</button>
-        </div>
-        <a class="btn btn-primary btn-block" style="margin-top:16px" href="#/apply">Use on next application</a>
-      </div>`;
+    return JACC.Screens['cv-start']();
   },
 
   privacy() {

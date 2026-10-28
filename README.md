@@ -1,56 +1,35 @@
 # JACC Design Prototypes
 
-Public, clickable **Career Hub** design review site for JA Africa stakeholders.
+Public, clickable **Career Hub** design review for JA Africa stakeholders.
 
-- Five themes (Baobab, Horizon, Verdant, Pulse, Atlas) — JA Worldwide palette only  
-- All Release‑1 screens from the stakeholder requirements  
-- **Interactive feedback**: pin comments on any UI, export, or open a GitHub Issue  
+**Live:** https://junior-achievement-africa.github.io/JACC-Design-Prototypes/  
+**Repo:** https://github.com/Junior-Achievement-Africa/JACC-Design-Prototypes
 
-**Live site:** https://junior-achievement-africa.github.io/JACC-Design-Prototypes/
+## What’s new in this review build
 
-## For reviewers (clients)
+- **Baobab = phase-0/foundations** — feed home, spaces rail, bento stats, nav pill, match rings  
+- **Persona switcher** — assume Guest, Pending, Locked (wrong cohort), Alumni, Mentor, Employer, Events coordinator, Hub admin, or M&E and see that role’s nav + home  
+- **Moodle cohort gate** — plugin settings to choose which cohorts can open the Career Hub  
+- **AI CV parser** — upload → animated parse → review extract → CV studio / health / share (from Career Connect)  
+- **Organise desk**, employer **pipeline**, mentor verify/notes, legacy forum/courses/surveys for parity  
+- **Feedback pins** for client comments → GitHub Issues  
 
-1. Open the live site and pick a theme.
-2. Browse screens (use **Screens ▾** in the top bar).
-3. Tap **Feedback** → **Add pin on this screen** → click the UI → write your note  
-   (Suggestion / Issue / Love / Question).
-4. Enter your name so comments are attributable.
-5. When done, either:
-   - **Send as GitHub Issue** (preferred — lands in this repo’s Issues), or  
-   - **Export Markdown / JSON** / **Copy report** and email the file.
+## How to review
 
-Feedback is stored in your browser until you export or submit an issue.
+1. Open the live site → pick a **theme** (start with Baobab).  
+2. Use the **persona bar** to switch roles.  
+3. Try **Locked** vs **Alumni** to feel cohort access.  
+4. As **Admin**, open **Plugin** settings and **Cohorts access**.  
+5. As **Alumni**, open **CV studio** → Upload & AI-parse.  
+6. Pin feedback with the floating **Feedback** button.
 
-## For the delivery team
-
-1. Watch [Issues](https://github.com/Junior-Achievement-Africa/JACC-Design-Prototypes/issues) labelled by reviewers.  
-2. Or collect exported Markdown from workshops.  
-3. Use `FIGMA-STITCH-PROMPT.md` when generating high-fidelity Figma / Stitch frames.
-
-## Local preview
+## Local
 
 ```bash
 cd JACC-Design-Prototypes
 python3 -m http.server 8080
-# http://localhost:8080
 ```
 
-## Themes
+## Note
 
-| Theme | Intent |
-|-------|--------|
-| **Baobab** | Current product direction — calm, Apple-like |
-| **Horizon** | Bold teal full-bleed |
-| **Verdant** | Forest / cream editorial |
-| **Pulse** | Night aqua glass |
-| **Atlas** | Dense ops / admin |
-
-## Repo layout
-
-```
-css/     themes, base UI, feedback chrome
-js/      data, screens, router, feedback
-assets/  hero / story images
-```
-
-This repo is **design-only** (static HTML/CSS/JS). The Moodle plugin lives in the private JACC-3.0 codebase.
+Static HTML/CSS/JS only. Production remains the Moodle plugin `local_jacc` in the private JACC-3.0 repo.

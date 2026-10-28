@@ -5,7 +5,7 @@ JACC.THEMES = [
   {
     id: 'baobab',
     name: 'Baobab',
-    tagline: 'Current branch concept — calm, Apple-like, soft pearl surfaces',
+    tagline: 'phase-0/foundations — pearl surfaces, nav pill, feed home, match rings',
     swatches: ['#EEF3F4', '#285F74', '#00C0CA', '#22404D', '#C2EDF0'],
     preview: { bg: '#EEF3F4', fg: '#22404D', accent: '#00C0CA', primary: '#285F74' },
   },
@@ -113,19 +113,30 @@ JACC.KPIS = [
 ];
 
 JACC.SCREENS = [
-  { group: 'Public', items: [
+  { group: 'Public & access', items: [
     { id: 'landing', label: 'Landing' },
     { id: 'login', label: 'Login' },
     { id: 'signup', label: 'Sign up' },
     { id: 'verify', label: 'Verify code' },
     { id: 'onboarding', label: 'Onboarding' },
+    { id: 'pending', label: 'Pending approval' },
+    { id: 'cohort-gate', label: 'Cohort locked' },
   ]},
   { group: 'Alumni hub', items: [
-    { id: 'home', label: 'Dashboard' },
+    { id: 'home', label: 'Home feed' },
     { id: 'profile', label: 'Profile' },
     { id: 'profile-edit', label: 'Edit profile' },
-    { id: 'cv', label: 'CV upload' },
     { id: 'privacy', label: 'Privacy' },
+  ]},
+  { group: 'CV studio + AI', items: [
+    { id: 'cv-start', label: 'CV studio' },
+    { id: 'cv-upload', label: 'Upload' },
+    { id: 'cv-parsing', label: 'AI parsing' },
+    { id: 'cv-review', label: 'Review extract' },
+    { id: 'cv-builder', label: 'Builder' },
+    { id: 'cv-health', label: 'CV health' },
+    { id: 'cv-share', label: 'Share link' },
+    { id: 'cv-list', label: 'My CVs' },
   ]},
   { group: 'Careers', items: [
     { id: 'careers', label: 'Job board' },
@@ -137,7 +148,9 @@ JACC.SCREENS = [
   { group: 'Employer', items: [
     { id: 'employer', label: 'Employer home' },
     { id: 'post-job', label: 'Post a job' },
-    { id: 'applicants', label: 'Review applicants' },
+    { id: 'applicants', label: 'Applicants' },
+    { id: 'employer-pipeline', label: 'Pipeline' },
+    { id: 'company', label: 'Company' },
     { id: 'moderation', label: 'Job moderation' },
   ]},
   { group: 'Mentorship', items: [
@@ -145,20 +158,36 @@ JACC.SCREENS = [
     { id: 'mentor', label: 'Mentor profile' },
     { id: 'book', label: 'Book session' },
     { id: 'mentor-hub', label: 'Mentor hub' },
-    { id: 'feedback', label: 'Session feedback' },
+    { id: 'mentor-requests', label: 'Requests' },
+    { id: 'mentor-availability', label: 'Availability' },
+    { id: 'mentor-notes', label: 'Notes' },
+    { id: 'feedback', label: 'Feedback' },
+    { id: 'mentor-verify', label: 'Verify mentors' },
   ]},
-  { group: 'Events & community', items: [
+  { group: 'Events & organise', items: [
     { id: 'events', label: 'Events' },
     { id: 'event', label: 'Event detail' },
     { id: 'create-event', label: 'Create event' },
+    { id: 'organise', label: 'Organise desk' },
+    { id: 'organise-scan', label: 'QR scan' },
     { id: 'attendance', label: 'Attendance' },
-    { id: 'stories', label: 'Success stories' },
+    { id: 'stories', label: 'Stories' },
     { id: 'messages', label: 'Messages' },
   ]},
-  { group: 'Admin & settings', items: [
+  { group: 'Admin / plugin / M&E', items: [
     { id: 'admin', label: 'Content admin' },
-    { id: 'analytics', label: 'Analytics & export' },
+    { id: 'plugin-settings', label: 'Plugin settings' },
+    { id: 'cohorts-admin', label: 'Cohorts access' },
+    { id: 'approvals', label: 'Account approvals' },
+    { id: 'manage-stories', label: 'Manage stories' },
+    { id: 'analytics', label: 'Analytics' },
+    { id: 'exports', label: 'Exports' },
     { id: 'settings', label: 'Settings' },
-    { id: 'notifications', label: 'Notification prefs' },
+    { id: 'notifications', label: 'Notifications' },
+  ]},
+  { group: 'Legacy Career Connect', items: [
+    { id: 'forum', label: 'Forum' },
+    { id: 'courses', label: 'Courses / skills' },
+    { id: 'surveys', label: 'Surveys' },
   ]},
 ];

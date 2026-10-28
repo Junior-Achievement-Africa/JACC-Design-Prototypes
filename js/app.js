@@ -1,16 +1,21 @@
-/* JACC Design Prototype — router, shell, theme switcher */
+/* JACC Design Prototype — router, themes, persona assume-role */
 (() => {
-  const PUBLIC = new Set(['landing', 'login', 'signup', 'verify', 'onboarding', 'gallery']);
+  const PUBLIC = new Set(['landing', 'login', 'signup', 'verify', 'onboarding', 'gallery', 'pending']);
   const DEFAULT_THEME = 'baobab';
+  const DEFAULT_PERSONA = 'alumni';
 
   const state = {
     theme: localStorage.getItem('jacc-theme') || DEFAULT_THEME,
+    persona: localStorage.getItem('jacc-persona') || DEFAULT_PERSONA,
     screen: 'gallery',
-    role: localStorage.getItem('jacc-role') || 'alumni',
   };
 
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+
+  function persona() {
+    return JACC.persona(state.persona);
+  }
 
   function setTheme(id) {
     if (!JACC.THEMES.some((t) => t.id === id)) id = DEFAULT_THEME;
@@ -23,24 +28,44 @@
     if (label && meta) label.textContent = `${meta.name} · ${meta.tagline}`;
   }
 
-  function parseHash() {
-    const raw = (location.hash || '#/gallery').replace(/^#\/?/, '');
-    const [screen, ...rest] = raw.split('/');
-    return { screen: screen || 'gallery', rest };
+  function setPersona(id, { navigateHome = true } = {}) {
+    const p = JACC.persona(id);
+    state.persona = p.id;
+    localStorage.setItem('jacc-persona', p.id);
+    document.documentElement.setAttribute('data-persona', p.id);
+    $$('.persona-chip').forEach((el) => el.classList.toggle('is-active', el.dataset.persona === p.id));
+    const tag = $('#persona-label');
+    if (tag) tag.textContent = `Viewing as ${p.label}`;
+    if (navigateHome) navigate(`${state.theme}/${p.home}`);
   }
 
-  function navigate(screen) {
-    if (location.hash !== `#/${screen}`) location.hash = `#/${screen}`;
+  function navigate(path) {
+    const hash = `#/${path.replace(/^#\/?/, '')}`;
+    if (location.hash !== hash) location.hash = hash;
     else render();
   }
 
-  function shellVisible(screen) {
-    return !PUBLIC.has(screen) && screen !== 'gallery';
+  function parseRoute() {
+    const raw = (location.hash || '#/gallery').replace(/^#\/?/, '');
+    const parts = raw.split('/').filter(Boolean);
+    if (!parts.length || parts[0] === 'gallery') return { theme: state.theme, screen: 'gallery' };
+    if (JACC.THEMES.some((t) => t.id === parts[0])) {
+      return { theme: parts[0], screen: parts[1] || persona().home };
+    }
+    return { theme: state.theme, screen: parts[0] || persona().home };
+  }
+
+  function shellVisible(screen, p) {
+    if (screen === 'gallery') return false;
+    if (!p.shell) return false;
+    if (PUBLIC.has(screen) && screen !== 'onboarding') return false;
+    return true;
   }
 
   function renderGallery() {
     document.body.classList.add('gallery-mode');
     $('#theme-bar')?.setAttribute('hidden', '');
+    $('#persona-bar')?.setAttribute('hidden', '');
     $('#app-shell')?.setAttribute('hidden', '');
     $('#bottom-nav')?.setAttribute('hidden', '');
     const root = $('#viewport');
@@ -48,12 +73,12 @@
       <div class="gallery">
         <header class="gallery-hero">
           <div class="eyebrow"><span style="width:8px;height:8px;border-radius:50%;background:var(--ja-enterprise-aqua);display:inline-block"></span>
-            JACC 3.0 · Client design review</div>
-          <h1>Career Hub themes<br><em>for JA Africa</em></h1>
-          <p>Five interactive prototypes — same features, same JA brand palette, different visual directions. Pick a theme to explore every screen, then use the <strong>Feedback</strong> button to pin suggestions for the team.</p>
+            JACC 3.0 · Moodle Career Hub · client review</div>
+          <h1>Themes, personas<br><em>&amp; real access rules</em></h1>
+          <p>Baobab mirrors the phase-0/foundations UI. Switch themes, then <strong>assume a persona</strong> to see exactly what each role gets — including cohort locks and AI CV parsing from Career Connect.</p>
           <div class="gallery-cta">
-            <a class="btn btn-primary" href="#/baobab/home" style="background:var(--ja-enterprise-aqua);color:#22404D">Start with Baobab (current branch)</a>
-            <a class="btn btn-secondary" href="#/baobab/landing" style="border-color:rgba(255,255,255,.25);color:#fff;background:transparent">View public landing</a>
+            <a class="btn btn-primary" href="#/baobab/home" style="background:var(--ja-enterprise-aqua);color:#22404D">Enter as Alumni (Baobab)</a>
+            <a class="btn btn-secondary" href="#/baobab/plugin-settings" style="border-color:rgba(255,255,255,.25);color:#fff;background:transparent">Plugin cohort settings</a>
           </div>
         </header>
         <div class="gallery-grid">
@@ -65,56 +90,70 @@
                 <div class="chips">
                   <span class="chip" style="background:${t.preview.primary}"></span>
                   <span class="chip" style="background:${t.preview.accent}"></span>
-                  <span class="chip" style="background:${t.swatches[4]}"></span>
                 </div>
               </div>
               <div class="body">
-                <h3>${t.name}</h3>
+                <h3>${t.name}${t.id === 'baobab' ? ' · foundations' : ''}</h3>
                 <p>${t.tagline}</p>
                 <div class="swatches">${t.swatches.map((c) => `<span class="swatch" style="background:${c}"></span>`).join('')}</div>
-                <span class="go">Explore prototype →</span>
+                <span class="go">Explore →</span>
               </div>
             </button>`).join('')}
         </div>
         <section class="gallery-features">
-          <h2>What’s inside each prototype</h2>
-          <p>Mapped to stakeholder requirements US-01 → US-31 (Release 1 + key later stories).</p>
+          <h2>Assume a role</h2>
+          <p>Each persona changes navigation, home, and permissions — including locked cohort access.</p>
+          <div class="feat-grid">
+            ${JACC.PERSONAS.map((p) => `
+              <button type="button" class="feat-item persona-pick" data-persona="${p.id}" style="text-align:left;cursor:pointer;border:0;width:100%">
+                <strong><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${p.color};margin-right:6px"></span>${p.label}</strong>
+                <span>${p.blurb}</span>
+              </button>`).join('')}
+          </div>
+        </section>
+        <section class="gallery-features" style="margin-top:20px">
+          <h2>Feature coverage</h2>
           <div class="feat-grid">
             ${[
-              ['Hub & auth', 'Landing, signup, verify, onboarding, dashboard'],
-              ['Profiles', 'Edit, privacy, CV upload, activity'],
-              ['Careers', 'Search, match %, apply, save, applications'],
-              ['Employers', 'Post jobs, applicants, moderation'],
-              ['Mentorship', 'Match, book, mentor hub, feedback'],
-              ['Events', 'RSVP, create, attendance, calendar'],
-              ['Community', 'Stories, messaging'],
-              ['Admin & M&E', 'Content admin, KPIs, CSV export'],
+              ['Foundations Baobab', 'Feed home, rails, match rings, shell'],
+              ['Cohort gate', 'Only allowed Moodle cohorts see the hub'],
+              ['Plugin settings', 'Admin picks cohorts + AI CV provider'],
+              ['AI CV parser', 'Upload → parse → review → CV studio'],
+              ['Organise', 'Staff events, QR scan, attendance'],
+              ['Employer pipeline', 'Kanban hiring from Career Connect'],
+              ['Mentorship desk', 'Requests, availability, notes, verify'],
+              ['Legacy parity', 'Forum, courses, surveys (later-release)'],
             ].map(([t, d]) => `<div class="feat-item"><strong>${t}</strong><span>${d}</span></div>`).join('')}
           </div>
         </section>
-        <p class="tiny" style="text-align:center;margin-top:40px;color:#8e8e93">
-          Palette: 16 official JA Worldwide colours only · Static HTML/CSS/JS for GitHub Pages
-        </p>
       </div>`;
 
     $$('[data-open-theme]', root).forEach((btn) => {
       btn.addEventListener('click', () => {
         setTheme(btn.dataset.openTheme);
+        setPersona('alumni', { navigateHome: false });
         navigate(`${btn.dataset.openTheme}/home`);
+      });
+    });
+    $$('.persona-pick', root).forEach((btn) => {
+      btn.addEventListener('click', () => {
+        setTheme(state.theme === 'gallery' ? 'baobab' : state.theme);
+        setPersona(btn.dataset.persona);
       });
     });
   }
 
-  function renderThemeBar() {
+  function renderChrome() {
     const bar = $('#theme-bar');
-    if (!bar) return;
+    const pbar = $('#persona-bar');
+    if (!bar || !pbar) return;
     bar.removeAttribute('hidden');
+    pbar.removeAttribute('hidden');
     const meta = JACC.THEMES.find((t) => t.id === state.theme);
+    const p = persona();
+
     bar.innerHTML = `
-      <a class="tb-brand" href="#/gallery">
-        <span class="tb-mark">JA</span>
-        <span>JACC review</span>
-      </a>
+      <a class="tb-brand" href="#/gallery"><span class="tb-mark">JA</span><span>JACC review</span></a>
       <span class="tb-meta" id="theme-label">${meta ? `${meta.name} · ${meta.tagline}` : ''}</span>
       <div class="theme-chips">
         ${JACC.THEMES.map((t) => `
@@ -123,44 +162,39 @@
           </button>`).join('')}
       </div>
       <div class="tb-actions">
-        <a class="tb-link" href="#/gallery">All themes</a>
+        <a class="tb-link" href="#/gallery">Gallery</a>
         <button type="button" class="tb-link" id="screen-menu-btn">Screens ▾</button>
       </div>`;
+
+    pbar.innerHTML = `
+      <span class="persona-kicker" id="persona-label">Viewing as ${p.label}</span>
+      <div class="persona-chips">
+        ${JACC.PERSONAS.map((x) => `
+          <button type="button" class="persona-chip ${x.id === p.id ? 'is-active' : ''}" data-persona="${x.id}" title="${x.blurb}">
+            <span class="dot" style="background:${x.color}"></span>${x.short}
+          </button>`).join('')}
+      </div>
+      <span class="persona-hint hide-mobile">${p.blurb}</span>`;
 
     $$('.theme-chip', bar).forEach((chip) => {
       chip.addEventListener('click', () => {
         setTheme(chip.dataset.theme);
         const { screen } = parseRoute();
-        navigate(`${state.theme}/${screen === 'gallery' ? 'home' : screen}`);
+        navigate(`${state.theme}/${screen === 'gallery' ? persona().home : screen}`);
       });
+    });
+    $$('.persona-chip', pbar).forEach((chip) => {
+      chip.addEventListener('click', () => setPersona(chip.dataset.persona));
     });
     $('#screen-menu-btn')?.addEventListener('click', toggleScreenMenu);
   }
 
-  function parseRoute() {
-    const raw = (location.hash || '#/gallery').replace(/^#\/?/, '');
-    const parts = raw.split('/').filter(Boolean);
-    // #/gallery | #/baobab/home | #/home (legacy)
-    if (parts[0] === 'gallery' || parts.length === 0) return { theme: state.theme, screen: 'gallery' };
-    if (JACC.THEMES.some((t) => t.id === parts[0])) {
-      return { theme: parts[0], screen: parts[1] || 'home' };
-    }
-    return { theme: state.theme, screen: parts[0] || 'home' };
-  }
-
   function toggleScreenMenu() {
     let panel = $('#screen-panel');
-    if (panel) {
-      panel.remove();
-      return;
-    }
+    if (panel) { panel.remove(); return; }
     panel = document.createElement('div');
     panel.id = 'screen-panel';
-    panel.style.cssText = `
-      position:fixed;top:60px;right:12px;z-index:250;width:min(360px,92vw);
-      max-height:70vh;overflow:auto;padding:16px;border-radius:var(--radius-lg);
-      background:var(--surface);border:var(--card-border);box-shadow:var(--shadow-float);
-    `;
+    panel.className = 'screen-panel';
     panel.innerHTML = `
       <div class="row between" style="margin-bottom:10px"><strong>All screens</strong>
         <button type="button" class="btn btn-sm btn-ghost" id="close-screens">✕</button></div>
@@ -168,60 +202,64 @@
         <div style="margin-bottom:12px">
           <div class="tiny" style="margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em">${g.group}</div>
           <div style="display:flex;flex-wrap:wrap;gap:6px">
-            ${g.items.map((s) => `
-              <a class="pill" href="#/${state.theme}/${s.id}" style="text-decoration:none">${s.label}</a>`).join('')}
+            ${g.items.map((s) => `<a class="pill" href="#/${state.theme}/${s.id}">${s.label}</a>`).join('')}
           </div>
         </div>`).join('')}`;
     document.body.appendChild(panel);
     $('#close-screens')?.addEventListener('click', () => panel.remove());
-    panel.addEventListener('click', (e) => {
-      if (e.target.closest('a')) panel.remove();
-    });
+    panel.addEventListener('click', (e) => { if (e.target.closest('a')) panel.remove(); });
   }
 
   function renderShell(screen) {
     const shell = $('#app-shell');
     const bottom = $('#bottom-nav');
-    if (!shellVisible(screen)) {
+    const p = persona();
+    if (!shellVisible(screen, p)) {
       shell?.setAttribute('hidden', '');
       bottom?.setAttribute('hidden', '');
       return;
     }
     shell.removeAttribute('hidden');
-    bottom.removeAttribute('hidden');
+    if (p.nav.length) bottom.removeAttribute('hidden');
+    else bottom.setAttribute('hidden', '');
 
-    const nav = JACC.NAV.map((n) => `
-      <a href="#/${state.theme}/${n.id}" class="${n.id === screen || (screen === 'job' && n.id === 'careers') || (screen === 'mentor' && n.id === 'mentors') || (screen === 'event' && n.id === 'events') ? 'is-active' : ''}">${n.label}</a>`).join('');
+    const nav = p.nav.map((n) => {
+      const active = n.id === screen
+        || (screen === 'job' && n.id === 'careers')
+        || (screen.startsWith('cv-') && n.id === 'home' && p.id === 'alumni')
+        || (screen === 'mentor' && n.id === 'mentors')
+        || (screen === 'event' && n.id === 'events');
+      return `<a href="#/${state.theme}/${n.id}" class="${active ? 'is-active' : ''}">${n.label}</a>`;
+    }).join('');
 
+    const homeLink = p.home;
     shell.innerHTML = `
       <div class="row">
-        <a class="brandmark" href="#/${state.theme}/home"><span class="logo">JA</span> Career Hub</a>
+        <a class="brandmark" href="#/${state.theme}/${homeLink}"><span class="logo">JA</span> Career Hub</a>
         <nav class="navpill">${nav}</nav>
         <div class="header-actions">
-          <button class="icon-btn hide-mobile" title="Search" data-toast="Search (prototype)">${JACC.icon('search')}</button>
-          <a class="icon-btn" href="#/${state.theme}/messages" title="Notifications">
-            ${JACC.icon('bell')}<span class="badge">3</span>
-          </a>
-          <a class="avatar" href="#/${state.theme}/profile" title="Profile">E</a>
-          <a class="btn btn-sm btn-primary hide-mobile" href="#/${state.theme}/post-job">Create</a>
+          <button class="icon-btn hide-mobile" data-toast="Search (prototype)">${JACC.icon('search')}</button>
+          <a class="icon-btn" href="#/${state.theme}/messages">${JACC.icon('bell')}<span class="badge">3</span></a>
+          <a class="avatar" href="#/${state.theme}/profile" title="${p.label}">${p.short[0]}</a>
+          ${p.id === 'employer' || p.id === 'admin' || p.id === 'coordinator'
+            ? `<a class="btn btn-sm btn-primary hide-mobile" href="#/${state.theme}/${p.id === 'coordinator' ? 'create-event' : p.id === 'admin' ? 'plugin-settings' : 'post-job'}">Create</a>`
+            : `<a class="btn btn-sm btn-secondary hide-mobile" href="#/${state.theme}/cv-start">CV studio</a>`}
         </div>
       </div>
       <nav class="subnav">
-        <a href="#/${state.theme}/applications" class="${screen === 'applications' ? 'is-active' : ''}">Applications</a>
-        <a href="#/${state.theme}/saved" class="${screen === 'saved' ? 'is-active' : ''}">Saved</a>
-        <a href="#/${state.theme}/stories" class="${screen === 'stories' ? 'is-active' : ''}">Stories</a>
-        <a href="#/${state.theme}/employer" class="${screen === 'employer' ? 'is-active' : ''}">Employer</a>
-        <a href="#/${state.theme}/admin" class="${screen === 'admin' ? 'is-active' : ''}">Admin</a>
-        <a href="#/${state.theme}/analytics" class="${screen === 'analytics' ? 'is-active' : ''}">Analytics</a>
-        <a href="#/${state.theme}/settings" class="${screen === 'settings' ? 'is-active' : ''}">Settings</a>
+        ${(p.subnav || []).map((s) => `
+          <a href="#/${state.theme}/${s.id}" class="${screen === s.id ? 'is-active' : ''}">${s.label}</a>`).join('')}
       </nav>`;
 
-    bottom.innerHTML = `
-      ${JACC.NAV.slice(0, 2).map((n) => `
-        <a href="#/${state.theme}/${n.id}" class="${n.id === screen ? 'is-active' : ''}">${JACC.icon(n.icon)}<span>${n.label}</span></a>`).join('')}
-      <a class="create" href="#/${state.theme}/post-job" title="Create">${JACC.icon('plus')}</a>
-      ${JACC.NAV.slice(2).map((n) => `
-        <a href="#/${state.theme}/${n.id}" class="${n.id === screen ? 'is-active' : ''}">${JACC.icon(n.icon)}<span>${n.label}</span></a>`).join('')}`;
+    if (p.nav.length >= 2) {
+      const mid = Math.min(2, p.nav.length);
+      bottom.innerHTML = `
+        ${p.nav.slice(0, mid).map((n) => `
+          <a href="#/${state.theme}/${n.id}" class="${n.id === screen ? 'is-active' : ''}">${JACC.icon(n.icon || 'home')}<span>${n.label}</span></a>`).join('')}
+        <a class="create" href="#/${state.theme}/${p.id === 'coordinator' ? 'create-event' : p.id === 'employer' ? 'post-job' : 'cv-start'}">${JACC.icon('plus')}</a>
+        ${p.nav.slice(mid).map((n) => `
+          <a href="#/${state.theme}/${n.id}" class="${n.id === screen ? 'is-active' : ''}">${JACC.icon(n.icon || 'home')}<span>${n.label}</span></a>`).join('')}`;
+    }
   }
 
   function showToast(msg) {
@@ -240,8 +278,19 @@
   function bindInteractions(root) {
     $$('[data-toast]', root).forEach((el) => {
       el.addEventListener('click', (e) => {
+        if (el.tagName === 'A' && el.getAttribute('href')?.startsWith('#/') && !el.dataset.nav) return;
         e.preventDefault();
         showToast(el.dataset.toast);
+        if (el.dataset.nav) {
+          setTimeout(() => {
+            location.hash = el.dataset.nav.replace('#/', `#/${state.theme}/`);
+          }, 350);
+        }
+      });
+    });
+    $$('.dropzone', root).forEach((el) => {
+      el.addEventListener('click', () => {
+        if (el.dataset.toast) showToast(el.dataset.toast);
         if (el.dataset.nav) setTimeout(() => { location.hash = el.dataset.nav.replace('#/', `#/${state.theme}/`); }, 400);
       });
     });
@@ -261,6 +310,7 @@
     state.theme = route.theme;
     state.screen = route.screen;
     setTheme(state.theme);
+    document.documentElement.setAttribute('data-persona', state.persona);
 
     if (route.screen === 'gallery') {
       renderGallery();
@@ -268,47 +318,33 @@
     }
 
     document.body.classList.remove('gallery-mode');
-    renderThemeBar();
+    renderChrome();
     renderShell(route.screen);
 
     const root = $('#viewport');
     const view = JACC.Screens[route.screen];
     if (!view) {
-      root.innerHTML = `<div class="card screen-enter"><h1>Screen not found</h1><p class="muted">No prototype for “${route.screen}”.</p><a class="btn btn-primary" href="#/${state.theme}/home">Go home</a></div>`;
+      root.innerHTML = `<div class="card screen-enter"><h1>Screen not found</h1><p class="muted">No prototype for “${route.screen}”.</p>
+        <a class="btn btn-primary" href="#/${state.theme}/${persona().home}">Go to ${persona().label} home</a></div>`;
       return;
     }
-
-    // Role strip for multi-persona screens
-    const roleScreens = ['home', 'employer', 'admin', 'mentor-hub'];
-    let html = '';
-    if (roleScreens.includes(route.screen)) {
-      html += `<div class="role-switch">
-        ${[['alumni','Alumni'],['mentor','Mentor'],['employer','Employer'],['admin','Admin']].map(([id, label]) =>
-          `<button type="button" class="${state.role === id ? 'is-on' : ''}" data-role="${id}">${label}</button>`).join('')}
-      </div>`;
-    }
-    html += view();
-    root.innerHTML = html;
+    root.innerHTML = view();
     bindInteractions(root);
-
-    $$('[data-role]', root).forEach((btn) => {
-      btn.addEventListener('click', () => {
-        state.role = btn.dataset.role;
-        localStorage.setItem('jacc-role', state.role);
-        const map = { alumni: 'home', mentor: 'mentor-hub', employer: 'employer', admin: 'admin' };
-        navigate(`${state.theme}/${map[state.role]}`);
-      });
-    });
-
+    if (route.screen === 'cv-parsing') {
+      clearTimeout(window.__cvParseTimer);
+      window.__cvParseTimer = setTimeout(() => {
+        if (parseRoute().screen === 'cv-parsing') {
+          location.hash = `#/${state.theme}/cv-review`;
+        }
+      }, 2600);
+    }
     window.scrollTo(0, 0);
   }
 
-  // Rewrite plain #/screen links inside rendered content to include theme
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a[href^="#/"]');
     if (!a) return;
-    const href = a.getAttribute('href');
-    const path = href.replace(/^#\//, '');
+    const path = a.getAttribute('href').replace(/^#\//, '');
     const first = path.split('/')[0];
     if (first === 'gallery' || JACC.THEMES.some((t) => t.id === first)) return;
     e.preventDefault();

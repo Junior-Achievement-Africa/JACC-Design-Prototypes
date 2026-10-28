@@ -23,7 +23,7 @@
 /* ── 1. Baobab — current branch concept (Apple-like, soft pearl) ── */
 [data-theme="baobab"] {
   --theme-name: "Baobab";
-  --theme-tagline: "Current branch · calm & Apple-like";
+  --theme-tagline: "phase-0/foundations · pearl & Apple-like";
   --bg: var(--ja-possibility-pearl);
   --bg-elevated: var(--white);
   --surface: var(--white);
