@@ -558,6 +558,12 @@ main.viewport {
 .grid-2 { display: grid; gap: 14px; grid-template-columns: 1fr; }
 .grid-3 { display: grid; gap: 14px; grid-template-columns: 1fr; }
 .grid-4 { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); }
+/* Events board — 1 → 2 → 3 columns (Horizon may promote to 4) */
+.events-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+}
 .stack { display: flex; flex-direction: column; gap: 12px; }
 .row { display: flex; align-items: center; gap: 10px; }
 .row.between { justify-content: space-between; }
@@ -872,6 +878,9 @@ tr:hover td { background: var(--sunken); }
   display: grid; gap: 16px;
 }
 
+@media (min-width: 640px) {
+  .events-grid { grid-template-columns: repeat(2, 1fr); }
+}
 @media (min-width: 768px) {
   .navpill { display: flex; }
   .bottom-nav { display: none; }
@@ -884,6 +893,9 @@ tr:hover td { background: var(--sunken); }
   .msg-layout { grid-template-columns: 280px 1fr; }
   .split { grid-template-columns: 1fr 320px; }
   .app-header { top: 53px; }
+}
+@media (min-width: 900px) {
+  .events-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 767px) {
