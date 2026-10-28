@@ -279,11 +279,22 @@ ul { margin: 0; padding: 0; list-style: none; }
   background: var(--surface); color: var(--ink); box-shadow: var(--shadow);
 }
 .header-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.ui-icon,
+.icon-btn svg,
+.searchbar svg,
+.bottom-nav a svg,
+.brandmark svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  display: block;
+}
 .icon-btn {
   width: 40px; height: 40px; border-radius: var(--radius-pill);
   display: grid; place-items: center; color: var(--ink-2);
   background: transparent; position: relative;
 }
+.icon-btn svg { width: 22px; height: 22px; }
 .icon-btn:hover { background: var(--sunken); color: var(--ink); }
 .icon-btn .badge {
   position: absolute; top: 6px; right: 6px;
@@ -343,7 +354,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   border-radius: var(--radius-md);
 }
 .bottom-nav a.is-active { color: var(--primary); }
-.bottom-nav a svg { width: 22px; height: 22px; }
+.bottom-nav a svg { width: 22px; height: 22px; flex: none; }
 .bottom-nav .create {
   width: 48px; height: 48px; margin-top: -22px;
   border-radius: 50%; background: var(--primary); color: var(--on-primary);
@@ -422,9 +433,18 @@ main.viewport {
   background: var(--surface);
   border: var(--card-border);
   box-shadow: var(--shadow);
+  color: var(--ink-3);
+  overflow: hidden;
+}
+.searchbar svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  color: var(--ink-3);
 }
 .searchbar input {
-  flex: 1; border: 0; background: transparent; outline: none; min-height: 44px;
+  flex: 1; min-width: 0; border: 0; background: transparent; outline: none; min-height: 44px;
+  color: var(--ink);
 }
 .filters { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0; }
 .filter-chip {
