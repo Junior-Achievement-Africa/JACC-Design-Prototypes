@@ -10,10 +10,11 @@ Public, clickable **Career Hub** design review for JA Africa stakeholders.
 - **Shared JA colours** across every theme — only layout / type / density change  
 - **Concept 1** — soft 3-column foundations · **Concept 2 / 4** — full-width layouts · **Concept 3** — centred editorial · **Concept 5** — lively motion-first  
 
+- **Features backlog** on the gallery home — phased list (Phase 1–3 + Later) that development will ship against; items link into prototype screens where available  
 - **Persona switcher**, Moodle **cohort gate**, **AI CV studio**, organise / employer flows  
 - **Feedback pins** with a **Team** tab backed by GitHub Issues (`design-feedback` label)
 
-Mentorship is **out of this prototype**.
+Mentorship is listed under **Later** and is **out of this prototype**.
 
 ## How to review
 

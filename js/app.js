@@ -327,23 +327,37 @@
               </button>`).join('')}
           </div>
         </section>
-        <section class="gallery-features" style="margin-top:20px">
-          <h2>Feature coverage</h2>
-          <div class="feat-grid">
-            ${[
-              ['Same JA palette', 'Concepts vary layout & width — not colour'],
-              ['Moodle messaging', 'Header message icon → core_message drawer'],
-              ['Moodle notifications', 'Header bell → Moodle notification drawer'],
-              ['Spaces', 'Cohort / interest groups with Moodle forum discussions'],
-              ['Work history + open to work', 'Profile experience & employer availability'],
-              ['Job types', 'Full-time, internship, contract, part-time, volunteer · paid/unpaid'],
-              ['Cohort gate + plugin', 'Who sees the hub is Moodle-cohort based'],
-              ['AI CV parser', 'Upload → parse → review → CV studio'],
-              ['Job match explain', 'On job detail — Why 94%?'],
-              ['Pathway & endorsements', 'On profile'],
-              ['Tickets & digests', 'Events ticket · Careers digest'],
-            ].map(([t, d]) => `<div class="feat-item"><strong>${t}</strong><span>${d}</span></div>`).join('')}
+        <section class="gallery-features gallery-features-backlog" style="margin-top:20px">
+          <h2>Features</h2>
+          <p>Full product backlog for the Career Hub. This review prototypes as many as possible; <strong>development ships them in phases</strong>. Mentorship is deferred.</p>
+          <div class="feat-phase-legend">
+            ${(JACC.FEATURE_PHASES || []).map((ph) => `
+              <span class="feat-phase-chip" data-phase="${ph.id}"><strong>${ph.label}</strong> ${ph.blurb}</span>`).join('')}
           </div>
+          ${(JACC.FEATURE_PHASES || []).map((ph) => {
+            const list = (JACC.FEATURES || []).filter((f) => String(f.phase) === String(ph.id));
+            if (!list.length) return '';
+            return `
+              <div class="feat-phase-block">
+                <h3><span class="feat-phase-tag" data-phase="${ph.id}">${ph.label}</span> ${ph.blurb}</h3>
+                <div class="feat-grid">
+                  ${list.map((f) => {
+                    const proto = f.proto === 'in' ? 'In prototype' : f.proto === 'partial' ? 'Partial' : 'Planned';
+                    const href = f.screen ? `#/baobab/${f.screen}` : '';
+                    const inner = `
+                      <div class="feat-item-top">
+                        <strong>${escHtml(f.name)}</strong>
+                        <span class="feat-proto" data-proto="${f.proto}">${proto}</span>
+                      </div>
+                      <span class="feat-area">${escHtml(f.area)}</span>
+                      <span>${escHtml(f.desc)}</span>`;
+                    return href
+                      ? `<a class="feat-item feat-item-link" href="${href}">${inner}</a>`
+                      : `<div class="feat-item">${inner}</div>`;
+                  }).join('')}
+                </div>
+              </div>`;
+          }).join('')}
         </section>
       </div>`;
 

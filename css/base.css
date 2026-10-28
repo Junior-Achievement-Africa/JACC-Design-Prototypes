@@ -235,9 +235,91 @@ ul { margin: 0; padding: 0; list-style: none; }
   border-radius: 16px;
   background: rgba(0,0,0,.25);
   border: 1px solid rgba(255,255,255,.06);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color .15s, transform .15s;
 }
-.feat-item strong { display: block; color: #fff; margin-bottom: 4px; }
-.feat-item span { color: #8e8e93; font-size: .85rem; }
+a.feat-item-link:hover {
+  border-color: color-mix(in srgb, var(--ja-enterprise-aqua) 50%, transparent);
+  transform: translateY(-2px);
+}
+.feat-item strong { display: block; color: #fff; margin: 0; font-size: .95rem; }
+.feat-item > span { color: #8e8e93; font-size: .85rem; }
+.feat-item-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+.feat-area {
+  font-size: 11px !important;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: #aeaeb2 !important;
+}
+.feat-proto {
+  flex-shrink: 0;
+  font-size: 10px !important;
+  font-weight: 800;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  color: #22404D !important;
+  background: var(--ja-enterprise-aqua);
+}
+.feat-proto[data-proto="partial"] {
+  background: var(--ja-empowered-yellow);
+}
+.feat-proto[data-proto="planned"] {
+  background: rgba(255,255,255,.12);
+  color: #aeaeb2 !important;
+}
+.feat-phase-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0 8px;
+}
+.feat-phase-chip {
+  font-size: 12px;
+  color: #aeaeb2;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.28);
+  border: 1px solid rgba(255,255,255,.06);
+}
+.feat-phase-chip strong { color: #fff; margin-right: 4px; }
+.feat-phase-block { margin-top: 28px; }
+.feat-phase-block h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 650;
+  margin: 0 0 14px;
+}
+.feat-phase-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  background: var(--ja-boundless-blue);
+  color: #fff;
+}
+.feat-phase-tag[data-phase="2"] { background: var(--ja-transforming-teal); }
+.feat-phase-tag[data-phase="3"] { background: var(--ja-adaptable-azure); }
+.feat-phase-tag[data-phase="later"] { background: rgba(255,255,255,.14); color: #aeaeb2; }
 
 /* ── App shell ── */
 #app { min-height: 100dvh; display: flex; flex-direction: column; }

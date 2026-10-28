@@ -333,3 +333,71 @@ JACC.SCREENS = [
     { id: 'surveys', label: 'Surveys' },
   ]},
 ];
+
+/**
+ * Product feature backlog — shown on the gallery as “Features”.
+ * Development ships these in phases. Mentorship is deferred (out of this prototype).
+ *
+ * phase: 1 | 2 | 3 | later
+ * proto: in (clickable in this review) | partial | planned
+ */
+JACC.FEATURE_PHASES = [
+  { id: 1, label: 'Phase 1', blurb: 'MVP — hub, profile, careers, events' },
+  { id: 2, label: 'Phase 2', blurb: 'Spaces, CV studio, digests, admin depth' },
+  { id: 3, label: 'Phase 3', blurb: 'M&E, pathways, integrations' },
+  { id: 'later', label: 'Later', blurb: 'Deferred or out of this prototype' },
+];
+
+JACC.FEATURES = [
+  /* Phase 1 */
+  { id: 'hub-shell', name: 'Career Hub shell', desc: 'Moodle-native entry, primary nav, persona home', area: 'Hub', phase: 1, proto: 'in', screen: 'home' },
+  { id: 'access-cohort', name: 'Cohort access gate', desc: 'Only allowed Moodle cohorts see the hub; locked screen for others', area: 'Hub', phase: 1, proto: 'in', screen: 'cohort-gate' },
+  { id: 'plugin-settings', name: 'Plugin cohort settings', desc: 'Admins choose which cohorts unlock the hub', area: 'Admin', phase: 1, proto: 'in', screen: 'plugin-settings' },
+  { id: 'auth-onboarding', name: 'Sign up & onboarding', desc: 'Login, verify, pending approval, first-run profile', area: 'Hub', phase: 1, proto: 'in', screen: 'signup' },
+  { id: 'bilingual', name: 'English & French', desc: 'UI language follows preference; EN/FR toggle in review', area: 'Hub', phase: 1, proto: 'in', screen: 'bilingual' },
+  { id: 'profile', name: 'Alumni profile', desc: 'Headline, skills, industry, cohort, activity', area: 'Profile', phase: 1, proto: 'in', screen: 'profile' },
+  { id: 'privacy', name: 'Profile privacy', desc: 'Public / alumni / only me visibility', area: 'Profile', phase: 1, proto: 'in', screen: 'privacy' },
+  { id: 'work-history', name: 'Work history', desc: 'Roles on profile used for matching', area: 'Profile', phase: 1, proto: 'in', screen: 'work-history' },
+  { id: 'open-to-work', name: 'Open to work', desc: 'Declare availability for employers', area: 'Profile', phase: 1, proto: 'in', screen: 'open-to-work' },
+  { id: 'job-board', name: 'Job board', desc: 'Search, multi-filters, types, paid/unpaid, match %', area: 'Careers', phase: 1, proto: 'in', screen: 'careers' },
+  { id: 'job-apply', name: 'Apply & save jobs', desc: 'Cover letter, CV attach, no duplicates, saved list', area: 'Careers', phase: 1, proto: 'in', screen: 'apply' },
+  { id: 'job-match', name: 'Match explanation', desc: 'Why this % — skills overlap on job detail', area: 'Careers', phase: 1, proto: 'in', screen: 'match-explain' },
+  { id: 'employer-post', name: 'Employer job posting', desc: 'Create/edit jobs with cover image', area: 'Careers', phase: 1, proto: 'in', screen: 'post-job' },
+  { id: 'applicants', name: 'Applicant pipeline', desc: 'Statuses: submitted → hired; notify alumni', area: 'Careers', phase: 1, proto: 'in', screen: 'applicants' },
+  { id: 'events-browse', name: 'Events browse & RSVP', desc: 'Filter by category; capacity; you’re going', area: 'Events', phase: 1, proto: 'in', screen: 'events' },
+  { id: 'events-ticket', name: 'Event ticket & join link', desc: 'Ticket view, calendar add, meeting link', area: 'Events', phase: 1, proto: 'in', screen: 'ticket' },
+  { id: 'events-create', name: 'Create events', desc: 'Image, capacity, meeting link for coordinators', area: 'Events', phase: 1, proto: 'in', screen: 'create-event' },
+  { id: 'stories', name: 'Alumni success stories', desc: 'Featured stories on home; admin-managed', area: 'Community', phase: 1, proto: 'in', screen: 'stories' },
+  { id: 'moodle-msg', name: 'Moodle messaging', desc: 'Header message icon → core_message drawer', area: 'Hub', phase: 1, proto: 'in', screen: 'home' },
+  { id: 'moodle-notif', name: 'Moodle notifications', desc: 'Header bell → Moodle notification drawer', area: 'Hub', phase: 1, proto: 'in', screen: 'notifications' },
+
+  /* Phase 2 */
+  { id: 'spaces', name: 'Spaces (groups)', desc: 'Cohort, chapter, interest groups', area: 'Spaces', phase: 2, proto: 'in', screen: 'spaces' },
+  { id: 'spaces-forum', name: 'Space discussions', desc: 'Moodle forum threads & replies inside a space', area: 'Spaces', phase: 2, proto: 'in', screen: 'space-thread' },
+  { id: 'cv-studio', name: 'CV studio', desc: 'Upload, list, build, share polished CVs', area: 'CV', phase: 2, proto: 'in', screen: 'cv-start' },
+  { id: 'cv-ai', name: 'AI CV parse', desc: 'Upload → parse → review fields → health score', area: 'CV', phase: 2, proto: 'in', screen: 'cv-upload' },
+  { id: 'job-digest', name: 'Job match digests', desc: 'Email/in-hub digest of new matching roles', area: 'Careers', phase: 2, proto: 'in', screen: 'digest' },
+  { id: 'saved-searches', name: 'Saved searches', desc: 'Reuse career filters and alerts', area: 'Careers', phase: 2, proto: 'in', screen: 'saved-searches' },
+  { id: 'job-moderation', name: 'Job moderation', desc: 'Staff approve partner posts before live', area: 'Careers', phase: 2, proto: 'in', screen: 'moderation' },
+  { id: 'events-attendance', name: 'Event attendance', desc: 'Mark attended / no-show for reporting', area: 'Events', phase: 2, proto: 'in', screen: 'attendance' },
+  { id: 'admin-manage', name: 'Admin content hub', desc: 'Manage jobs, events, stories in one place', area: 'Admin', phase: 2, proto: 'in', screen: 'admin' },
+  { id: 'approvals', name: 'Account approvals', desc: 'Programme team clears pending alumni', area: 'Admin', phase: 2, proto: 'in', screen: 'approvals' },
+  { id: 'organise', name: 'Organise / scan', desc: 'Coordinator tools for in-person check-in', area: 'Events', phase: 2, proto: 'in', screen: 'organise' },
+
+  /* Phase 3 */
+  { id: 'analytics', name: 'Engagement analytics', desc: 'KPI snapshot for hub admins', area: 'M&E', phase: 3, proto: 'in', screen: 'analytics' },
+  { id: 'exports', name: 'CSV exports', desc: 'Applications and engagement exports for funders', area: 'M&E', phase: 3, proto: 'in', screen: 'exports' },
+  { id: 'impact-map', name: 'Africa impact map', desc: 'Disaggregated view by country / region', area: 'M&E', phase: 3, proto: 'in', screen: 'impact-map' },
+  { id: 'pathway', name: 'Career pathway', desc: 'Timeline of skills, jobs, CVs, events', area: 'Profile', phase: 3, proto: 'in', screen: 'pathway' },
+  { id: 'endorsements', name: 'Skill endorsements', desc: 'Peers endorse skills on profile', area: 'Profile', phase: 3, proto: 'in', screen: 'endorsements' },
+  { id: 'a11y', name: 'Accessibility', desc: 'WCAG-minded contrast, focus, labels', area: 'Hub', phase: 3, proto: 'partial', screen: 'a11y' },
+  { id: 'courses', name: 'Courses & skills', desc: 'CPD-style courses / skill tracks (legacy Connect)', area: 'Learning', phase: 3, proto: 'partial', screen: 'courses' },
+  { id: 'surveys', name: 'Surveys', desc: 'Programme surveys for alumni (legacy Connect)', area: 'Learning', phase: 3, proto: 'partial', screen: 'surveys' },
+
+  /* Later / deferred */
+  { id: 'me-dashboards', name: 'M&E dashboards', desc: 'Metabase-style filters by country, cohort, gender', area: 'M&E', phase: 'later', proto: 'planned' },
+  { id: 'crm-sync', name: 'Zoho Bigin sync', desc: 'Scheduled alumni contact sync for outreach', area: 'Integrations', phase: 'later', proto: 'planned' },
+  { id: 'video-meet', name: 'Video meeting embed', desc: 'BBB / Zoom / Meet deep links from events & sessions', area: 'Integrations', phase: 'later', proto: 'planned' },
+  { id: 'api', name: 'Partner API', desc: 'Web services for partner systems', area: 'Integrations', phase: 'later', proto: 'planned' },
+  { id: 'mentorship', name: 'Mentorship', desc: 'Mentor profiles, matching, booking, feedback — deferred', area: 'Mentorship', phase: 'later', proto: 'planned' },
+];
