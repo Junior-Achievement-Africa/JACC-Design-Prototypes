@@ -22,7 +22,7 @@ JACC.THEMES = [
     id: 'verdant',
     name: 'Verdant',
     tagline: 'Editorial — serif pull-quotes, asymmetric bento, magazine cards',
-    concept: 'Story-led mentorship & impact; organic radii; slower fades',
+    concept: 'Story-led careers & impact; organic radii; slower fades',
     swatches: ['#F7F8EF', '#00763D', '#8FC440', '#F3F2B3', '#46B17B'],
     preview: { bg: '#F7F8EF', fg: '#22404D', accent: '#8FC440', primary: '#00763D' },
   },
@@ -47,7 +47,6 @@ JACC.THEMES = [
 JACC.NAV = [
   { id: 'home', label: 'Home', icon: 'home' },
   { id: 'careers', label: 'Careers', icon: 'briefcase' },
-  { id: 'mentors', label: 'Mentors', icon: 'users' },
   { id: 'events', label: 'Events', icon: 'calendar' },
   { id: 'messages', label: 'Messages', icon: 'message' },
 ];
@@ -61,15 +60,6 @@ JACC.JOBS = [
   { id: 6, title: 'Operations Coordinator', company: 'Jumia', loc: 'Abidjan', type: 'Contract', match: 64, tags: ['Ops', 'French'], img: 'linear-gradient(135deg,#00A0AF,#BBD153)' },
 ];
 
-JACC.MENTORS = [
-  { id: 1, name: 'Ama Mensah', role: 'Head of Product · Hubtel', industry: 'Technology', tags: ['Product', 'Leadership'], match: 96, verified: true, avail: 'Thu evenings' },
-  { id: 2, name: 'Kwame Osei', role: 'Investment Analyst · Verod', industry: 'Finance', tags: ['Finance', 'Careers'], match: 89, verified: true, avail: 'Weekends' },
-  { id: 3, name: 'Fatou Diallo', role: 'Founder · GreenSahel', industry: 'Entrepreneurship', tags: ['Startup', 'Impact'], match: 85, verified: true, avail: 'Flexible' },
-  { id: 4, name: 'James Okoro', role: 'Engineering Manager · Paystack', industry: 'Technology', tags: ['Engineering', 'Mentorship'], match: 82, verified: false, avail: 'Tue lunch' },
-  { id: 5, name: 'Ngozi Adeyemi', role: 'HR Director · Nestlé', industry: 'People Ops', tags: ['CV', 'Interviews'], match: 78, verified: true, avail: 'Mon–Wed' },
-  { id: 6, name: 'Samuel Kariuki', role: 'Policy Advisor · UNEP', industry: 'Public Sector', tags: ['Policy', 'Sustainability'], match: 74, verified: true, avail: 'Monthly' },
-];
-
 JACC.EVENTS = [
   { id: 1, title: 'Regional Alumni Summit 2026', cat: 'Networking', when: 'Sat 14 Mar · 09:00 WAT', where: 'Accra + Online', spots: '42 / 120', rsvp: true },
   { id: 2, title: 'CV Clinic with Nestlé HR', cat: 'Workshop', when: 'Wed 4 Mar · 18:00 WAT', where: 'Online', spots: '18 / 40', rsvp: false },
@@ -78,7 +68,7 @@ JACC.EVENTS = [
 ];
 
 JACC.STORIES = [
-  { name: 'Efua Boateng', cohort: 'JA Ghana · 2019', quote: 'Mentorship on the hub helped me land my first product role at Hubtel.', role: 'Product Manager' },
+  { name: 'Efua Boateng', cohort: 'JA Ghana · 2019', quote: 'The job board matched me to Hubtel — I landed my first product role within a month.', role: 'Product Manager' },
   { name: 'Ibrahim Touré', cohort: 'JA Côte d\'Ivoire · 2020', quote: 'I found my internship through the job board — then got hired full-time.', role: 'Software Engineer' },
   { name: 'Wanjiru Kamau', cohort: 'JA Kenya · 2018', quote: 'Events kept me connected across countries after I moved for work.', role: 'Policy Analyst' },
 ];
@@ -100,12 +90,12 @@ JACC.APPLICANTS = [
 JACC.ACTIVITY = [
   { t: 'Applied to Product Analyst at MTN Ghana', d: '2h ago', type: 'job' },
   { t: 'RSVP’d to Regional Alumni Summit', d: 'Yesterday', type: 'event' },
-  { t: 'Booked session with Ama Mensah', d: '2 days ago', type: 'mentor' },
+  { t: 'Saved UX Design Fellow at JA Africa', d: '2 days ago', type: 'job' },
   { t: 'Updated skills on your profile', d: '5 days ago', type: 'profile' },
 ];
 
 JACC.MESSAGES = [
-  { id: 1, name: 'Ama Mensah', preview: 'Looking forward to our Thursday session!', time: '10:42', unread: 2 },
+  { id: 1, name: 'Kwame Osei', preview: 'Congrats on the Andela shortlist — you’ve got this!', time: '10:42', unread: 2 },
   { id: 2, name: 'MTN Talent Team', preview: 'Thanks for your application — next steps…', time: 'Yesterday', unread: 0 },
   { id: 3, name: 'JA Events', preview: 'Your summit ticket is ready. Add to calendar?', time: 'Mon', unread: 1 },
 ];
@@ -113,7 +103,7 @@ JACC.MESSAGES = [
 JACC.KPIS = [
   { n: '12.4k', l: 'Active alumni (30d)' },
   { n: '1,842', l: 'Job applications' },
-  { n: '638', l: 'Mentor sessions' },
+  { n: '420', l: 'Open roles' },
   { n: '74%', l: 'Event show-up rate' },
 ];
 
@@ -157,17 +147,6 @@ JACC.SCREENS = [
     { id: 'employer-pipeline', label: 'Pipeline' },
     { id: 'company', label: 'Company' },
     { id: 'moderation', label: 'Job moderation' },
-  ]},
-  { group: 'Mentorship', items: [
-    { id: 'mentors', label: 'Find mentors' },
-    { id: 'mentor', label: 'Mentor profile' },
-    { id: 'book', label: 'Book session' },
-    { id: 'mentor-hub', label: 'Mentor hub' },
-    { id: 'mentor-requests', label: 'Requests' },
-    { id: 'mentor-availability', label: 'Availability' },
-    { id: 'mentor-notes', label: 'Notes' },
-    { id: 'feedback', label: 'Feedback' },
-    { id: 'mentor-verify', label: 'Verify mentors' },
   ]},
   { group: 'Events & organise', items: [
     { id: 'events', label: 'Events' },

@@ -26,7 +26,7 @@ Object.assign(JACC.Screens, {
         <div class="hero">
           <span class="eyebrow"><i></i> Access controlled by Moodle cohorts</span>
           <h1>Career Hub isn’t open for your account yet</h1>
-          <p>Only members of selected Moodle cohorts can see jobs, mentors and events. Ask your country office to add you to an alumni cohort — or request access below.</p>
+          <p>Only members of selected Moodle cohorts can see jobs and events. Ask your country office to add you to an alumni cohort — or request access below.</p>
         </div>
         <div class="card">
           <h3>Why this exists</h3>
@@ -398,63 +398,6 @@ Object.assign(JACC.Screens, {
       </div>`;
   },
 
-  'mentor-requests'() {
-    return `
-      <div class="screen-enter">
-        <div class="section-title"><h1 style="font-size:1.5rem;margin:0">Session requests</h1></div>
-        <div class="stack">
-          <div class="list-card" style="cursor:default">
-            ${JACC.avatar(JACC.ME)}
-            <div class="meta"><h3>Efua Boateng</h3><div class="tiny">Thu 18:00 · Breaking into PM</div></div>
-            <button class="btn btn-sm btn-primary" data-toast="Accepted">Accept</button>
-            <button class="btn btn-sm btn-ghost" data-toast="Decline sent">Decline</button>
-            <button class="btn btn-sm btn-secondary" data-toast="Reschedule proposed">Reschedule</button>
-          </div>
-        </div>
-      </div>`;
-  },
-
-  'mentor-availability'() {
-    return `
-      <div class="screen-enter" style="max-width:520px;margin:0 auto">
-        <h1 style="font-size:1.5rem">Weekly availability</h1>
-        ${['Mon','Tue','Wed','Thu','Fri','Sat'].map((d, i) => `
-          <label class="row between" style="padding:12px 0;border-bottom:1px solid var(--line)">
-            <strong>${d}</strong>
-            <input value="${i === 1 ? '12:00–13:00' : i === 3 ? '18:00–20:00' : 'Unavailable'}" style="min-height:36px;border-radius:8px;border:1px solid var(--line);padding:0 10px;background:var(--surface);width:140px">
-          </label>`).join('')}
-        <button class="btn btn-primary" style="margin-top:16px" data-toast="Availability saved">Save</button>
-      </div>`;
-  },
-
-  'mentor-notes'() {
-    return `
-      <div class="screen-enter" style="max-width:560px;margin:0 auto">
-        <h1 style="font-size:1.5rem">Private mentor notes</h1>
-        <p class="muted">Only you see these — carried across sessions with a mentee.</p>
-        <div class="card"><strong>Efua Boateng</strong>
-          <p class="tiny">Prep: PM transition · suggested STAR stories for Hubtel impact.</p>
-        </div>
-        <div class="field" style="margin-top:12px"><label>Add note</label><textarea></textarea></div>
-        <button class="btn btn-primary" data-toast="Note saved">Save note</button>
-      </div>`;
-  },
-
-  'mentor-verify'() {
-    return `
-      <div class="screen-enter">
-        <div class="section-title"><h1 style="font-size:1.5rem;margin:0">Verify mentors</h1></div>
-        <div class="stack">${JACC.MENTORS.filter(m => !m.verified).concat(JACC.MENTORS.filter(m => m.verified).slice(0,1)).map((m) => `
-          <div class="list-card" style="cursor:default">
-            ${JACC.avatar(m)}
-            <div class="meta"><h3>${m.name}</h3><div class="tiny">${m.role}</div></div>
-            ${m.verified ? '<span class="pill-success pill">Verified</span>' :
-              '<button class="btn btn-sm btn-primary" data-toast="Mentor verified">Verify</button>'}
-          </div>`).join('')}
-        </div>
-      </div>`;
-  },
-
   'manage-stories'() {
     return `
       <div class="screen-enter">
@@ -475,7 +418,7 @@ Object.assign(JACC.Screens, {
         <h1 style="font-size:1.5rem">Data exports</h1>
         <p class="muted">M&E CSV downloads for funder reporting.</p>
         <div class="stack">
-          ${[['Applications (all)', 'US-29'],['Event attendance', 'US-23'],['Mentor sessions + ratings', 'US-17'],['Alumni engagement 30d', 'KPI']].map(([t, id]) => `
+          ${[['Applications (all)', 'US-29'],['Event attendance', 'US-23'],['Saved jobs + searches', 'US-08'],['Alumni engagement 30d', 'KPI']].map(([t, id]) => `
             <div class="list-card" style="cursor:default">
               <div class="meta"><h3>${t}</h3><div class="tiny">${id}</div></div>
               <button class="btn btn-sm btn-primary" data-toast="${t.replace(/ .*/,'').toLowerCase()}_export.csv">Download</button>
@@ -562,7 +505,7 @@ Object.assign(JACC.Screens, {
   pathway() {
     const steps = [
       { y: '2019', t: 'Joined JA Ghana cohort', tag: 'Onboarding', who: null },
-      { y: '2022', t: 'First mentor session', tag: 'Mentorship', who: 'Ama Mensah' },
+      { y: '2022', t: 'First job board application', tag: 'Careers', who: null },
       { y: '2023', t: 'Applied to 4 roles · shortlisted twice', tag: 'Careers', who: null },
       { y: '2024', t: 'CV health 82 after AI parse', tag: 'CV studio', who: null },
       { y: 'Now', t: 'Summit RSVP · 12 fresh matches', tag: 'Today', who: null },
@@ -572,7 +515,7 @@ Object.assign(JACC.Screens, {
         <div class="hero">
           <span class="eyebrow"><i></i> Career pathway</span>
           <h1>From JA Company to Product</h1>
-          <p>Your hub history as a living story — skills, mentors, jobs and events in one timeline.</p>
+          <p>Your hub history as a living story — skills, jobs, CVs and events in one timeline.</p>
         </div>
         <div class="row" style="margin-bottom:18px;gap:12px">
           ${JACC.avatar(JACC.ME, 'lg')}
@@ -580,10 +523,10 @@ Object.assign(JACC.Screens, {
             <strong>Efua Boateng</strong>
             <div class="tiny">Product track · JA Ghana 2019</div>
             <div class="avatar-stack" style="margin-top:8px">
-              ${JACC.avatar('Ama Mensah', 'sm')}
               ${JACC.avatar('Kwame Osei', 'sm')}
-              ${JACC.avatar('Ngozi Adeyemi', 'sm')}
-              <span class="tiny" style="margin-left:8px">Mentors on your path</span>
+              ${JACC.avatar('Ibrahim Touré', 'sm')}
+              ${JACC.avatar('Wanjiru Kamau', 'sm')}
+              <span class="tiny" style="margin-left:8px">Peers on your path</span>
             </div>
           </div>
         </div>
@@ -626,7 +569,7 @@ Object.assign(JACC.Screens, {
         <div class="stat-grid" style="margin-top:14px">
           <div class="stat"><div class="n">12.4k</div><div class="l">Active 30d</div></div>
           <div class="stat"><div class="n">38</div><div class="l">Countries</div></div>
-          <div class="stat"><div class="n">638</div><div class="l">Sessions</div></div>
+          <div class="stat"><div class="n">1.8k</div><div class="l">Applications</div></div>
           <div class="stat"><div class="n">74%</div><div class="l">Event show-up</div></div>
         </div>
       </div>`;
@@ -655,10 +598,10 @@ Object.assign(JACC.Screens, {
 
   endorsements() {
     const rows = [
-      { skill: 'Product sense', who: 'Ama Mensah', role: 'Mentor', n: 4 },
-      { skill: 'SQL', who: 'Kwame Osei', role: 'Peer', n: 2 },
-      { skill: 'Stakeholder mgmt', who: 'Ngozi Adeyemi', role: 'Mentor', n: 3 },
-      { skill: 'Interview prep', who: 'James Okoro', role: 'Mentor', n: 1 },
+      { skill: 'Product sense', who: 'Kwame Osei', role: 'Peer', n: 4 },
+      { skill: 'SQL', who: 'Ibrahim Touré', role: 'Peer', n: 2 },
+      { skill: 'Stakeholder mgmt', who: 'Wanjiru Kamau', role: 'Peer', n: 3 },
+      { skill: 'Interview prep', who: 'Adaobi Nwosu', role: 'Peer', n: 1 },
     ];
     return `
       <div class="screen-enter" style="max-width:560px;margin:0 auto">
@@ -666,7 +609,7 @@ Object.assign(JACC.Screens, {
           ${JACC.avatar(JACC.ME, 'lg')}
           <div>
             <h1 style="font-size:1.45rem;margin:0">Skill endorsements</h1>
-            <p class="muted" style="margin:4px 0 0">After sessions, mentors endorse skills — improves match %.</p>
+            <p class="muted" style="margin:4px 0 0">Alumni peers endorse skills — improves job match %.</p>
           </div>
         </div>
         <div class="stack">
@@ -681,7 +624,7 @@ Object.assign(JACC.Screens, {
               <span class="pill-accent pill">${r.n}</span>
             </div>`).join('')}
         </div>
-        <button class="btn btn-secondary" style="margin-top:14px" data-toast="Request sent via Moodle message">Ask mentor to endorse</button>
+        <button class="btn btn-secondary" style="margin-top:14px" data-toast="Request sent via Moodle message">Ask a peer to endorse</button>
       </div>`;
   },
 
@@ -700,11 +643,11 @@ Object.assign(JACC.Screens, {
             </div>
             <div class="stat-grid" style="margin:12px 0">
               <div class="stat"><div class="n">12</div><div class="l">Matches</div></div>
-              <div class="stat"><div class="n">1</div><div class="l">Session</div></div>
+              <div class="stat"><div class="n">2</div><div class="l">RSVPs</div></div>
             </div>
             <div class="avatar-stack" style="margin-bottom:12px">
-              ${JACC.MENTORS.slice(0, 3).map((m) => JACC.avatar(m, 'sm')).join('')}
-              <span class="tiny" style="margin-left:8px">Mentors online</span>
+              ${['Kwame Osei', 'Ibrahim Touré', 'Wanjiru Kamau'].map((n) => JACC.avatar(n, 'sm')).join('')}
+              <span class="tiny" style="margin-left:8px">Alumni active</span>
             </div>
             <a class="btn btn-sm btn-primary" href="#/home">Open hub</a>
           </div>
@@ -758,7 +701,7 @@ Object.assign(JACC.Screens, {
         </div>
         <div class="card" style="margin-top:16px">
           <div class="row">${JACC.avatar(JACC.ME, 'sm')}<strong>Aperçu FR</strong></div>
-          <p class="muted" style="margin:10px 0 0">Trouvez un emploi. Trouvez un mentor. Restez connectés.</p>
+          <p class="muted" style="margin:10px 0 0">Trouvez un emploi. Développez votre carrière. Restez connectés.</p>
         </div>
         <button class="btn btn-primary" style="margin-top:14px" data-toast="Would set Moodle preferred language">Use French in Moodle</button>
       </div>`;

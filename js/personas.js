@@ -46,7 +46,6 @@ JACC.PERSONAS = [
     nav: [
       { id: 'home', label: 'Home', icon: 'home' },
       { id: 'careers', label: 'Careers', icon: 'briefcase' },
-      { id: 'mentors', label: 'Mentors', icon: 'users' },
       { id: 'events', label: 'Events', icon: 'calendar' },
       { id: 'messages', label: 'Messages', icon: 'message' },
     ],
@@ -59,29 +58,6 @@ JACC.PERSONAS = [
       { id: 'stories', label: 'Stories' },
       { id: 'profile', label: 'Profile' },
       { id: 'settings', label: 'Settings' },
-    ],
-  },
-  {
-    id: 'mentor',
-    label: 'Mentor',
-    short: 'Mentor',
-    color: '#8FC440',
-    blurb: 'Alumni + verified mentor desk',
-    home: 'mentor-hub',
-    shell: true,
-    nav: [
-      { id: 'mentor-hub', label: 'Mentor hub', icon: 'users' },
-      { id: 'mentors', label: 'Directory', icon: 'users' },
-      { id: 'home', label: 'Home', icon: 'home' },
-      { id: 'messages', label: 'Messages', icon: 'message' },
-      { id: 'events', label: 'Events', icon: 'calendar' },
-    ],
-    subnav: [
-      { id: 'mentor-requests', label: 'Requests' },
-      { id: 'mentor-availability', label: 'Availability' },
-      { id: 'mentor-notes', label: 'Notes' },
-      { id: 'feedback', label: 'Feedback' },
-      { id: 'profile', label: 'Profile' },
     ],
   },
   {
@@ -144,7 +120,6 @@ JACC.PERSONAS = [
     subnav: [
       { id: 'cohorts-admin', label: 'Cohorts access' },
       { id: 'manage-stories', label: 'Stories' },
-      { id: 'mentor-verify', label: 'Verify mentors' },
       { id: 'approvals', label: 'Account approvals' },
     ],
   },

@@ -70,7 +70,6 @@ JACC.avatarFallback = (img) => {
 
 /** Apply photos onto existing data collections once */
 JACC.hydratePeople = () => {
-  (JACC.MENTORS || []).forEach((m) => { if (m.photo === undefined) m.photo = JACC.photoFor(m.name); });
   (JACC.STORIES || []).forEach((s) => { if (s.photo === undefined) s.photo = JACC.photoFor(s.name); });
   (JACC.APPLICANTS || []).forEach((a) => { if (a.photo === undefined) a.photo = JACC.photoFor(a.name); });
   (JACC.MESSAGES || []).forEach((m) => { if (m.photo === undefined) m.photo = JACC.photoFor(m.name); });
