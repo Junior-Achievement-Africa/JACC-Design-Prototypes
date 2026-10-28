@@ -350,6 +350,7 @@ JACC.Screens = {
       <div class="screen-enter">
         <div class="section-title"><h1 style="font-size:1.6rem;margin:0">${t('careers.h1')}</h1>
           <div class="row gap-sm">
+            <a class="btn btn-sm btn-ghost" href="#/applications">${t('common.applications')}</a>
             <a class="btn btn-sm btn-ghost" href="#/saved-searches">${t('common.savedSearches')}</a>
             <a class="btn btn-sm btn-secondary" href="#/saved">${t('common.saved')}</a>
           </div></div>
@@ -556,6 +557,7 @@ JACC.Screens = {
       <div class="screen-enter">
         <div class="section-title"><h1 style="font-size:1.5rem;margin:0">${t('events.h1')}</h1>
           <div class="row gap-sm">
+            <a class="btn btn-sm btn-ghost" href="#/stories">${t('landing.stories')}</a>
             <a class="btn btn-sm btn-ghost" href="#/ticket">${t('common.myTicket')}</a>
             <a class="btn btn-sm btn-secondary" href="#/create-event">${t('common.create')}</a>
           </div></div>

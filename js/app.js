@@ -77,6 +77,11 @@
   function umIcon(name) {
     const paths = {
       user: '<circle cx="12" cy="8" r="3.5"/><path d="M5 19c0-3.2 2.8-5.5 7-5.5s7 2.3 7 5.5"/>',
+      edit: '<path d="M4 20h4l10-10-4-4L4 16v4z"/><path d="m14 6 4 4"/>',
+      cv: '<path d="M6 4h9l3 3v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M14 4v4h4M8 12h8M8 16h5"/>',
+      path: '<circle cx="6" cy="6" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="8" cy="18" r="2"/><path d="M8 7.5 16 11M16.5 13.5 9.5 17"/>',
+      star: '<path d="m12 3 2.4 5.4L20 9.3l-4 4.2.9 5.5L12 16.4 7.1 19l.9-5.5-4-4.2 5.6-.9z"/>',
+      lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
       grades: '<path d="M6 4h9l3 3v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/><path d="M14 4v4h4M8 13h8M8 17h5"/>',
       cal: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
       files: '<path d="M4 6h7l2 2h7v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z"/><path d="M9 14h6"/>',
@@ -86,6 +91,13 @@
       logout: '<path d="M10 17H6a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h4"/><path d="M14 12H21M18 8l4 4-4 4"/>',
     };
     return `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${paths[name] || paths.user}</svg>`;
+  }
+
+  function resolveSubnav(p, screen) {
+    if (p.id === 'alumni' && typeof JACC.alumniSubnavFor === 'function') {
+      return JACC.alumniSubnavFor(screen);
+    }
+    return p.subnav || [];
   }
 
   let msgThreadId = null;
@@ -433,11 +445,19 @@
     if (p.nav.length) bottom.removeAttribute('hidden');
     else bottom.setAttribute('hidden', '');
 
+    const careersScreens = new Set([
+      'careers', 'job', 'apply', 'saved', 'saved-searches', 'applications', 'digest', 'match-explain',
+    ]);
+    const eventsScreens = new Set(['events', 'event', 'ticket', 'stories']);
+    const profileScreens = new Set([
+      'profile', 'profile-edit', 'pathway', 'endorsements', 'privacy', 'settings', 'notifications',
+    ]);
     const nav = p.nav.map((n) => {
       const active = n.id === screen
-        || (screen === 'job' && n.id === 'careers')
-        || (screen.startsWith('cv-') && n.id === 'home' && p.id === 'alumni')
-        || (screen === 'event' && n.id === 'events');
+        || (n.id === 'careers' && careersScreens.has(screen))
+        || (n.id === 'events' && eventsScreens.has(screen))
+        || (n.id === 'profile' && (profileScreens.has(screen) || screen.startsWith('cv-')))
+        || (screen.startsWith('cv-') && n.id === 'home' && p.id !== 'alumni');
       return `<a href="#/${state.theme}/${n.id}" class="${active ? 'is-active' : ''}">${navLabel(n)}</a>`;
     }).join('');
 
@@ -471,6 +491,12 @@
                 <div class="tiny">${escHtml(p.label)} · Moodle account</div>
               </div>
               <a role="menuitem" href="#/${state.theme}/profile"><span class="um-icon">${umIcon('user')}</span>Profile</a>
+              <a role="menuitem" href="#/${state.theme}/profile-edit"><span class="um-icon">${umIcon('edit')}</span>Edit profile</a>
+              <a role="menuitem" href="#/${state.theme}/cv-start"><span class="um-icon">${umIcon('cv')}</span>CV studio</a>
+              <a role="menuitem" href="#/${state.theme}/pathway"><span class="um-icon">${umIcon('path')}</span>Career pathway</a>
+              <a role="menuitem" href="#/${state.theme}/endorsements"><span class="um-icon">${umIcon('star')}</span>Endorsements</a>
+              <a role="menuitem" href="#/${state.theme}/privacy"><span class="um-icon">${umIcon('lock')}</span>Privacy</a>
+              <div class="um-divider"></div>
               <button type="button" role="menuitem" data-toast="Moodle Grades (core)"><span class="um-icon">${umIcon('grades')}</span>Grades</button>
               <button type="button" role="menuitem" data-toast="Moodle Calendar (core)"><span class="um-icon">${umIcon('cal')}</span>Calendar</button>
               <button type="button" role="menuitem" data-toast="Moodle Private files (core)"><span class="um-icon">${umIcon('files')}</span>Private files</button>
@@ -490,13 +516,17 @@
           </div>
           ${p.id === 'employer' || p.id === 'admin' || p.id === 'coordinator'
             ? `<a class="btn btn-sm btn-primary hide-mobile" href="#/${state.theme}/${p.id === 'coordinator' ? 'create-event' : p.id === 'admin' ? 'plugin-settings' : 'post-job'}">${JACC.t('common.create')}</a>`
-            : `<a class="btn btn-sm btn-secondary hide-mobile" href="#/${state.theme}/cv-start">${JACC.t('common.cvStudio')}</a>`}
+            : ''}
         </div>
       </div>
-      <nav class="subnav">
-        ${(p.subnav || []).map((s) => `
-          <a href="#/${state.theme}/${s.id}" class="${screen === s.id ? 'is-active' : ''}">${subLabel(s)}</a>`).join('')}
-      </nav>`;
+      ${(() => {
+        const links = resolveSubnav(p, screen);
+        if (!links.length) return '';
+        return `<nav class="subnav" aria-label="Section">
+          ${links.map((s) => `
+            <a href="#/${state.theme}/${s.id}" class="${screen === s.id ? 'is-active' : ''}">${subLabel(s)}</a>`).join('')}
+        </nav>`;
+      })()}`;
 
     if (p.nav.length >= 2) {
       const mid = Math.min(2, p.nav.length);

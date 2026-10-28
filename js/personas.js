@@ -49,18 +49,8 @@ JACC.PERSONAS = [
       { id: 'events', label: 'Events', icon: 'calendar' },
       { id: 'profile', label: 'Profile', icon: 'users' },
     ],
-    subnav: [
-      { id: 'applications', label: 'Applications' },
-      { id: 'saved', label: 'Saved' },
-      { id: 'saved-searches', label: 'Saved searches' },
-      { id: 'cv-start', label: 'CV studio' },
-      { id: 'stories', label: 'Stories' },
-      { id: 'profile', label: 'Profile' },
-      { id: 'pathway', label: 'Pathway' },
-      { id: 'endorsements', label: 'Endorsements' },
-      { id: 'ticket', label: 'My ticket' },
-      { id: 'settings', label: 'Settings' },
-    ],
+    // Secondary links are contextual (careers / events) — profile tools live in the avatar menu
+    subnav: [],
   },
   {
     id: 'employer',
@@ -79,7 +69,6 @@ JACC.PERSONAS = [
     subnav: [
       { id: 'applicants', label: 'Applicants' },
       { id: 'employer-jobs', label: 'My jobs' },
-      { id: 'settings', label: 'Settings' },
     ],
   },
   {
@@ -99,7 +88,6 @@ JACC.PERSONAS = [
     subnav: [
       { id: 'create-event', label: 'Create event' },
       { id: 'organise-scan', label: 'QR scan' },
-      { id: 'settings', label: 'Settings' },
     ],
   },
   {
@@ -139,10 +127,33 @@ JACC.PERSONAS = [
     ],
     subnav: [
       { id: 'exports', label: 'Exports' },
-      { id: 'settings', label: 'Settings' },
     ],
   },
 ];
+
+/** Contextual secondary nav for alumni — only while in that section */
+JACC.alumniSubnavFor = (screen) => {
+  const careers = new Set([
+    'careers', 'job', 'apply', 'saved', 'saved-searches', 'applications', 'digest', 'match-explain',
+  ]);
+  const events = new Set(['events', 'event', 'ticket', 'stories']);
+  if (careers.has(screen)) {
+    return [
+      { id: 'careers', label: 'Job board' },
+      { id: 'applications', label: 'Applications' },
+      { id: 'saved', label: 'Saved' },
+      { id: 'saved-searches', label: 'Saved searches' },
+    ];
+  }
+  if (events.has(screen)) {
+    return [
+      { id: 'events', label: 'Events' },
+      { id: 'stories', label: 'Stories' },
+      { id: 'ticket', label: 'My ticket' },
+    ];
+  }
+  return [];
+};
 
 JACC.persona = (id) => JACC.PERSONAS.find((p) => p.id === id) || JACC.PERSONAS.find((p) => p.id === 'alumni');
 
