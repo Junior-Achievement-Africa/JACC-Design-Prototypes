@@ -472,8 +472,8 @@ JACC.Screens = {
   job() {
     const j = JACC.JOBS[0];
     return `
-      <div class="screen-enter" style="max-width:720px;margin:0 auto">
-        <div class="card" style="padding:0;overflow:hidden">
+      <div class="screen-enter detail-page">
+        <div class="card detail-card" style="padding:0;overflow:hidden">
           ${JACC.coverBand(j.cover, 160)}
           <div style="padding:20px">
             <div class="row gap-sm" style="margin-bottom:8px">
@@ -516,8 +516,8 @@ JACC.Screens = {
 
   saved() {
     return `
-      <div class="screen-enter horizon-shell">
-        <div class="section-title"><h1 style="font-size:1.5rem;margin:0">Saved jobs</h1></div>
+      <div class="screen-enter horizon-shell horizon-board">
+        <div class="section-title"><h1>Saved jobs</h1></div>
         <div class="stack">${JACC.JOBS.slice(0, 3).map(j => `
           <div class="list-card">
             ${JACC.jobThumb(j)}
@@ -530,8 +530,8 @@ JACC.Screens = {
 
   applications() {
     return `
-      <div class="screen-enter horizon-shell">
-        <div class="section-title"><h1 style="font-size:1.5rem;margin:0">My applications</h1></div>
+      <div class="screen-enter horizon-shell horizon-board">
+        <div class="section-title"><h1>My applications</h1></div>
         <div class="stack">${JACC.APPLICATIONS.map(a => `
           <div class="list-card" style="cursor:default">
             <div class="thumb img"><img src="assets/logos/mtn.jpg" alt=""></div>
@@ -679,8 +679,8 @@ JACC.Screens = {
   event() {
     const e = JACC.EVENTS[0];
     return `
-      <div class="screen-enter" style="max-width:720px;margin:0 auto">
-        <div class="card" style="padding:0;overflow:hidden">
+      <div class="screen-enter detail-page">
+        <div class="card detail-card" style="padding:0;overflow:hidden">
           ${JACC.coverBand(e.cover, 200)}
           <div style="padding:20px">
             <span class="pill-accent pill">${esc(e.cat)}</span>
@@ -744,7 +744,7 @@ JACC.Screens = {
 
   stories() {
     return `
-      <div class="screen-enter horizon-shell">
+      <div class="screen-enter horizon-shell horizon-board">
         <div class="hero">
           <span class="eyebrow"><i></i> Community</span>
           <h1>Alumni success stories</h1>

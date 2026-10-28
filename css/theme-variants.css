@@ -49,8 +49,31 @@
 }
 [data-theme="horizon"] .screen-enter {
   animation: rise-soft .45s ease both;
-  width: 100%;
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box;
+}
+/* Every inner page uses the full viewport width (beat inline max-width cages).
+   Home stays edge-to-edge; auth/ticket forms stay a readable column. */
+[data-theme="horizon"] .screen-enter:not(.baobab-home):not(.auth-wrap) {
+  padding-inline: var(--content-pad);
+  padding-block: 24px 40px;
+}
+[data-theme="horizon"] .screen-enter.auth-panel,
+[data-theme="horizon"] .auth-panel.screen-enter,
+[data-theme="horizon"] .ticket-card.screen-enter {
+  max-width: min(640px, 100%) !important;
+  margin-inline: auto !important;
+}
+[data-theme="horizon"] .detail-page {
   max-width: none;
+  margin-inline: 0;
+}
+[data-theme="horizon"] .detail-page .detail-card {
+  max-width: none;
+  width: 100%;
 }
 [data-theme="horizon"] .hero {
   border-radius: 0;
@@ -271,23 +294,14 @@
 [data-theme="horizon"] .horizon-hide-when-scroll { display: none; }
 [data-theme="horizon"] .section-title { margin-top: 8px; }
 
-/* Board pages: full-width edge padding (careers / spaces / events) */
+/* Board / shell pages — full width (no 1180px cage) */
 [data-theme="horizon"] .horizon-shell,
-[data-theme="horizon"] [data-careers-board],
-[data-theme="horizon"] .screen-enter.auth-panel {
+[data-theme="horizon"] [data-careers-board] {
   width: 100%;
-  max-width: var(--horizon-shell-max, 1180px);
-  margin-inline: auto;
+  max-width: none;
+  margin-inline: 0;
   padding: 24px var(--content-pad) 40px;
   box-sizing: border-box;
-}
-[data-theme="horizon"] .horizon-shell.horizon-board,
-[data-theme="horizon"] [data-careers-board].horizon-board {
-  max-width: none;
-  width: 100%;
-}
-[data-theme="horizon"] .screen-enter.auth-panel {
-  max-width: 640px;
 }
 [data-theme="horizon"] .horizon-shell .stack,
 [data-theme="horizon"] .horizon-shell .searchbar,
@@ -382,18 +396,23 @@
 }
 [data-theme="horizon"] .space-teaser-media {
   display: block;
-  position: relative;
+  flex: none;
+  width: 100%;
   height: 168px;
+  border-radius: 0;
   background: var(--sunken) center/cover no-repeat;
   color: #fff;
+  overflow: hidden;
 }
 [data-theme="horizon"] .space-teaser-scrim {
+  display: block;
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgb(34 64 77 / 8%) 0%, rgb(34 64 77 / 55%) 100%);
   pointer-events: none;
 }
 [data-theme="horizon"] .space-kind {
+  display: inline-flex;
   position: absolute;
   left: 12px;
   bottom: 12px;
@@ -406,6 +425,8 @@
   top: 12px;
   right: 12px;
   z-index: 1;
+  font-size: inherit;
+  padding: unset;
 }
 [data-theme="horizon"] .space-teaser .meta {
   padding: 14px 16px 16px;
@@ -550,14 +571,38 @@
 }
 
 /* ═══════════ PULSE — full-width kinetic (light JA colours) ═══════════ */
+[data-theme="pulse"] main.viewport {
+  width: 100%;
+  max-width: none;
+}
+[data-theme="pulse"] .app-header .row,
+[data-theme="pulse"] .subnav {
+  max-width: none;
+  width: 100%;
+}
 [data-theme="pulse"] .screen-enter {
   animation: rise-soft .4s ease both;
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box;
+}
+[data-theme="pulse"] .screen-enter.auth-panel,
+[data-theme="pulse"] .auth-panel.screen-enter,
+[data-theme="pulse"] .ticket-card.screen-enter {
+  max-width: min(640px, 100%) !important;
+  margin-inline: auto !important;
+}
+[data-theme="pulse"] .detail-page {
+  max-width: none;
+  margin-inline: 0;
 }
 [data-theme="pulse"] .baobab-home {
   display: grid;
   grid-template-columns: 1fr;
-  max-width: 1320px;
-  margin-inline: auto;
+  max-width: none;
+  margin-inline: 0;
   gap: 18px;
 }
 [data-theme="pulse"] .home-rail { display: none !important; }
@@ -617,8 +662,32 @@
 }
 
 /* ═══════════ SPARK — lively motion-first ═══════════ */
+[data-theme="spark"] main.viewport {
+  width: 100%;
+  max-width: none;
+}
+[data-theme="spark"] .app-header .row,
+[data-theme="spark"] .subnav {
+  max-width: none;
+  width: 100%;
+}
 [data-theme="spark"] .screen-enter {
   animation: spark-pop .55s cubic-bezier(.2, 1.2, .3, 1) both;
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  box-sizing: border-box;
+}
+[data-theme="spark"] .screen-enter.auth-panel,
+[data-theme="spark"] .auth-panel.screen-enter,
+[data-theme="spark"] .ticket-card.screen-enter {
+  max-width: min(640px, 100%) !important;
+  margin-inline: auto !important;
+}
+[data-theme="spark"] .detail-page {
+  max-width: none;
+  margin-inline: 0;
 }
 @keyframes spark-pop {
   from { opacity: 0; transform: translateY(18px) scale(.96); }
@@ -627,8 +696,8 @@
 [data-theme="spark"] .baobab-home {
   display: grid;
   grid-template-columns: 1fr;
-  max-width: 1180px;
-  margin-inline: auto;
+  max-width: none;
+  margin-inline: 0;
   gap: 18px;
 }
 [data-theme="spark"] .home-rail { display: none !important; }

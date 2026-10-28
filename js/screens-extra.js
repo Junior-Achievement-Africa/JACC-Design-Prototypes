@@ -464,11 +464,11 @@ Object.assign(JACC.Screens, {
   space() {
     const s = (JACC.SPACES || [])[0];
     return `
-      <div class="screen-enter horizon-shell">
+      <div class="screen-enter horizon-shell horizon-board">
         <div class="section-title">
           <div>
             <div class="tiny"><a href="#/spaces">Spaces</a> · ${esc(s.kind)}</div>
-            <h1 style="font-size:1.5rem;margin:4px 0 0">${esc(s.name)}</h1>
+            <h1 style="margin:4px 0 0">${esc(s.name)}</h1>
           </div>
           <button class="btn btn-sm btn-primary" data-toast="New discussion started" data-nav="#/space-thread">New discussion</button>
         </div>
@@ -493,7 +493,7 @@ Object.assign(JACC.Screens, {
   'space-thread'() {
     const posts = JACC.SPACE_POSTS.t1 || [];
     return `
-      <div class="screen-enter horizon-shell" style="max-width:720px">
+      <div class="screen-enter horizon-shell horizon-board">
         <div class="tiny"><a href="#/spaces">Spaces</a> · <a href="#/space">JA Ghana 2019</a></div>
         <h1 style="font-size:1.4rem;margin:8px 0 16px">Anyone interviewing at Hubtel this month?</h1>
         <div class="stack">${posts.map((p) => `

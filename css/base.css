@@ -522,6 +522,14 @@ main.viewport {
   box-sizing: border-box;
 }
 
+/* Detail screens: readable column on constrained themes; full-width themes override */
+.detail-page {
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
+}
+.detail-card { width: 100%; }
+
 /* Cards & surfaces */
 .card {
   background: var(--surface);
@@ -670,8 +678,28 @@ main.viewport {
   display: none !important;
 }
 .list-card:hover { transform: translateY(-2px); }
-.job-teaser-media,
-.space-teaser-media { display: none; }
+.job-teaser-media { display: none; }
+/* Spaces cover: list thumb by default; Horizon promotes to full image card */
+.space-teaser-media {
+  display: block;
+  position: relative;
+  flex: 0 0 72px;
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-md);
+  background: var(--sunken) center/cover no-repeat;
+  overflow: hidden;
+}
+.space-teaser-scrim { display: none; }
+.space-kind { display: none; }
+.space-unread {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 1;
+  font-size: 10px;
+  padding: 2px 6px;
+}
 /* Default careers results stay a vertical stack; themes may promote .careers-grid */
 .careers-grid.stack { display: flex; flex-direction: column; gap: 12px; }
 .filter-chip.is-active {
