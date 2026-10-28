@@ -415,47 +415,52 @@ JACC.Screens = {
       { key: 'matched', label: t('careers.matched') },
     ];
     const jobRow = (j) => `
-      <a class="list-card" href="#/job" data-job-id="${j.id}"
+      <a class="list-card job-teaser" href="#/job" data-job-id="${j.id}"
         data-type="${esc(j.type)}" data-paid="${j.paid ? '1' : '0'}" data-match="${j.match || 0}"
         data-search="${esc([j.title, j.company, j.loc, j.type, j.salary, ...(j.tags || [])].join(' ').toLowerCase())}">
+        <div class="job-teaser-media" style="background-image:url('${j.cover || j.logo}')">
+          <div class="match-ring" style="--m:${j.match}"><span>${j.match}%</span></div>
+        </div>
         ${JACC.jobThumb(j)}
         <div class="meta">
-          <div class="row gap-sm"><h3 style="margin:0">${esc(j.title)}</h3>
+          <div class="row gap-sm"><h3 style="margin:0">${esc(j.title)}</h3></div>
+          <div class="row gap-sm" style="margin-top:6px">
             <span class="pill">${esc(j.type)}</span>
             <span class="pill ${j.paid ? 'pill-success' : 'pill-danger'}">${j.paid ? t('careers.paid') : t('careers.unpaid')}</span>
           </div>
-          <div class="tiny">${esc(j.company)} · ${esc(j.loc)}${j.salary ? ` · ${esc(j.salary)}` : ''}</div>
-          <div class="row gap-sm" style="margin-top:6px">${j.tags.map((tag) => `<span class="pill">${esc(tag)}</span>`).join('')}</div>
+          <div class="tiny" style="margin-top:8px">${esc(j.company)} · ${esc(j.loc)}${j.salary ? ` · ${esc(j.salary)}` : ''}</div>
+          <div class="row gap-sm" style="margin-top:8px">${j.tags.map((tag) => `<span class="pill">${esc(tag)}</span>`).join('')}</div>
         </div>
-        <div class="match-ring" style="--m:${j.match}"><span>${j.match}%</span></div>
       </a>`;
     return `
       <div class="screen-enter" data-careers-board>
-        <div class="section-title"><h1 style="font-size:1.6rem;margin:0">${t('careers.h1')}</h1>
-          <div class="row gap-sm">
-            <a class="btn btn-sm btn-ghost" href="#/applications">${t('common.applications')}</a>
-            <a class="btn btn-sm btn-ghost" href="#/saved-searches">${t('common.savedSearches')}</a>
-            <a class="btn btn-sm btn-secondary" href="#/saved">${t('common.saved')}</a>
-          </div></div>
-        <div class="searchbar">${icon('search')}
-          <input type="search" id="careers-search" placeholder="${t('careers.searchPh')}" value="" autocomplete="off" aria-label="${t('careers.searchPh')}">
-        </div>
-        <p class="tiny" style="margin:0 0 8px">Select one or more filters · combine with search</p>
-        <div class="filters" role="group" aria-label="Job filters">
-          ${filters.map((f, i) =>
-            `<button class="filter-chip ${i === 0 ? 'is-active' : ''}" type="button" data-careers-filter="${esc(f.key)}" aria-pressed="${i === 0 ? 'true' : 'false'}">${esc(f.label)}</button>`).join('')}
-        </div>
-        <div class="card" style="margin-bottom:14px">
-          <div class="row between" style="flex-wrap:wrap;gap:10px">
-            <div>
-              <strong>${t('common.digestTitle')}</strong>
-              <div class="tiny">${t('common.digestHint')}</div>
-            </div>
-            <a class="btn btn-sm btn-secondary" href="#/digest">${t('common.digestPreview')}</a>
+        <div class="careers-toolbar">
+          <div class="section-title"><h1 style="font-size:1.6rem;margin:0">${t('careers.h1')}</h1>
+            <div class="row gap-sm">
+              <a class="btn btn-sm btn-ghost" href="#/applications">${t('common.applications')}</a>
+              <a class="btn btn-sm btn-ghost" href="#/saved-searches">${t('common.savedSearches')}</a>
+              <a class="btn btn-sm btn-secondary" href="#/saved">${t('common.saved')}</a>
+            </div></div>
+          <div class="searchbar">${icon('search')}
+            <input type="search" id="careers-search" placeholder="${t('careers.searchPh')}" value="" autocomplete="off" aria-label="${t('careers.searchPh')}">
           </div>
+          <p class="tiny" style="margin:0 0 8px">Select one or more filters · combine with search</p>
+          <div class="filters" role="group" aria-label="Job filters">
+            ${filters.map((f, i) =>
+              `<button class="filter-chip ${i === 0 ? 'is-active' : ''}" type="button" data-careers-filter="${esc(f.key)}" aria-pressed="${i === 0 ? 'true' : 'false'}">${esc(f.label)}</button>`).join('')}
+          </div>
+          <div class="card" style="margin-bottom:14px">
+            <div class="row between" style="flex-wrap:wrap;gap:10px">
+              <div>
+                <strong>${t('common.digestTitle')}</strong>
+                <div class="tiny">${t('common.digestHint')}</div>
+              </div>
+              <a class="btn btn-sm btn-secondary" href="#/digest">${t('common.digestPreview')}</a>
+            </div>
+          </div>
+          <p class="tiny" id="careers-count" style="margin:0 0 10px">${JACC.JOBS.length} roles</p>
         </div>
-        <p class="tiny" id="careers-count" style="margin:0 0 10px">${JACC.JOBS.length} roles</p>
-        <div class="stack" id="careers-results">${JACC.JOBS.map(jobRow).join('')}</div>
+        <div class="stack careers-grid" id="careers-results">${JACC.JOBS.map(jobRow).join('')}</div>
         <div class="card" id="careers-empty" hidden style="text-align:center;padding:28px">
           <strong>No roles match</strong>
           <p class="muted" style="margin:8px 0 0">Try another keyword or clear filters.</p>

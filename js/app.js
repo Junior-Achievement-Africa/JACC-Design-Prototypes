@@ -649,7 +649,11 @@
         if (ok && wantMatched) ok = match >= 80;
         if (ok && q) ok = hay.includes(q);
         card.hidden = !ok;
-        card.style.display = ok ? '' : 'none';
+        if (ok) {
+          card.style.removeProperty('display');
+        } else {
+          card.style.display = 'none';
+        }
         if (ok) shown += 1;
       });
 
@@ -662,7 +666,8 @@
       if (empty) empty.hidden = shown > 0;
       if (results) {
         results.hidden = shown === 0;
-        results.style.display = shown === 0 ? 'none' : '';
+        if (shown === 0) results.style.display = 'none';
+        else results.style.removeProperty('display');
       }
     };
 

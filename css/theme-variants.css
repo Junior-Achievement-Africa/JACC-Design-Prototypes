@@ -268,15 +268,69 @@
   padding-inline: var(--content-pad);
 }
 [data-theme="horizon"] [data-careers-board] {
-  padding-top: 20px;
+  padding: 24px var(--content-pad) 40px;
+  max-width: 1180px;
+  margin-inline: auto;
+  box-sizing: border-box;
 }
-[data-theme="horizon"] [data-careers-board] .stack,
-[data-theme="horizon"] [data-careers-board] .searchbar,
-[data-theme="horizon"] [data-careers-board] .filters,
-[data-theme="horizon"] [data-careers-board] .section-title,
-[data-theme="horizon"] [data-careers-board] .card,
-[data-theme="horizon"] [data-careers-board] .tiny {
+[data-theme="horizon"] [data-careers-board] .careers-toolbar,
+[data-theme="horizon"] [data-careers-board] .careers-grid,
+[data-theme="horizon"] [data-careers-board] #careers-empty {
   padding-inline: 0;
+  width: 100%;
+}
+/* Teaser card grid — not full-bleed rows */
+[data-theme="horizon"] [data-careers-board] .careers-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+  flex-direction: unset;
+}
+[data-theme="horizon"] [data-careers-board] .job-teaser {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  height: 100%;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+[data-theme="horizon"] [data-careers-board] .job-teaser:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-float);
+}
+[data-theme="horizon"] [data-careers-board] .job-teaser .thumb {
+  display: none;
+}
+[data-theme="horizon"] [data-careers-board] .job-teaser-media {
+  display: block;
+  position: relative;
+  height: 148px;
+  background: var(--sunken) center/cover no-repeat;
+}
+[data-theme="horizon"] [data-careers-board] .job-teaser-media .match-ring {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--white);
+}
+[data-theme="horizon"] [data-careers-board] .job-teaser .meta {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+[data-theme="horizon"] [data-careers-board] .job-teaser .meta h3 {
+  font-size: 1.05rem;
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+[data-theme="horizon"] [data-careers-board] .job-teaser[hidden] {
+  display: none !important;
 }
 
 @media (min-width: 900px) {
