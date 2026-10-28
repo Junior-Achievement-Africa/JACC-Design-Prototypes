@@ -16,8 +16,8 @@ JACC.THEMES = [
   {
     id: 'horizon',
     name: 'Horizon',
-    tagline: 'Full-width — edge-to-edge hero, job carousel',
-    concept: 'Same JA colours · cinematic layout · single column',
+    tagline: 'Edge-to-edge — full-bleed hero & job carousel',
+    concept: 'Same JA colours · cinematic full-bleed · single column',
     swatches: JA_SWATCHES,
     preview: JA_PREVIEW,
   },

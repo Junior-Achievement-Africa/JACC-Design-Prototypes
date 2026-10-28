@@ -78,9 +78,9 @@
 /* ── Horizon — full-bleed, cinematic layout ── */
 [data-theme="horizon"] {
   --theme-name: "Horizon";
-  --theme-tagline: "Full-width · hero-led · carousel";
-  --content-max: 100%;
-  --content-pad: 28px;
+  --theme-tagline: "Edge-to-edge · hero-led · carousel";
+  --content-max: none;
+  --content-pad: clamp(16px, 3vw, 40px);
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
