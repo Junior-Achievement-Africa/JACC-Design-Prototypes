@@ -88,7 +88,8 @@
         <div class="fb-body">
           <p class="fb-howto">
             Tap <strong>Add pin</strong>, then click the part of the UI you want to comment on.
-            Feedback is saved in this browser. Export or open a GitHub Issue so the team can collect it.
+            Notes stay in <strong>this browser only</strong> — other people (or another device) will not see them until you export or open a GitHub Issue.
+            “Send as GitHub Issue” also downloads a screenshot you can drag onto the issue.
           </p>
           <div class="fb-reviewer">
             <label for="fb-name">Your name (shown on comments)</label>
@@ -130,6 +131,7 @@
       await navigator.clipboard.writeText(toMarkdown());
       toast('Feedback report copied');
     });
+    $('#fb-issue').addEventListener('click', onSendGitHubIssue);
     $('#fb-clear').addEventListener('click', () => {
       if (!items.length) return;
       if (confirm('Clear all feedback stored in this browser?')) {
@@ -141,6 +143,83 @@
     updateIssueLink();
     updateCount();
     renderList();
+  }
+
+  function loadHtml2Canvas() {
+    if (window.html2canvas) return Promise.resolve(window.html2canvas);
+    return new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';
+      s.async = true;
+      s.onload = () => (window.html2canvas ? resolve(window.html2canvas) : reject(new Error('html2canvas missing')));
+      s.onerror = () => reject(new Error('Could not load screenshot library'));
+      document.head.appendChild(s);
+    });
+  }
+
+  function downloadBlob(filename, blob) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  async function captureFeedbackShot() {
+    const html2canvas = await loadHtml2Canvas();
+    closeDrawer();
+    // Let drawer close paint before capture
+    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+    renderPins();
+    const canvas = await html2canvas(document.body, {
+      useCORS: true,
+      allowTaint: true,
+      logging: false,
+      scale: Math.min(2, window.devicePixelRatio || 1),
+      backgroundColor: getComputedStyle(document.body).backgroundColor || '#ffffff',
+      ignoreElements: (el) => !!(
+        el.id === 'fb-drawer'
+        || el.id === 'fb-scrim'
+        || el.id === 'fb-hint'
+        || el.id === 'fb-root'
+        || el.classList?.contains('theme-bar')
+        || el.id === 'persona-bar'
+        || el.classList?.contains('fb-modal-backdrop')
+        || el.classList?.contains('toast')
+      ),
+    });
+    return canvas;
+  }
+
+  async function onSendGitHubIssue(e) {
+    e.preventDefault();
+    if (!items.length) return;
+    const a = $('#fb-issue');
+    const prev = a.textContent;
+    a.textContent = 'Capturing screenshot…';
+    a.style.pointerEvents = 'none';
+    try {
+      updateIssueLink({ withScreenshotNote: true });
+      const canvas = await captureFeedbackShot();
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+      if (blob) {
+        const stamp = new Date().toISOString().slice(0, 10);
+        const { theme, screen } = routeInfo();
+        downloadBlob(`jacc-feedback-${theme}-${screen}-${stamp}.png`, blob);
+        toast('Screenshot downloaded — drop it onto the GitHub issue');
+      }
+      window.open(a.href, '_blank', 'noopener');
+    } catch (err) {
+      console.warn(err);
+      updateIssueLink({ withScreenshotNote: false });
+      toast('Opened issue without screenshot — attach Export Markdown if needed');
+      window.open(a.href, '_blank', 'noopener');
+    } finally {
+      a.textContent = prev;
+      a.style.pointerEvents = items.length ? 'auto' : 'none';
+      updateIssueLink();
+    }
   }
 
   function escapeAttr(s) {
@@ -355,7 +434,12 @@
     setTimeout(() => $('#fb-message', backdrop)?.focus(), 50);
   }
 
-  function toMarkdown() {
+  function prototypeUrl(theme, screen) {
+    const base = `${location.origin}${location.pathname}`.replace(/\/$/, '') || location.href.split('#')[0];
+    return `${base}/#/${theme}/${screen}`;
+  }
+
+  function toMarkdown({ withScreenshotNote = false } = {}) {
     const byScreen = {};
     items.forEach((i) => {
       const key = `${i.theme} / ${i.screen}`;
@@ -369,8 +453,16 @@
       `Total notes: ${items.length}`,
       '',
     ];
+    if (withScreenshotNote) {
+      lines.push(
+        '> **Screenshot:** a PNG was downloaded with this report. Drag that file onto this issue so the pins are visible.',
+        '',
+      );
+    }
     Object.entries(byScreen).forEach(([key, list]) => {
+      const sample = list[0];
       lines.push(`## ${key}`, '');
+      if (sample) lines.push(`- Screen: ${prototypeUrl(sample.theme, sample.screen)}`, '');
       list.forEach((i, idx) => {
         const type = TYPES.find((t) => t.id === i.type)?.label || i.type;
         lines.push(
@@ -399,11 +491,11 @@
     toast(`Downloaded ${filename}`);
   }
 
-  function updateIssueLink() {
+  function updateIssueLink(opts = {}) {
     const a = $('#fb-issue');
     if (!a) return;
     const title = encodeURIComponent(`Design feedback · ${items.length} note(s) · ${new Date().toISOString().slice(0, 10)}`);
-    let body = toMarkdown();
+    let body = toMarkdown(opts);
     // GitHub URL length safety
     if (body.length > 5500) {
       body = `${body.slice(0, 5500)}\n\n---\n_Truncated — please also attach the exported Markdown/JSON from the prototype._\n`;
