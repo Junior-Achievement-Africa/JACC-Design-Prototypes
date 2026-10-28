@@ -604,6 +604,59 @@
     el._t = setTimeout(() => el.classList.remove('show'), 2200);
   }
 
+  function bindCareersBoard(root) {
+    const board = root.querySelector('[data-careers-board]');
+    if (!board) return;
+    const search = board.querySelector('#careers-search');
+    const results = board.querySelector('#careers-results');
+    const empty = board.querySelector('#careers-empty');
+    const count = board.querySelector('#careers-count');
+    let activeFilter = 'all';
+
+    const apply = () => {
+      const q = (search?.value || '').trim().toLowerCase();
+      let shown = 0;
+      $$('.list-card[data-job-id]', results).forEach((card) => {
+        const type = (card.dataset.type || '').toLowerCase();
+        const paid = card.dataset.paid === '1';
+        const match = Number(card.dataset.match || 0);
+        const hay = card.dataset.search || '';
+        let ok = true;
+        if (activeFilter === 'paid') ok = paid;
+        else if (activeFilter === 'unpaid') ok = !paid;
+        else if (activeFilter === 'matched') ok = match >= 80;
+        else if (activeFilter !== 'all') ok = type === activeFilter.toLowerCase();
+        if (ok && q) ok = hay.includes(q);
+        card.hidden = !ok;
+        if (ok) shown += 1;
+      });
+      if (count) count.textContent = `${shown} role${shown === 1 ? '' : 's'}${q || activeFilter !== 'all' ? ' · filtered' : ''}`;
+      if (empty) empty.hidden = shown > 0;
+      if (results) results.hidden = shown === 0;
+    };
+
+    search?.addEventListener('input', apply);
+    search?.addEventListener('search', apply);
+
+    $$('[data-careers-filter]', board).forEach((chip) => {
+      chip.addEventListener('click', () => {
+        $$('[data-careers-filter]', board).forEach((x) => x.classList.remove('is-active'));
+        chip.classList.add('is-active');
+        activeFilter = chip.dataset.careersFilter || 'all';
+        apply();
+      });
+    });
+
+    board.querySelector('[data-careers-reset]')?.addEventListener('click', () => {
+      if (search) search.value = '';
+      activeFilter = 'all';
+      $$('[data-careers-filter]', board).forEach((x) => x.classList.toggle('is-active', x.dataset.careersFilter === 'all'));
+      apply();
+    });
+
+    apply();
+  }
+
   function bindInteractions(root) {
     $$('[data-toast]', root).forEach((el) => {
       el.addEventListener('click', (e) => {
@@ -631,7 +684,7 @@
     });
     $$('.filter-chip, .choice', root).forEach((el) => {
       el.addEventListener('click', () => {
-        if (el.dataset.setLang) return;
+        if (el.dataset.setLang || el.dataset.careersFilter) return;
         const group = el.parentElement;
         if (group?.classList.contains('filters') || group?.classList.contains('choice-grid')) {
           $$('.filter-chip, .choice', group).forEach((x) => x.classList.remove('is-active', 'is-on'));
@@ -639,6 +692,7 @@
         el.classList.add(el.classList.contains('choice') ? 'is-on' : 'is-active');
       });
     });
+    bindCareersBoard(root);
   }
 
   function render() {

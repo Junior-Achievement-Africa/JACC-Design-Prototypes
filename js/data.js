@@ -145,6 +145,23 @@ JACC.EVENTS = [
 JACC.jobThumb = (j) =>
   `<div class="thumb img"><img src="${j.logo || j.cover}" alt="" loading="lazy" decoding="async"></div>`;
 
+/** Filter jobs by search query + chip key (all | type | paid | unpaid | matched) */
+JACC.filterJobs = (jobs, { query = '', filter = 'all' } = {}) => {
+  const q = String(query || '').trim().toLowerCase();
+  const list = jobs || JACC.JOBS || [];
+  return list.filter((j) => {
+    if (filter === 'paid' && !j.paid) return false;
+    if (filter === 'unpaid' && j.paid) return false;
+    if (filter === 'matched' && (j.match || 0) < 80) return false;
+    if (filter && filter !== 'all' && filter !== 'paid' && filter !== 'unpaid' && filter !== 'matched') {
+      if (String(j.type).toLowerCase() !== filter.toLowerCase()) return false;
+    }
+    if (!q) return true;
+    const hay = [j.title, j.company, j.loc, j.type, j.salary, ...(j.tags || [])].join(' ').toLowerCase();
+    return hay.includes(q);
+  });
+};
+
 /** Job / event cover band */
 JACC.coverBand = (src, minHeight = 160) =>
   `<div class="cover-band" style="height:${minHeight}px;background:url(${src}) center/cover"></div>`;
