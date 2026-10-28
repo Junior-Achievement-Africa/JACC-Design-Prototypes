@@ -43,21 +43,24 @@
 }
 
 .fb-fab .fb-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-width: 22px;
   height: 22px;
-  padding: 0 6px;
+  padding: 0 7px;
   border-radius: 999px;
   background: var(--ja-enterprise-aqua);
   color: #22404D;
   font-size: 12px;
   font-weight: 800;
-  display: inline-grid;
-  place-items: center;
+  line-height: 1;
+  white-space: nowrap;
+  box-sizing: border-box;
 }
-.fb-count-sep {
-  opacity: .55;
-  margin: 0 2px;
-  font-weight: 700;
+.fb-fab .fb-count:empty,
+.fb-fab .fb-count[data-empty="1"] {
+  display: none;
 }
 .fb-tabs {
   display: grid;

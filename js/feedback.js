@@ -304,13 +304,24 @@
     updateCount();
   }
 
+  function feedbackTotals() {
+    const ids = new Set(items.map((i) => i.id));
+    teamItems.forEach((t) => ids.add(t.id));
+    return {
+      local: items.length,
+      team: teamItems.length,
+      total: ids.size,
+    };
+  }
+
   function updateCount() {
     const btn = $('#fb-toggle');
     if (!btn || annotating) return;
-    const local = items.length;
-    const team = teamItems.length;
-    const label = team ? `${local}<span class="fb-count-sep">·</span>${team}` : `${local}`;
-    btn.innerHTML = `Feedback <span class="fb-count" title="Local · Team">${label}</span>`;
+    const { local, team, total } = feedbackTotals();
+    const title = team
+      ? `${total} note(s) · ${local} on this device · ${team} shared with team`
+      : `${local} note(s) on this device`;
+    btn.innerHTML = `Feedback <span class="fb-count" title="${escapeAttr(title)}">${total}</span>`;
   }
 
   function mergedPinsForScreen() {
