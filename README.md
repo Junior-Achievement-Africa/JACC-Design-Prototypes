@@ -7,14 +7,12 @@ Public, clickable **Career Hub** design review for JA Africa stakeholders.
 
 ## What’s in this review build
 
-- **Baobab = phase-0/foundations** — feed home, spaces rail, bento stats, nav pill, match rings  
-- **Persona switcher** — assume Guest, Pending, Locked (wrong cohort), Alumni, Employer, Events coordinator, Hub admin, or M&E and see that role’s nav + home  
-- **Moodle cohort gate** — plugin settings to choose which cohorts can open the Career Hub  
-- **AI CV parser** — upload → animated parse → review extract → CV studio / health / share (from Career Connect)  
-- **Organise desk**, employer **pipeline**, legacy forum/courses/surveys for parity  
+- **Shared JA colours** across every theme — only layout / type / density change  
+- **Baobab** — soft 3-column foundations · **Horizon / Pulse / Atlas** — full-width layouts · **Verdant** — centred editorial  
+- **Persona switcher**, Moodle **cohort gate**, **AI CV studio**, organise / employer flows  
 - **Feedback pins** for client comments → GitHub Issues  
 
-Mentorship is **out of this prototype** (jobs, events, profiles, CV, and community stay in focus).
+Mentorship is **out of this prototype**.
 
 ## How to review
 

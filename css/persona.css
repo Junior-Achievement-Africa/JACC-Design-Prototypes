@@ -57,11 +57,6 @@
   border-color: transparent;
 }
 
-[data-theme="pulse"] .persona-chip.is-active {
-  background: var(--ja-enterprise-aqua);
-  color: #121212;
-}
-
 .persona-hint {
   font-size: 12px;
   color: var(--ink-3);

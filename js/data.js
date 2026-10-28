@@ -1,46 +1,49 @@
 /* Sample content for JACC Career Hub design prototype */
 window.JACC = window.JACC || {};
 
+const JA_SWATCHES = ['#EEF3F4', '#285F74', '#00C0CA', '#22404D', '#C2EDF0'];
+const JA_PREVIEW = { bg: '#EEF3F4', fg: '#22404D', accent: '#00C0CA', primary: '#285F74' };
+
 JACC.THEMES = [
   {
     id: 'baobab',
     name: 'Baobab',
-    tagline: 'Foundations — 3-col feed, soft float motion, frosted nav pill',
-    concept: 'Calm iOS-like shell with cohort composer and match rings',
-    swatches: ['#EEF3F4', '#285F74', '#00C0CA', '#22404D', '#C2EDF0'],
-    preview: { bg: '#EEF3F4', fg: '#22404D', accent: '#00C0CA', primary: '#285F74' },
+    tagline: 'Soft foundations — 3-column feed, calm cards',
+    concept: 'Same JA colours · rounded shell · cohort rail',
+    swatches: JA_SWATCHES,
+    preview: JA_PREVIEW,
   },
   {
     id: 'horizon',
     name: 'Horizon',
-    tagline: 'Cinematic — full-bleed heroes, job carousels, slam-in motion',
-    concept: 'Single-column spotlight; horizontal snap cards; skewed accents',
-    swatches: ['#F4FBFC', '#008B9C', '#00C0CA', '#E3E24F', '#22404D'],
-    preview: { bg: '#F4FBFC', fg: '#22404D', accent: '#E3E24F', primary: '#008B9C' },
+    tagline: 'Full-width — edge-to-edge hero, job carousel',
+    concept: 'Same JA colours · cinematic layout · single column',
+    swatches: JA_SWATCHES,
+    preview: JA_PREVIEW,
   },
   {
     id: 'verdant',
     name: 'Verdant',
-    tagline: 'Editorial — serif pull-quotes, asymmetric bento, magazine cards',
-    concept: 'Story-led careers & impact; organic radii; slower fades',
-    swatches: ['#F7F8EF', '#00763D', '#8FC440', '#F3F2B3', '#46B17B'],
-    preview: { bg: '#F7F8EF', fg: '#22404D', accent: '#8FC440', primary: '#00763D' },
+    tagline: 'Editorial — centred magazine column, pull-quotes',
+    concept: 'Same JA colours · serif headlines · story-led',
+    swatches: JA_SWATCHES,
+    preview: JA_PREVIEW,
   },
   {
     id: 'pulse',
     name: 'Pulse',
-    tagline: 'Night glass — neon CTAs, live ticker, kinetic list slides',
-    concept: 'Power-user dark mode with glowing focus and activity stream',
-    swatches: ['#121212', '#00C0CA', '#8FC440', '#F65F4E', '#1c1c1e'],
-    preview: { bg: '#121212', fg: '#f2f2f7', accent: '#00C0CA', primary: '#00C0CA' },
+    tagline: 'Full-width feed — live ticker, kinetic lists',
+    concept: 'Same JA colours · wider canvas · motion accents',
+    swatches: JA_SWATCHES,
+    preview: JA_PREVIEW,
   },
   {
     id: 'atlas',
     name: 'Atlas',
-    tagline: 'Ops dense — tables first, sharp corners, zero fluff motion',
-    concept: 'Admin/employer workstation; tabular actions; hairline chrome',
-    swatches: ['#EEF3F4', '#22404D', '#F65F4E', '#285F74', '#00C0CA'],
-    preview: { bg: '#EEF3F4', fg: '#22404D', accent: '#F65F4E', primary: '#22404D' },
+    tagline: 'Full-width ops — tables first, sharp edges',
+    concept: 'Same JA colours · dense workstation · no fluff',
+    swatches: JA_SWATCHES,
+    preview: JA_PREVIEW,
   },
 ];
 

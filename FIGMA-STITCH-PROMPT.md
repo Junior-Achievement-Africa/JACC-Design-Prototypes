@@ -38,11 +38,11 @@ GENERATE FIVE THEME VARIANTS (separate frames), same IA and components, differen
 3) VERDANT
    Sustainable Forest primary, Leadership Lime / Confident Cream accents, editorial serif headlines + humanist sans body, organic large radii, growth/careers mood.
 
-4) PULSE (dark)
-   Background #121212 / cards #1c1c1e, Enterprise Aqua primary, Leadership Lime success, Real World Red danger, glass/blur chrome, neon-aqua focus — night mode for power users.
+4) PULSE (full-width feed)
+   Same JA colour tokens as Baobab. Wider canvas, live ticker, kinetic list hover, aqua-tinted borders — motion & density, not a different palette.
 
-5) ATLAS (ops)
-   Dense information design for employers & admins: Immersive Blue-Black primary, Real World Red sparse accent, tighter 4–8px radii, tabular lists, moderation queues, KPI dashboards.
+5) ATLAS (ops, full-width)
+   Same JA colour tokens. Dense tables, sharp 4–8px radii, tabular lists, moderation queues, KPI dashboards — layout/ops style only.
 
 SCREENS TO PRODUCE PER THEME (desktop 1280 and mobile 390)
 A. Marketing landing — hero “Find work. Grow your career. Stay connected.”, stats, feature trio (Careers / CV studio / Events), alumni stories
@@ -75,8 +75,8 @@ DELIVERABLES
 
 ```
 Mobile app UI for JA Africa Career Hub (JACC). Palette only: #22404D #285F74 #00C0CA #00763D #8FC440 #EEF3F4 #F65F4E #FFFFFF.
-Screens: alumni home with job match %, job board, CV studio, event RSVP, employer applicant review, dark and light themes.
-Style: [choose one: calm Apple-like | bold teal hero | forest editorial | aqua night glass | dense admin].
+Screens: alumni home with job match %, job board, CV studio, event RSVP, employer applicant review.
+Style: [choose one: calm 3-col | full-bleed hero | editorial centred | full-width kinetic feed | dense full-width ops]. Same JA colours in every style.
 Clean, accessible, African alumni career community — no purple, no generic Material blue. No mentorship screens.
 ```
 
@@ -86,10 +86,10 @@ Clean, accessible, African alumni career community — no purple, no generic Mat
 
 **Baobab:** Soft Possibility Pearl canvas, Boundless Blue CTAs, aqua highlights, rounded 16–20px cards, frosted nav — like a polished iOS productivity app for alumni careers.
 
-**Horizon:** Immersive full-bleed teal gradients, Syne-like display headlines, yellow accent CTAs, cinematic landing and spacious job cards.
+**Horizon:** Full-width canvas, edge-to-edge heroes, job carousels — same JA Boundless Blue / Aqua as Baobab.
 
-**Verdant:** Forest green primary, cream and lime washes, Fraunces headlines — warm editorial careers magazine meeting a jobs product.
+**Verdant:** Centred magazine column, Fraunces italic headlines, pull-quotes — same JA colour tokens.
 
-**Pulse:** True black/near-black UI, aqua glass, lime success chips, red alerts — premium night mode for messaging and job ops.
+**Pulse:** Full-width feed with live ticker and kinetic lists — same JA colour tokens, more motion.
 
-**Atlas:** Sharp dense tables, Blue-Black buttons, red moderation flags, KPI strips — built for JA staff and employer hiring workflows.
+**Atlas:** Full-width sharp tables and ops chrome — same JA colour tokens, denser type.
