@@ -7,7 +7,7 @@ const JA_PREVIEW = { bg: '#EEF3F4', fg: '#22404D', accent: '#00C0CA', primary: '
 JACC.THEMES = [
   {
     id: 'baobab',
-    name: 'Baobab',
+    name: 'Concept 1',
     tagline: 'Soft foundations — 3-column feed, calm cards',
     concept: 'Same JA colours · rounded shell · cohort rail',
     swatches: JA_SWATCHES,
@@ -15,7 +15,7 @@ JACC.THEMES = [
   },
   {
     id: 'horizon',
-    name: 'Horizon',
+    name: 'Concept 2',
     tagline: 'Edge-to-edge — full-bleed hero & job carousel',
     concept: 'Same JA colours · cinematic full-bleed · single column',
     swatches: JA_SWATCHES,
@@ -23,7 +23,7 @@ JACC.THEMES = [
   },
   {
     id: 'verdant',
-    name: 'Verdant',
+    name: 'Concept 3',
     tagline: 'Editorial — centred magazine column, pull-quotes',
     concept: 'Same JA colours · serif headlines · story-led',
     swatches: JA_SWATCHES,
@@ -31,7 +31,7 @@ JACC.THEMES = [
   },
   {
     id: 'pulse',
-    name: 'Pulse',
+    name: 'Concept 4',
     tagline: 'Full-width feed — live ticker, kinetic lists',
     concept: 'Same JA colours · wider canvas · motion accents',
     swatches: JA_SWATCHES,
@@ -39,7 +39,7 @@ JACC.THEMES = [
   },
   {
     id: 'spark',
-    name: 'Spark',
+    name: 'Concept 5',
     tagline: 'Lively — motion-first, bouncing energy',
     concept: 'Same JA colours · heavy animation · playful feed',
     swatches: JA_SWATCHES,

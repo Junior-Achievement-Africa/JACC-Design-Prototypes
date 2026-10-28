@@ -100,7 +100,7 @@ const I18N = {
     'common.profile': 'Profile',
     'common.viewingAs': 'Viewing as {name}',
     'common.gallery': 'Gallery',
-    'common.enterAlumni': 'Enter as Alumni (Baobab)',
+    'common.enterAlumni': 'Enter as Alumni (Concept 1)',
     'common.langMoodle': 'Follows your Moodle preferred language',
 
     'landing.eyebrow': 'JA Africa · Career Hub',
@@ -346,7 +346,7 @@ const I18N = {
     'common.profile': 'Profil',
     'common.viewingAs': 'Vue : {name}',
     'common.gallery': 'Galerie',
-    'common.enterAlumni': 'Entrer comme alumni (Baobab)',
+    'common.enterAlumni': 'Entrer comme alumni (Concept 1)',
     'common.langMoodle': 'Suit la langue préférée Moodle',
 
     'landing.eyebrow': 'JA Africa · Carrière',

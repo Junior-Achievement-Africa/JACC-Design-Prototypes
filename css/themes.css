@@ -64,7 +64,7 @@
 
 /* ── Baobab — soft foundations, 3-col, constrained ── */
 [data-theme="baobab"] {
-  --theme-name: "Baobab";
+  --theme-name: "Concept 1";
   --theme-tagline: "Soft · 3-column · calm";
   --content-max: 1100px;
   --radius-sm: 10px;
@@ -77,7 +77,7 @@
 
 /* ── Horizon — full-bleed, cinematic layout ── */
 [data-theme="horizon"] {
-  --theme-name: "Horizon";
+  --theme-name: "Concept 2";
   --theme-tagline: "Edge-to-edge · hero-led · carousel";
   --content-max: none;
   --content-pad: clamp(16px, 3vw, 40px);
@@ -96,7 +96,7 @@
 
 /* ── Verdant — editorial magazine column ── */
 [data-theme="verdant"] {
-  --theme-name: "Verdant";
+  --theme-name: "Concept 3";
   --theme-tagline: "Editorial · centred · story-led";
   --content-max: 820px;
   --content-pad: 24px;
@@ -115,7 +115,7 @@
 
 /* ── Pulse — full-width kinetic feed ── */
 [data-theme="pulse"] {
-  --theme-name: "Pulse";
+  --theme-name: "Concept 4";
   --theme-tagline: "Full-width · live feed · kinetic";
   --content-max: 100%;
   --content-pad: 24px;
@@ -131,7 +131,7 @@
 
 /* ── Spark — lively motion-first feed ── */
 [data-theme="spark"] {
-  --theme-name: "Spark";
+  --theme-name: "Concept 5";
   --theme-tagline: "Lively · animated · playful";
   --content-max: 100%;
   --content-pad: 24px;

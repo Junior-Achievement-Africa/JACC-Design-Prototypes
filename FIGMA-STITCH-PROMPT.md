@@ -1,7 +1,7 @@
 # Prompt for Figma / Google Stitch — JACC Career Hub
 
 Copy the block below into **Figma AI**, **Google Stitch**, or a similar design tool.  
-Adjust the theme name (Baobab / Horizon / Verdant / Pulse / Spark) per generation run.
+Adjust the design concept label (Concept 1 / 2 / 3 / 4 / 5) per generation run.
 
 ---
 
@@ -39,7 +39,7 @@ GENERATE FIVE THEME VARIANTS (separate frames), same IA and components, differen
    Sustainable Forest primary, Leadership Lime / Confident Cream accents, editorial serif headlines + humanist sans body, organic large radii, growth/careers mood.
 
 4) PULSE (full-width feed)
-   Same JA colour tokens as Baobab. Wider canvas, live ticker, kinetic list hover, aqua-tinted borders — motion & density, not a different palette.
+   Same JA colour tokens as Concept 1. Wider canvas, live ticker, kinetic list hover, aqua-tinted borders — motion & density, not a different palette.
 
 5) ATLAS (ops, full-width)
    Same JA colour tokens. Dense tables, sharp 4–8px radii, tabular lists, moderation queues, KPI dashboards — layout/ops style only.
@@ -84,12 +84,12 @@ Clean, accessible, African alumni career community — no purple, no generic Mat
 
 ## Theme-specific one-liners
 
-**Baobab:** Soft Possibility Pearl canvas, Boundless Blue CTAs, aqua highlights, rounded 16–20px cards, frosted nav — like a polished iOS productivity app for alumni careers.
+**Concept 1:** Soft Possibility Pearl canvas, Boundless Blue CTAs, aqua highlights, rounded 16–20px cards, frosted nav — like a polished iOS productivity app for alumni careers.
 
-**Horizon:** Full-width canvas, edge-to-edge heroes, job carousels — same JA Boundless Blue / Aqua as Baobab.
+**Concept 2:** Full-width canvas, edge-to-edge heroes, job carousels — same JA Boundless Blue / Aqua as Concept 1.
 
-**Verdant:** Centred magazine column, Fraunces italic headlines, pull-quotes — same JA colour tokens.
+**Concept 3:** Centred magazine column, Fraunces italic headlines, pull-quotes — same JA colour tokens.
 
-**Pulse:** Full-width feed with live ticker and kinetic lists — same JA colour tokens, more motion.
+**Concept 4:** Full-width feed with live ticker and kinetic lists — same JA colour tokens, more motion.
 
-**Spark:** Lively motion-first feed — bouncing chips, staggered cards, animated ticker and hero orbs; same JA colour tokens.
+**Concept 5:** Lively motion-first feed — bouncing chips, staggered cards, animated ticker and hero orbs; same JA colour tokens.
