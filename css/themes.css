@@ -1,0 +1,249 @@
+/* JACC Design Prototype — JA Africa palette only (16 official colors) */
+:root {
+  --ja-optimistic-ice: #C2EDF0;
+  --ja-reach-for-the-sky: #99D9DF;
+  --ja-possibility-pearl: #EEF3F4;
+  --ja-confident-cream: #F3F2B3;
+  --ja-enterprise-aqua: #00C0CA;
+  --ja-gritty-green: #BBD153;
+  --ja-empowered-yellow: #E3E24F;
+  --ja-leadership-lime: #8FC440;
+  --ja-resilient-turquoise: #00A0AF;
+  --ja-transforming-teal: #008B9C;
+  --ja-adaptable-azure: #28708B;
+  --ja-boundless-blue: #285F74;
+  --ja-startup-jade: #46B17B;
+  --ja-global-green: #009424;
+  --ja-sustainable-forest: #00763D;
+  --ja-immersive-blue-black: #22404D;
+  --ja-real-world-red: #F65F4E;
+  --white: #FFFFFF;
+}
+
+/* ── 1. Baobab — current branch concept (Apple-like, soft pearl) ── */
+[data-theme="baobab"] {
+  --theme-name: "Baobab";
+  --theme-tagline: "Current branch · calm & Apple-like";
+  --bg: var(--ja-possibility-pearl);
+  --bg-elevated: var(--white);
+  --surface: var(--white);
+  --surface-2: var(--ja-optimistic-ice);
+  --sunken: color-mix(in srgb, var(--ja-optimistic-ice) 70%, var(--white));
+  --ink: var(--ja-immersive-blue-black);
+  --ink-2: var(--ja-boundless-blue);
+  --ink-3: var(--ja-adaptable-azure);
+  --line: var(--ja-optimistic-ice);
+  --line-strong: var(--ja-reach-for-the-sky);
+  --primary: var(--ja-boundless-blue);
+  --primary-hover: var(--ja-immersive-blue-black);
+  --on-primary: var(--white);
+  --accent: var(--ja-enterprise-aqua);
+  --on-accent: var(--ja-immersive-blue-black);
+  --success: var(--ja-sustainable-forest);
+  --success-fill: var(--ja-startup-jade);
+  --warning: var(--ja-empowered-yellow);
+  --danger: var(--ja-real-world-red);
+  --hero-bg: var(--ja-immersive-blue-black);
+  --hero-fg: var(--white);
+  --hero-accent: var(--ja-enterprise-aqua);
+  --nav-pill: var(--sunken);
+  --shadow: 0 1px 2px rgba(34, 64, 77, .06), 0 4px 16px rgba(34, 64, 77, .06);
+  --shadow-float: 0 8px 30px rgba(34, 64, 77, .14);
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 999px;
+  --font-display: "SF Pro Display", "Inter", system-ui, sans-serif;
+  --font-body: "SF Pro Text", "Inter", system-ui, sans-serif;
+  --letter-display: -0.02em;
+  --density: 1;
+  --card-border: 1px solid var(--line);
+  --pattern: none;
+  --shell-blur: saturate(180%) blur(16px);
+  --shell-bg: color-mix(in srgb, var(--bg) 82%, transparent);
+}
+
+/* ── 2. Horizon — bold full-bleed, teal energy ── */
+[data-theme="horizon"] {
+  --theme-name: "Horizon";
+  --theme-tagline: "Bold · full-bleed · teal-forward";
+  --bg: #F4FBFC;
+  --bg-elevated: var(--white);
+  --surface: var(--white);
+  --surface-2: var(--ja-reach-for-the-sky);
+  --sunken: var(--ja-optimistic-ice);
+  --ink: var(--ja-immersive-blue-black);
+  --ink-2: var(--ja-transforming-teal);
+  --ink-3: var(--ja-resilient-turquoise);
+  --line: color-mix(in srgb, var(--ja-reach-for-the-sky) 55%, transparent);
+  --line-strong: var(--ja-enterprise-aqua);
+  --primary: var(--ja-transforming-teal);
+  --primary-hover: var(--ja-immersive-blue-black);
+  --on-primary: var(--white);
+  --accent: var(--ja-empowered-yellow);
+  --on-accent: var(--ja-immersive-blue-black);
+  --success: var(--ja-global-green);
+  --success-fill: var(--ja-leadership-lime);
+  --warning: var(--ja-confident-cream);
+  --danger: var(--ja-real-world-red);
+  --hero-bg: linear-gradient(135deg, var(--ja-immersive-blue-black) 0%, var(--ja-transforming-teal) 55%, var(--ja-enterprise-aqua) 100%);
+  --hero-fg: var(--white);
+  --hero-accent: var(--ja-empowered-yellow);
+  --nav-pill: color-mix(in srgb, var(--ja-enterprise-aqua) 18%, var(--white));
+  --shadow: 0 12px 40px rgba(0, 139, 156, .12);
+  --shadow-float: 0 20px 50px rgba(34, 64, 77, .2);
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+  --font-display: "Syne", "Avenir Next", system-ui, sans-serif;
+  --font-body: "Outfit", "Avenir Next", system-ui, sans-serif;
+  --letter-display: -0.03em;
+  --density: 1.05;
+  --card-border: 0;
+  --pattern: radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--ja-enterprise-aqua) 22%, transparent), transparent 42%);
+  --shell-blur: blur(20px);
+  --shell-bg: color-mix(in srgb, var(--white) 75%, transparent);
+}
+
+/* ── 3. Verdant — forest / jade / cream editorial ── */
+[data-theme="verdant"] {
+  --theme-name: "Verdant";
+  --theme-tagline: "Growth · forest & cream editorial";
+  --bg: #F7F8EF;
+  --bg-elevated: var(--white);
+  --surface: var(--white);
+  --surface-2: color-mix(in srgb, var(--ja-confident-cream) 55%, var(--white));
+  --sunken: color-mix(in srgb, var(--ja-gritty-green) 22%, var(--white));
+  --ink: var(--ja-immersive-blue-black);
+  --ink-2: var(--ja-sustainable-forest);
+  --ink-3: var(--ja-adaptable-azure);
+  --line: color-mix(in srgb, var(--ja-leadership-lime) 35%, var(--ja-possibility-pearl));
+  --line-strong: var(--ja-startup-jade);
+  --primary: var(--ja-sustainable-forest);
+  --primary-hover: var(--ja-immersive-blue-black);
+  --on-primary: var(--white);
+  --accent: var(--ja-leadership-lime);
+  --on-accent: var(--ja-immersive-blue-black);
+  --success: var(--ja-global-green);
+  --success-fill: var(--ja-gritty-green);
+  --warning: var(--ja-empowered-yellow);
+  --danger: var(--ja-real-world-red);
+  --hero-bg: linear-gradient(160deg, var(--ja-sustainable-forest), var(--ja-boundless-blue));
+  --hero-fg: var(--white);
+  --hero-accent: var(--ja-confident-cream);
+  --nav-pill: color-mix(in srgb, var(--ja-leadership-lime) 25%, var(--white));
+  --shadow: 0 2px 0 color-mix(in srgb, var(--ja-sustainable-forest) 12%, transparent), 0 10px 28px rgba(0, 118, 61, .08);
+  --shadow-float: 0 18px 40px rgba(0, 118, 61, .16);
+  --radius-sm: 14px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-xl: 40px;
+  --radius-pill: 999px;
+  --font-display: "Fraunces", "Georgia", serif;
+  --font-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --letter-display: -0.01em;
+  --density: 1.08;
+  --card-border: 1.5px solid color-mix(in srgb, var(--ja-sustainable-forest) 14%, transparent);
+  --pattern: linear-gradient(180deg, color-mix(in srgb, var(--ja-confident-cream) 35%, transparent), transparent 28%);
+  --shell-blur: blur(14px);
+  --shell-bg: color-mix(in srgb, #F7F8EF 88%, transparent);
+}
+
+/* ── 4. Pulse — night immersion (branch night mode) ── */
+[data-theme="pulse"] {
+  --theme-name: "Pulse";
+  --theme-tagline: "Night · aqua glass immersion";
+  --bg: #121212;
+  --bg-elevated: #1c1c1e;
+  --surface: #1c1c1e;
+  --surface-2: #2c2c2e;
+  --sunken: #0a0a0a;
+  --ink: #f2f2f7;
+  --ink-2: #aeaeb2;
+  --ink-3: #8e8e93;
+  --line: #2c2c2e;
+  --line-strong: #6c6c70;
+  --primary: var(--ja-enterprise-aqua);
+  --primary-hover: #4dd6dd;
+  --on-primary: #121212;
+  --accent: var(--ja-leadership-lime);
+  --on-accent: #121212;
+  --success: var(--ja-leadership-lime);
+  --success-fill: var(--ja-startup-jade);
+  --warning: var(--ja-empowered-yellow);
+  --danger: var(--ja-real-world-red);
+  --hero-bg: radial-gradient(ellipse at 20% 0%, color-mix(in srgb, var(--ja-enterprise-aqua) 35%, transparent), transparent 50%),
+             radial-gradient(ellipse at 90% 20%, color-mix(in srgb, var(--ja-leadership-lime) 18%, transparent), transparent 40%),
+             #0a0a0a;
+  --hero-fg: #f2f2f7;
+  --hero-accent: var(--ja-enterprise-aqua);
+  --nav-pill: #2c2c2e;
+  --shadow: 0 0 0 1px #2c2c2e, 0 12px 40px rgba(0, 0, 0, .45);
+  --shadow-float: 0 0 40px rgba(0, 192, 202, .15), 0 20px 50px rgba(0, 0, 0, .55);
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 30px;
+  --radius-pill: 999px;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --letter-display: -0.025em;
+  --density: 1;
+  --card-border: 1px solid #2c2c2e;
+  --pattern: none;
+  --shell-blur: saturate(140%) blur(18px);
+  --shell-bg: color-mix(in srgb, #121212 78%, transparent);
+}
+
+/* ── 5. Atlas — sharp ops / dense information design ── */
+[data-theme="atlas"] {
+  --theme-name: "Atlas";
+  --theme-tagline: "Ops-ready · dense · high contrast";
+  --bg: var(--ja-possibility-pearl);
+  --bg-elevated: var(--white);
+  --surface: var(--white);
+  --surface-2: var(--ja-optimistic-ice);
+  --sunken: #E4EEF0;
+  --ink: var(--ja-immersive-blue-black);
+  --ink-2: var(--ja-boundless-blue);
+  --ink-3: var(--ja-adaptable-azure);
+  --line: #D5E4E8;
+  --line-strong: var(--ja-boundless-blue);
+  --primary: var(--ja-immersive-blue-black);
+  --primary-hover: var(--ja-boundless-blue);
+  --on-primary: var(--white);
+  --accent: var(--ja-real-world-red);
+  --on-accent: var(--white);
+  --success: var(--ja-sustainable-forest);
+  --success-fill: var(--ja-startup-jade);
+  --warning: var(--ja-empowered-yellow);
+  --danger: var(--ja-real-world-red);
+  --hero-bg: var(--ja-immersive-blue-black);
+  --hero-fg: var(--white);
+  --hero-accent: var(--ja-real-world-red);
+  --nav-pill: var(--sunken);
+  --shadow: 0 1px 0 rgba(34, 64, 77, .08);
+  --shadow-float: 0 4px 16px rgba(34, 64, 77, .12);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 6px;
+  --font-display: "IBM Plex Sans", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --letter-display: -0.015em;
+  --density: 0.92;
+  --card-border: 1px solid var(--line);
+  --pattern: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 12px,
+    color-mix(in srgb, var(--ja-optimistic-ice) 40%, transparent) 12px,
+    color-mix(in srgb, var(--ja-optimistic-ice) 40%, transparent) 13px
+  );
+  --shell-blur: none;
+  --shell-bg: var(--bg);
+}
