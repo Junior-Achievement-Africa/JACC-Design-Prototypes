@@ -78,7 +78,7 @@
 /* ── Horizon — full-bleed, cinematic layout ── */
 [data-theme="horizon"] {
   --theme-name: "Concept 2";
-  --theme-tagline: "Edge-to-edge · hero-led · carousel";
+  --theme-tagline: "Cinematic · hero · featured · side rail";
   --content-max: none;
   --content-pad: clamp(16px, 3vw, 40px);
   --radius-sm: 8px;

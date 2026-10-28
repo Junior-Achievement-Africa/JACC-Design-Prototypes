@@ -136,7 +136,7 @@ JACC.Screens = {
   },
 
   home() {
-    const jobs = JACC.JOBS.slice(0, 3).map((j) => `
+    const jobCard = (j) => `
       <a class="list-card" href="#/job">
         ${JACC.jobThumb(j)}
         <div class="meta">
@@ -145,10 +145,43 @@ JACC.Screens = {
           <div class="row gap-sm" style="margin-top:6px">${j.tags.map((tag) => `<span class="pill">${esc(tag)}</span>`).join('')}</div>
         </div>
         <div class="match-ring" style="--m:${j.match}"><span>${j.match}%</span></div>
-      </a>`).join('');
+      </a>`;
+    const jobs = JACC.JOBS.slice(0, 3).map(jobCard).join('');
+    const jobsWide = JACC.JOBS.slice(0, 6).map(jobCard).join('');
+    const top = JACC.JOBS[0];
 
     return `
       <div class="baobab-home screen-enter">
+        <section class="horizon-hero">
+          <div class="horizon-hero-inner">
+            <span class="eyebrow"><i></i> Career Hub</span>
+            <h1>${t('home.hey', { name: 'Efua' })}</h1>
+            <p>${t('home.sub')}</p>
+            <div class="actions">
+              <a class="btn btn-primary" href="#/careers">${t('common.jobBoard')}</a>
+              <a class="btn btn-secondary" href="#/events">${t('common.events')}</a>
+              <a class="btn btn-ghost" href="#/spaces" style="color:inherit">${t('common.spaces')}</a>
+            </div>
+          </div>
+          <div class="horizon-hero-stats">
+            <div><strong>12</strong><span>${t('home.jobMatches')}</span></div>
+            <div><strong>3</strong><span>${t('home.apps')}</span></div>
+            <div><strong>82</strong><span>${t('home.cvHealth')}</span></div>
+            <div><strong>2</strong><span>${t('home.rsvps')}</span></div>
+          </div>
+        </section>
+
+        <a class="horizon-featured" href="#/job">
+          <div class="horizon-featured-media" style="background-image:url('${top.cover}')"></div>
+          <div class="horizon-featured-body">
+            <span class="pill-match pill">${top.match}% ${t('common.match')}</span>
+            <h2>${esc(top.title)}</h2>
+            <p>${esc(top.company)} · ${esc(top.loc)} · ${esc(top.type)} · ${top.paid ? t('careers.paid') : t('careers.unpaid')}</p>
+            <div class="row gap-sm">${top.tags.map((tag) => `<span class="pill">${esc(tag)}</span>`).join('')}</div>
+            <span class="btn btn-sm btn-primary" style="margin-top:14px;pointer-events:none">${t('common.apply')}</span>
+          </div>
+        </a>
+
         <aside class="home-rail hide-mobile">
           <div class="t-eyebrow">${t('common.spaces')}</div>
           ${(JACC.SPACES || []).map((s, i) => `
@@ -214,7 +247,7 @@ JACC.Screens = {
           </div>
 
           <div class="section-title"><h2>${t('common.forYou')}</h2><a href="#/careers">${t('common.jobBoard')}</a></div>
-          <div class="h-scroll">${jobs}</div>
+          <div class="h-scroll">${jobsWide}</div>
           <div class="stack horizon-hide-when-scroll">${jobs}</div>
 
           <div class="section-title" style="margin-top:22px"><h2>${t('common.cohortWins')}</h2></div>
