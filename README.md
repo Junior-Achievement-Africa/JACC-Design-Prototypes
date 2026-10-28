@@ -11,7 +11,7 @@ Public, clickable **Career Hub** design review for JA Africa stakeholders.
 - **Concept 1** — soft 3-column foundations · **Concept 2 / 4** — full-width layouts · **Concept 3** — centred editorial · **Concept 5** — lively motion-first  
 
 - **Persona switcher**, Moodle **cohort gate**, **AI CV studio**, organise / employer flows  
-- **Feedback pins** for client comments → GitHub Issues  
+- **Feedback pins** with a **Team** tab backed by GitHub Issues (`design-feedback` label)
 
 Mentorship is **out of this prototype**.
 
@@ -22,7 +22,17 @@ Mentorship is **out of this prototype**.
 3. Try **Locked** vs **Alumni** to feel cohort access.  
 4. As **Admin**, open **Plugin** settings and **Cohorts access**.  
 5. As **Alumni**, open **CV studio** → Upload & AI-parse.  
-6. Pin feedback with the floating **Feedback** button.
+6. Pin feedback with the floating **Feedback** button — leave **Share with the JA team** checked so notes appear for everyone under **Team**.
+
+## Shared feedback (so the JA team can see pins)
+
+Browser storage alone is per-device. Shared notes use GitHub Issues labeled `design-feedback`.
+
+**Without a token (works today):** reviewers keep “Share with the JA team” checked → GitHub opens a pre-filled issue → they click **Submit**. Anyone can then see those pins on the live site under **Feedback → Team** (and as pins on the matching screen).
+
+**Automatic share (no GitHub login for reviewers):** create a [fine-grained PAT](https://github.com/settings/personal-access-tokens/new) with **Issues: Read and write** on **only** `JACC-Design-Prototypes`, paste it into `js/feedback-config.js` as `githubToken`, commit, and deploy. Rotate/delete the token after the review window.
+
+Optional: set `formEndpoint` in the same file to a Formspree/Web3Forms URL to also email an inbox.
 
 ## Local
 

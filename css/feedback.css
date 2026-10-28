@@ -54,6 +54,60 @@
   display: inline-grid;
   place-items: center;
 }
+.fb-count-sep {
+  opacity: .55;
+  margin: 0 2px;
+  font-weight: 700;
+}
+.fb-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin: 0 0 12px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--sunken, #C2EDF0);
+}
+.fb-tab {
+  min-height: 36px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--ink-2, #285F74);
+}
+.fb-tab.is-on {
+  background: var(--surface, #fff);
+  color: var(--ink, #22404D);
+  box-shadow: 0 1px 3px rgb(34 64 77 / 12%);
+}
+.fb-item.is-team {
+  border-color: color-mix(in srgb, var(--ja-enterprise-aqua) 55%, var(--line));
+}
+.fb-pill-team {
+  background: color-mix(in srgb, var(--ja-enterprise-aqua) 28%, white);
+}
+.fb-pin.is-team {
+  outline: 2px solid #fff;
+  box-shadow: 0 0 0 2px var(--ja-enterprise-aqua, #00C0CA);
+}
+.fb-share-toggle {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin: 12px 0 4px;
+  font-size: 13px;
+  color: var(--ink-2, #285F74);
+  cursor: pointer;
+}
+.fb-share-toggle input {
+  margin-top: 2px;
+}
+.fb-howto code {
+  font-size: 11px;
+}
 
 @keyframes fb-pulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(246, 95, 78, .45); }
