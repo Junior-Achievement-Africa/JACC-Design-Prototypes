@@ -5,7 +5,7 @@
 
   // Filled after repo is known; update if fork/rename
   const REPO = {
-    owner: 'VincentSD',
+    owner: 'Junior-Achievement-Africa',
     name: 'JACC-Design-Prototypes',
   };
 

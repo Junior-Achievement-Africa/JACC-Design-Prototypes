@@ -6,7 +6,7 @@ Public, clickable **Career Hub** design review site for JA Africa stakeholders.
 - All Release‑1 screens from the stakeholder requirements  
 - **Interactive feedback**: pin comments on any UI, export, or open a GitHub Issue  
 
-**Live site:** https://vincentsd.github.io/JACC-Design-Prototypes/
+**Live site:** https://junior-achievement-africa.github.io/JACC-Design-Prototypes/
 
 ## For reviewers (clients)
 
@@ -23,7 +23,7 @@ Feedback is stored in your browser until you export or submit an issue.
 
 ## For the delivery team
 
-1. Watch [Issues](https://github.com/VincentSD/JACC-Design-Prototypes/issues) labelled by reviewers.  
+1. Watch [Issues](https://github.com/Junior-Achievement-Africa/JACC-Design-Prototypes/issues) labelled by reviewers.  
 2. Or collect exported Markdown from workshops.  
 3. Use `FIGMA-STITCH-PROMPT.md` when generating high-fidelity Figma / Stitch frames.
 
