@@ -644,7 +644,18 @@ main.viewport {
   box-shadow: var(--shadow); cursor: pointer;
   transition: transform .15s ease;
 }
+/* Author display:flex beats UA [hidden] — force hide when filtered out */
+.list-card[hidden],
+.stack[hidden],
+.card[hidden],
+[data-careers-board] [hidden] {
+  display: none !important;
+}
 .list-card:hover { transform: translateY(-2px); }
+.filter-chip.is-active {
+  outline: 2px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  outline-offset: 1px;
+}
 .list-card .thumb {
   width: 56px; height: 56px; border-radius: var(--radius-md); flex: none;
   background: linear-gradient(135deg, var(--ja-startup-jade), var(--ja-transforming-teal));

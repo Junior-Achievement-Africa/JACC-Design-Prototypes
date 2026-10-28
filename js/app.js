@@ -611,49 +611,91 @@
     const results = board.querySelector('#careers-results');
     const empty = board.querySelector('#careers-empty');
     const count = board.querySelector('#careers-count');
-    let activeFilter = 'all';
+    const chips = () => $$('[data-careers-filter]', board);
+    const TYPE_KEYS = new Set((JACC.JOB_TYPES || []).map((t) => t.toLowerCase()));
+
+    const selectedKeys = () => chips()
+      .filter((c) => c.classList.contains('is-active') && c.dataset.careersFilter !== 'all')
+      .map((c) => (c.dataset.careersFilter || '').toLowerCase());
+
+    const syncAllChip = () => {
+      const extras = selectedKeys();
+      chips().forEach((c) => {
+        if (c.dataset.careersFilter === 'all') {
+          c.classList.toggle('is-active', extras.length === 0);
+        }
+      });
+    };
 
     const apply = () => {
       const q = (search?.value || '').trim().toLowerCase();
+      const keys = selectedKeys();
+      const typeKeys = keys.filter((k) => TYPE_KEYS.has(k));
+      const wantPaid = keys.includes('paid');
+      const wantUnpaid = keys.includes('unpaid');
+      const wantMatched = keys.includes('matched');
       let shown = 0;
+
       $$('.list-card[data-job-id]', results).forEach((card) => {
         const type = (card.dataset.type || '').toLowerCase();
         const paid = card.dataset.paid === '1';
         const match = Number(card.dataset.match || 0);
-        const hay = card.dataset.search || '';
+        const hay = (card.dataset.search || '').toLowerCase();
         let ok = true;
-        if (activeFilter === 'paid') ok = paid;
-        else if (activeFilter === 'unpaid') ok = !paid;
-        else if (activeFilter === 'matched') ok = match >= 80;
-        else if (activeFilter !== 'all') ok = type === activeFilter.toLowerCase();
+        if (typeKeys.length) ok = typeKeys.includes(type);
+        if (ok && wantPaid && !wantUnpaid) ok = paid;
+        if (ok && wantUnpaid && !wantPaid) ok = !paid;
+        // both paid+unpaid selected → no compensation constraint
+        if (ok && wantMatched) ok = match >= 80;
         if (ok && q) ok = hay.includes(q);
         card.hidden = !ok;
+        card.style.display = ok ? '' : 'none';
         if (ok) shown += 1;
       });
-      if (count) count.textContent = `${shown} role${shown === 1 ? '' : 's'}${q || activeFilter !== 'all' ? ' · filtered' : ''}`;
+
+      const filtering = q || keys.length > 0;
+      if (count) {
+        count.textContent = filtering
+          ? `${shown} of ${$$('.list-card[data-job-id]', results).length} roles · filtered`
+          : `${shown} roles`;
+      }
       if (empty) empty.hidden = shown > 0;
-      if (results) results.hidden = shown === 0;
+      if (results) {
+        results.hidden = shown === 0;
+        results.style.display = shown === 0 ? 'none' : '';
+      }
     };
 
     search?.addEventListener('input', apply);
     search?.addEventListener('search', apply);
 
-    $$('[data-careers-filter]', board).forEach((chip) => {
-      chip.addEventListener('click', () => {
-        $$('[data-careers-filter]', board).forEach((x) => x.classList.remove('is-active'));
-        chip.classList.add('is-active');
-        activeFilter = chip.dataset.careersFilter || 'all';
+    chips().forEach((chip) => {
+      chip.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const key = chip.dataset.careersFilter || 'all';
+        if (key === 'all') {
+          chips().forEach((c) => {
+            const on = c.dataset.careersFilter === 'all';
+            c.classList.toggle('is-active', on);
+            c.setAttribute('aria-pressed', on ? 'true' : 'false');
+          });
+        } else {
+          chip.classList.toggle('is-active');
+          syncAllChip();
+          chips().forEach((c) => c.setAttribute('aria-pressed', c.classList.contains('is-active') ? 'true' : 'false'));
+        }
         apply();
       });
     });
 
     board.querySelector('[data-careers-reset]')?.addEventListener('click', () => {
       if (search) search.value = '';
-      activeFilter = 'all';
-      $$('[data-careers-filter]', board).forEach((x) => x.classList.toggle('is-active', x.dataset.careersFilter === 'all'));
+      chips().forEach((c) => c.classList.toggle('is-active', c.dataset.careersFilter === 'all'));
       apply();
     });
 
+    syncAllChip();
     apply();
   }
 

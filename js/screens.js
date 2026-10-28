@@ -407,9 +407,10 @@ JACC.Screens = {
         <div class="searchbar">${icon('search')}
           <input type="search" id="careers-search" placeholder="${t('careers.searchPh')}" value="" autocomplete="off" aria-label="${t('careers.searchPh')}">
         </div>
+        <p class="tiny" style="margin:0 0 8px">Select one or more filters · combine with search</p>
         <div class="filters" role="group" aria-label="Job filters">
           ${filters.map((f, i) =>
-            `<button class="filter-chip ${i === 0 ? 'is-active' : ''}" type="button" data-careers-filter="${esc(f.key)}">${esc(f.label)}</button>`).join('')}
+            `<button class="filter-chip ${i === 0 ? 'is-active' : ''}" type="button" data-careers-filter="${esc(f.key)}" aria-pressed="${i === 0 ? 'true' : 'false'}">${esc(f.label)}</button>`).join('')}
         </div>
         <div class="card" style="margin-bottom:14px">
           <div class="row between" style="flex-wrap:wrap;gap:10px">
