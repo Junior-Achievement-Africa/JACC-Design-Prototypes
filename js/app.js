@@ -289,7 +289,7 @@
         <header class="gallery-hero">
           <div class="eyebrow"><span style="width:8px;height:8px;border-radius:50%;background:var(--ja-enterprise-aqua);display:inline-block"></span>
             JACC 3.0 · Moodle Career Hub · client review</div>
-          <h1>Themes, personas<br><em>&amp; real access rules</em></h1>
+          <h1>Design concepts, personas<br><em>&amp; real access rules</em></h1>
           <p>All <strong>design concepts</strong> share the official JA colours. They differ by <strong>layout, width, and motion</strong> only — five concepts to compare.</p>
           <div class="gallery-cta">
             <a class="btn btn-primary" href="#/baobab/home" style="background:var(--ja-enterprise-aqua);color:#22404D">Enter as Alumni (Concept 1)</a>
@@ -331,7 +331,7 @@
           <h2>Feature coverage</h2>
           <div class="feat-grid">
             ${[
-              ['Same JA palette', 'Themes vary layout & width — not colour'],
+              ['Same JA palette', 'Concepts vary layout & width — not colour'],
               ['Moodle messaging', 'Header message icon → core_message drawer'],
               ['Moodle notifications', 'Header bell → Moodle notification drawer'],
               ['Spaces', 'Cohort / interest groups with Moodle forum discussions'],
