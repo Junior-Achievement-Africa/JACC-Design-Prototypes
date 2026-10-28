@@ -22,7 +22,7 @@ White #FFFFFF for surfaces
 PRODUCT PRINCIPLES
 - Mobile-first, WCAG AA contrast (body text on pearl/white = Blue-Black; white text only on Boundless Blue / Immersive Blue-Black / Forest)
 - 44px min tap targets; soft depth; clear hierarchy
-- Moodle-embedded app shell: top nav (desktop) + bottom tab bar (mobile) with Home, Careers, Events, Profile; raised Create (+). Messaging and notifications stay on Moodle’s header icons (no Messages nav item).
+- Moodle-embedded app shell: top nav (desktop) + bottom tab bar (mobile) with Home, Careers, Events; raised Create (+). Profile / CV / settings live under the avatar menu. Messaging and notifications stay on Moodle’s header icons.
 - Skill “match %” rings on jobs
 - Status pills: submitted / reviewing / shortlisted / not selected / hired
 - English primary; show a small FR language affordance in settings

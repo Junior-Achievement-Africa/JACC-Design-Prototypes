@@ -47,9 +47,8 @@ JACC.PERSONAS = [
       { id: 'home', label: 'Home', icon: 'home' },
       { id: 'careers', label: 'Careers', icon: 'briefcase' },
       { id: 'events', label: 'Events', icon: 'calendar' },
-      { id: 'profile', label: 'Profile', icon: 'users' },
     ],
-    // Secondary links are contextual (careers / events) — profile tools live in the avatar menu
+    // Profile / CV / settings live under the avatar menu — not in primary nav
     subnav: [],
   },
   {

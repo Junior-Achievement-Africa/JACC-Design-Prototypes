@@ -51,7 +51,6 @@ JACC.NAV = [
   { id: 'home', label: 'Home', icon: 'home' },
   { id: 'careers', label: 'Careers', icon: 'briefcase' },
   { id: 'events', label: 'Events', icon: 'calendar' },
-  { id: 'profile', label: 'Profile', icon: 'users' },
 ];
 
 JACC.JOBS = [
