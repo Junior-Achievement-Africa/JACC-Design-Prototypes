@@ -1,6 +1,10 @@
-/* Extra screens: cohort gate, plugin settings, AI CV, organise, old-JACC features */
+/* Extra screens: cohort gate, plugin settings, AI CV, organise, spaces, profile extras */
 window.JACC = window.JACC || {};
 JACC.Screens = JACC.Screens || {};
+
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+}[c]));
 
 Object.assign(JACC.Screens, {
   pending() {
@@ -429,16 +433,149 @@ Object.assign(JACC.Screens, {
       </div>`;
   },
 
-  /* Old JACC feature surfaces (design placeholders for parity) */
-  forum() {
+  /* Spaces — Moodle forum-backed discussions (US-26, from old JACC groups/forum) */
+  spaces() {
+    const spaces = JACC.SPACES || [];
     return `
       <div class="screen-enter">
-        <div class="hero">
-          <span class="eyebrow"><i></i> From Career Connect</span>
-          <h1>Alumni forum</h1>
-          <p>Cohort discussions & flagged moderation — proposed for a later JACC 3.0 release (US-26).</p>
+        <div class="section-title">
+          <h1 style="font-size:1.6rem;margin:0">Your spaces</h1>
+          <a class="btn btn-sm btn-primary" href="#/space-new">New space</a>
         </div>
-        <div class="card"><strong>Design note</strong><p class="muted" style="margin:8px 0 0">Old JACC shipped forum feeds, upvotes, and admin flagged content. Prototype shows IA placement under Community.</p></div>
+        <p class="muted">Cohort, chapter, and interest groups — discussions use Moodle forums (not a separate chat app).</p>
+        <div class="stack">${spaces.map((s) => `
+          <a class="list-card" href="#/space">
+            <div class="thumb img" style="display:grid;place-items:center;background:var(--sunken);font-weight:700">${esc(s.name.split(' ').map((w) => w[0]).join('').slice(0, 2))}</div>
+            <div class="meta">
+              <div class="row gap-sm"><h3 style="margin:0">${esc(s.name)}</h3><span class="pill">${esc(s.kind)}</span>
+                ${s.unread ? `<span class="pill-danger pill">${s.unread} new</span>` : ''}
+              </div>
+              <div class="tiny">${esc(s.desc)}</div>
+              <div class="tiny">${s.members} members · ${s.threads.length} discussions</div>
+            </div>
+          </a>`).join('')}
+        </div>
+      </div>`;
+  },
+
+  space() {
+    const s = (JACC.SPACES || [])[0];
+    return `
+      <div class="screen-enter">
+        <div class="section-title">
+          <div>
+            <div class="tiny"><a href="#/spaces">Spaces</a> · ${esc(s.kind)}</div>
+            <h1 style="font-size:1.5rem;margin:4px 0 0">${esc(s.name)}</h1>
+          </div>
+          <button class="btn btn-sm btn-primary" data-toast="New discussion started" data-nav="#/space-thread">New discussion</button>
+        </div>
+        <div class="moodle-core-note">
+          <div><strong>Moodle forum</strong> — threads, replies, and subscriptions use core forum in this space. Messaging stays on the header icon.</div>
+        </div>
+        <p class="muted">${esc(s.desc)} · ${s.members} members</p>
+        <div class="stack">${s.threads.map((th) => `
+          <a class="list-card" href="#/space-thread">
+            <div class="meta" style="flex:1">
+              <div class="row gap-sm">
+                ${th.pinned ? '<span class="pill-accent pill">Pinned</span>' : ''}
+                <h3 style="margin:0">${esc(th.title)}</h3>
+              </div>
+              <div class="tiny">${esc(th.author)} · ${th.replies} replies · ${esc(th.time)}</div>
+            </div>
+          </a>`).join('')}
+        </div>
+      </div>`;
+  },
+
+  'space-thread'() {
+    const posts = JACC.SPACE_POSTS.t1 || [];
+    return `
+      <div class="screen-enter" style="max-width:720px;margin:0 auto">
+        <div class="tiny"><a href="#/spaces">Spaces</a> · <a href="#/space">JA Ghana 2019</a></div>
+        <h1 style="font-size:1.4rem;margin:8px 0 16px">Anyone interviewing at Hubtel this month?</h1>
+        <div class="stack">${posts.map((p) => `
+          <div class="card">
+            <div class="row" style="margin-bottom:8px">${JACC.avatar(p.name)}
+              <div><strong>${esc(p.name)}</strong><div class="tiny">${esc(p.time)}</div></div>
+            </div>
+            <p style="margin:0">${esc(p.text)}</p>
+          </div>`).join('')}
+        </div>
+        <div class="card" style="margin-top:14px">
+          <div class="field" style="margin:0"><label>Reply in this forum thread</label>
+            <textarea placeholder="Share advice or ask a follow-up…"></textarea>
+          </div>
+          <button class="btn btn-primary btn-sm" style="margin-top:10px" data-toast="Posted to Moodle forum">Post reply</button>
+        </div>
+      </div>`;
+  },
+
+  'space-new'() {
+    return `
+      <div class="auth-panel screen-enter" style="margin:0 auto;max-width:560px">
+        <h1>Create a space</h1>
+        <p class="muted">Interest or chapter group with a Moodle forum for discussions.</p>
+        <div class="field"><label>Name</label><input placeholder="e.g. Fintech founders"></div>
+        <div class="field"><label>Type</label>
+          <select><option>Interest</option><option>Chapter</option><option>Cohort</option></select>
+        </div>
+        <div class="field"><label>Description</label><textarea placeholder="What will members discuss?"></textarea></div>
+        <label class="row" style="margin:0 0 14px;gap:8px"><input type="checkbox" checked> Create Moodle forum for this space</label>
+        <button class="btn btn-primary btn-block" data-toast="Space created" data-nav="#/space">Create space</button>
+      </div>`;
+  },
+
+  forum() {
+    return JACC.Screens.spaces();
+  },
+
+  'work-history'() {
+    const exp = JACC.EXPERIENCE || [];
+    return `
+      <div class="auth-panel screen-enter" style="margin:0 auto;max-width:640px">
+        <h1>Work history</h1>
+        <p class="muted">Roles shown on your profile and used for job matching — same as old JACC experience.</p>
+        <div class="stack" style="margin-bottom:18px">${exp.map((e) => `
+          <div class="list-card" style="cursor:default">
+            <div class="meta">
+              <h3>${esc(e.title)}</h3>
+              <div class="tiny">${esc(e.company)} · ${esc(e.place)} · ${esc(e.from)} – ${esc(e.to)}</div>
+            </div>
+            <button class="btn btn-sm btn-ghost" data-toast="Edit role (prototype)">Edit</button>
+          </div>`).join('')}
+        </div>
+        <h2 style="font-size:1.1rem">Add a role</h2>
+        <div class="field"><label>Title</label><input placeholder="e.g. Product Analyst"></div>
+        <div class="field"><label>Company</label><input placeholder="e.g. MTN Ghana"></div>
+        <div class="field"><label>Place</label><input placeholder="Accra"></div>
+        <div class="grid-2">
+          <div class="field"><label>Start</label><input placeholder="Jan 2023"></div>
+          <div class="field"><label>End</label><input placeholder="Present"></div>
+        </div>
+        <label class="row" style="margin:0 0 14px;gap:8px"><input type="checkbox" checked> I currently work here</label>
+        <button class="btn btn-primary btn-block" data-toast="Work history saved" data-nav="#/profile">Save role</button>
+      </div>`;
+  },
+
+  'open-to-work'() {
+    const otw = JACC.OPEN_TO_WORK || { on: false, types: [] };
+    return `
+      <div class="auth-panel screen-enter" style="margin:0 auto;max-width:560px">
+        <h1>Open to work</h1>
+        <p class="muted">Tell employers you are available for roles. Only employers see this on your profile.</p>
+        <label class="row between" style="padding:14px 0;border-bottom:1px solid var(--line)">
+          <span><strong>Show employers I am open to work</strong><div class="tiny">Toggle availability</div></span>
+          <input type="checkbox" ${otw.on ? 'checked' : ''}>
+        </label>
+        <div class="field" style="margin-top:14px"><label>Roles</label><input value="${esc(otw.roles || '')}" placeholder="e.g. Product Analyst, Associate PM"></div>
+        <div class="field"><label>Places</label><input value="${esc(otw.places || '')}" placeholder="Accra · Remote Africa"></div>
+        <div class="field"><label>Type</label>
+          <div class="row gap-sm" style="flex-wrap:wrap;margin-top:6px">
+            ${JACC.JOB_TYPES.map((x) => `
+              <button type="button" class="filter-chip ${(otw.types || []).includes(x) ? 'is-active' : ''}">${x}</button>`).join('')}
+          </div>
+        </div>
+        <button class="btn btn-primary btn-block" data-toast="Open to work updated" data-nav="#/profile">Save availability</button>
       </div>`;
   },
 

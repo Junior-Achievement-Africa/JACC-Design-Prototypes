@@ -333,6 +333,9 @@
               ['Same JA palette', 'Themes vary layout & width — not colour'],
               ['Moodle messaging', 'Header message icon → core_message drawer'],
               ['Moodle notifications', 'Header bell → Moodle notification drawer'],
+              ['Spaces', 'Cohort / interest groups with Moodle forum discussions'],
+              ['Work history + open to work', 'Profile experience & employer availability'],
+              ['Job types', 'Full-time, internship, contract, part-time, volunteer · paid/unpaid'],
               ['Cohort gate + plugin', 'Who sees the hub is Moodle-cohort based'],
               ['AI CV parser', 'Upload → parse → review → CV studio'],
               ['Job match explain', 'On job detail — Why 94%?'],
@@ -449,12 +452,15 @@
       'careers', 'job', 'apply', 'saved', 'saved-searches', 'applications', 'digest', 'match-explain',
     ]);
     const eventsScreens = new Set(['events', 'event', 'ticket', 'stories']);
+    const spacesScreens = new Set(['spaces', 'space', 'space-thread', 'space-new', 'forum']);
     const profileScreens = new Set([
       'profile', 'profile-edit', 'pathway', 'endorsements', 'privacy', 'settings', 'notifications',
+      'work-history', 'open-to-work',
     ]);
     const nav = p.nav.map((n) => {
       const active = n.id === screen
         || (n.id === 'careers' && careersScreens.has(screen))
+        || (n.id === 'spaces' && spacesScreens.has(screen))
         || (n.id === 'events' && eventsScreens.has(screen))
         || (n.id === 'profile' && (profileScreens.has(screen) || screen.startsWith('cv-')))
         || (screen.startsWith('cv-') && n.id === 'home' && p.id !== 'alumni');
@@ -492,6 +498,8 @@
               </div>
               <a role="menuitem" href="#/${state.theme}/profile"><span class="um-icon">${umIcon('user')}</span>Profile</a>
               <a role="menuitem" href="#/${state.theme}/profile-edit"><span class="um-icon">${umIcon('edit')}</span>Edit profile</a>
+              <a role="menuitem" href="#/${state.theme}/work-history"><span class="um-icon">${umIcon('cv')}</span>Work history</a>
+              <a role="menuitem" href="#/${state.theme}/open-to-work"><span class="um-icon">${umIcon('star')}</span>Open to work</a>
               <a role="menuitem" href="#/${state.theme}/cv-start"><span class="um-icon">${umIcon('cv')}</span>CV studio</a>
               <a role="menuitem" href="#/${state.theme}/pathway"><span class="um-icon">${umIcon('path')}</span>Career pathway</a>
               <a role="menuitem" href="#/${state.theme}/endorsements"><span class="um-icon">${umIcon('star')}</span>Endorsements</a>

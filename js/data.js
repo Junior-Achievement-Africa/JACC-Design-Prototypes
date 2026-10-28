@@ -50,17 +50,89 @@ JACC.THEMES = [
 JACC.NAV = [
   { id: 'home', label: 'Home', icon: 'home' },
   { id: 'careers', label: 'Careers', icon: 'briefcase' },
+  { id: 'spaces', label: 'Spaces', icon: 'users' },
   { id: 'events', label: 'Events', icon: 'calendar' },
 ];
 
+/** Job types mirror local_jacc job_filter::TYPES + paid/unpaid compensation */
+JACC.JOB_TYPES = ['Full-time', 'Internship', 'Contract', 'Part-time', 'Volunteer'];
+JACC.COMPENSATION = ['Paid', 'Unpaid'];
+
 JACC.JOBS = [
-  { id: 1, title: 'Product Analyst', company: 'MTN Ghana', loc: 'Accra · Hybrid', type: 'Full-time', match: 94, tags: ['Analytics', 'Excel', 'SQL'], cover: 'assets/jobs/mtn.jpg', logo: 'assets/logos/mtn.jpg' },
-  { id: 2, title: 'Junior Software Engineer', company: 'Andela', loc: 'Remote · Africa', type: 'Full-time', match: 88, tags: ['JavaScript', 'React'], cover: 'assets/jobs/andela.jpg', logo: 'assets/logos/andela.jpg' },
-  { id: 3, title: 'Marketing Intern', company: 'Flutterwave', loc: 'Lagos', type: 'Internship', match: 76, tags: ['Social', 'Copy'], cover: 'assets/jobs/flutterwave.jpg', logo: 'assets/logos/flutterwave.jpg' },
-  { id: 4, title: 'Finance Associate', company: 'Equity Bank', loc: 'Nairobi', type: 'Full-time', match: 71, tags: ['Finance', 'Excel'], cover: 'assets/jobs/equity.jpg', logo: 'assets/logos/equity.jpg' },
-  { id: 5, title: 'UX Design Fellow', company: 'JA Africa', loc: 'Hybrid · Regional', type: 'Fellowship', match: 91, tags: ['Figma', 'Research'], cover: 'assets/jobs/ja.jpg', logo: 'assets/logos/ja.jpg' },
-  { id: 6, title: 'Operations Coordinator', company: 'Jumia', loc: 'Abidjan', type: 'Contract', match: 64, tags: ['Ops', 'French'], cover: 'assets/jobs/jumia.jpg', logo: 'assets/logos/jumia.jpg' },
+  { id: 1, title: 'Product Analyst', company: 'MTN Ghana', loc: 'Accra · Hybrid', type: 'Full-time', paid: true, salary: 'GHS 6–8k / mo', match: 94, tags: ['Analytics', 'Excel', 'SQL'], cover: 'assets/jobs/mtn.jpg', logo: 'assets/logos/mtn.jpg' },
+  { id: 2, title: 'Junior Software Engineer', company: 'Andela', loc: 'Remote · Africa', type: 'Full-time', paid: true, salary: 'Competitive', match: 88, tags: ['JavaScript', 'React'], cover: 'assets/jobs/andela.jpg', logo: 'assets/logos/andela.jpg' },
+  { id: 3, title: 'Marketing Intern', company: 'Flutterwave', loc: 'Lagos', type: 'Internship', paid: true, salary: 'Stipend', match: 76, tags: ['Social', 'Copy'], cover: 'assets/jobs/flutterwave.jpg', logo: 'assets/logos/flutterwave.jpg' },
+  { id: 4, title: 'Finance Associate', company: 'Equity Bank', loc: 'Nairobi', type: 'Full-time', paid: true, salary: 'KES competitive', match: 71, tags: ['Finance', 'Excel'], cover: 'assets/jobs/equity.jpg', logo: 'assets/logos/equity.jpg' },
+  { id: 5, title: 'UX Design Intern', company: 'JA Africa', loc: 'Hybrid · Regional', type: 'Internship', paid: false, salary: 'Unpaid · mentorship', match: 91, tags: ['Figma', 'Research'], cover: 'assets/jobs/ja.jpg', logo: 'assets/logos/ja.jpg' },
+  { id: 6, title: 'Operations Coordinator', company: 'Jumia', loc: 'Abidjan', type: 'Contract', paid: true, salary: 'XOF competitive', match: 64, tags: ['Ops', 'French'], cover: 'assets/jobs/jumia.jpg', logo: 'assets/logos/jumia.jpg' },
+  { id: 7, title: 'Event Volunteer', company: 'JA Ghana', loc: 'Accra', type: 'Volunteer', paid: false, salary: 'Unpaid', match: 58, tags: ['Events', 'Community'], cover: 'assets/jobs/ja.jpg', logo: 'assets/logos/ja.jpg' },
+  { id: 8, title: 'Part-time Data Tutor', company: 'Hubtel', loc: 'Accra · Remote', type: 'Part-time', paid: true, salary: 'GHS 80 / hr', match: 82, tags: ['SQL', 'Teaching'], cover: 'assets/jobs/mtn.jpg', logo: 'assets/logos/mtn.jpg' },
 ];
+
+/** Spaces = cohort / interest groups with Moodle forum discussions */
+JACC.SPACES = [
+  {
+    id: 'ja-ghana-2019',
+    name: 'JA Ghana 2019',
+    kind: 'Cohort',
+    members: 420,
+    unread: 6,
+    desc: 'Your Company Programme cohort — announcements and peer support.',
+    threads: [
+      { id: 't1', title: 'Anyone interviewing at Hubtel this month?', author: 'Kwame Osei', replies: 12, time: '2h', pinned: false },
+      { id: 't2', title: 'Summit carpool from Accra campus', author: 'Ama Mensah', replies: 8, time: 'Yesterday', pinned: true },
+      { id: 't3', title: 'CV swap before Friday clinic', author: 'Efua Boateng', replies: 21, time: 'Mon', pinned: false },
+    ],
+  },
+  {
+    id: 'product-design',
+    name: 'Product design',
+    kind: 'Interest',
+    members: 186,
+    unread: 2,
+    desc: 'Portfolio reviews, tools, and hiring tips for product & UX alumni.',
+    threads: [
+      { id: 't4', title: 'Figma file critique — drip campaign screens', author: 'Adaobi Nwosu', replies: 5, time: '4h', pinned: false },
+      { id: 't5', title: 'Research ops templates we reuse', author: 'Wanjiru Kamau', replies: 14, time: '3d', pinned: false },
+    ],
+  },
+  {
+    id: 'women-in-tech',
+    name: 'Women in tech',
+    kind: 'Chapter',
+    members: 310,
+    unread: 0,
+    desc: 'Peer discussions, opportunities, and solidarity across JA countries.',
+    threads: [
+      { id: 't6', title: 'Women in STEM Circle — who’s going?', author: 'Fatou Diallo', replies: 9, time: '1d', pinned: false },
+    ],
+  },
+];
+
+JACC.SPACE_POSTS = {
+  t1: [
+    { name: 'Kwame Osei', time: '2h', text: 'I have a case round next week — anyone sat it recently?' },
+    { name: 'Ama Mensah', time: '1h', text: 'Yes — they lean product sense + a short SQL take-home. Happy to voice note tips.' },
+    { name: 'Efua Boateng', time: '45m', text: 'Same here. Shortlisted for Product Analyst — we can prep together in this space.' },
+  ],
+  t2: [
+    { name: 'Ama Mensah', time: 'Yesterday', text: 'Leaving campus 7:30am — 3 seats left. Drop a reply if you need a seat.' },
+    { name: 'Yeboah Kofi', time: 'Yesterday', text: 'Count me in from Spintex road.' },
+  ],
+};
+
+JACC.EXPERIENCE = [
+  { id: 1, title: 'Product Analyst', company: 'Hubtel', place: 'Accra', from: 'Jan 2023', to: 'Present', current: true },
+  { id: 2, title: 'Business Intern', company: 'MTN Ghana', place: 'Accra', from: 'Jun 2021', to: 'Aug 2021', current: false },
+  { id: 3, title: 'Company Programme', company: 'JA Ghana', place: 'Accra', from: '2018', to: '2019', current: false },
+];
+
+JACC.OPEN_TO_WORK = {
+  on: true,
+  roles: 'Product Analyst, Associate PM',
+  places: 'Accra · Remote Africa',
+  types: ['Full-time', 'Contract'],
+};
 
 JACC.EVENTS = [
   { id: 1, title: 'Regional Alumni Summit 2026', cat: 'Networking', when: 'Sat 14 Mar · 09:00 WAT', where: 'Accra + Online', spots: '42 / 120', rsvp: true, cover: 'assets/events/summit.jpg' },
@@ -159,9 +231,17 @@ JACC.SCREENS = [
     { id: 'home', label: 'Home feed' },
     { id: 'profile', label: 'Profile' },
     { id: 'profile-edit', label: 'Edit profile' },
+    { id: 'work-history', label: 'Work history' },
+    { id: 'open-to-work', label: 'Open to work' },
     { id: 'privacy', label: 'Privacy' },
     { id: 'pathway', label: 'Career pathway' },
     { id: 'endorsements', label: 'Skill endorsements' },
+  ]},
+  { group: 'Spaces (forums)', items: [
+    { id: 'spaces', label: 'Your spaces' },
+    { id: 'space', label: 'Space · discussions' },
+    { id: 'space-thread', label: 'Forum thread' },
+    { id: 'space-new', label: 'Create space' },
   ]},
   { group: 'CV studio + AI', items: [
     { id: 'cv-start', label: 'CV studio' },
@@ -217,7 +297,6 @@ JACC.SCREENS = [
     { id: 'a11y', label: 'Accessibility' },
   ]},
   { group: 'Legacy Career Connect', items: [
-    { id: 'forum', label: 'Forum' },
     { id: 'courses', label: 'Courses / skills' },
     { id: 'surveys', label: 'Surveys' },
   ]},

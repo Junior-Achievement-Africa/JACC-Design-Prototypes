@@ -46,6 +46,7 @@ JACC.PERSONAS = [
     nav: [
       { id: 'home', label: 'Home', icon: 'home' },
       { id: 'careers', label: 'Careers', icon: 'briefcase' },
+      { id: 'spaces', label: 'Spaces', icon: 'users' },
       { id: 'events', label: 'Events', icon: 'calendar' },
     ],
     // Profile / CV / settings live under the avatar menu — not in primary nav
@@ -136,12 +137,19 @@ JACC.alumniSubnavFor = (screen) => {
     'careers', 'job', 'apply', 'saved', 'saved-searches', 'applications', 'digest', 'match-explain',
   ]);
   const events = new Set(['events', 'event', 'ticket', 'stories']);
+  const spaces = new Set(['spaces', 'space', 'space-thread', 'space-new', 'forum']);
   if (careers.has(screen)) {
     return [
       { id: 'careers', label: 'Job board' },
       { id: 'applications', label: 'Applications' },
       { id: 'saved', label: 'Saved' },
       { id: 'saved-searches', label: 'Saved searches' },
+    ];
+  }
+  if (spaces.has(screen)) {
+    return [
+      { id: 'spaces', label: 'Your spaces' },
+      { id: 'space-new', label: 'New space' },
     ];
   }
   if (events.has(screen)) {

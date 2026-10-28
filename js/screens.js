@@ -149,9 +149,13 @@ JACC.Screens = {
       <div class="baobab-home screen-enter">
         <aside class="home-rail hide-mobile">
           <div class="t-eyebrow">${t('common.spaces')}</div>
-          <a class="rail-item is-on" href="#/home"><span class="avatar sq">JG</span> JA Ghana 2019</a>
-          <a class="rail-item is-soon" href="#/forum"><span class="avatar sq c2">PM</span> Product peers</a>
-          <a class="rail-item is-soon" href="#/forum"><span class="avatar sq">+</span> New group</a>
+          ${(JACC.SPACES || []).map((s, i) => `
+            <a class="rail-item ${i === 0 ? 'is-on' : ''}" href="#/space">
+              <span class="avatar sq">${esc(s.name.split(' ').map((w) => w[0]).join('').slice(0, 2))}</span>
+              ${esc(s.name)}
+              ${s.unread ? `<span class="count">${s.unread}</span>` : ''}
+            </a>`).join('')}
+          <a class="rail-item" href="#/space-new"><span class="avatar sq">+</span> ${t('common.newSpace')}</a>
           <div class="t-eyebrow">${t('common.quick')}</div>
           <a class="rail-item" href="#/careers"><span class="qa t1">💼</span> ${t('common.jobs')} <span class="count">12</span></a>
           <a class="rail-item" href="#/events"><span class="qa t3">📅</span> ${t('common.events')} <span class="count">2</span></a>
@@ -262,6 +266,8 @@ JACC.Screens = {
   },
 
   profile() {
+    const otw = JACC.OPEN_TO_WORK || { on: false };
+    const exp = JACC.EXPERIENCE || [];
     return `
       <div class="screen-enter">
         <div class="card" style="padding:0;overflow:hidden;margin-bottom:16px">
@@ -272,13 +278,44 @@ JACC.Screens = {
               <div>
                 <h1 style="margin:0;font-size:1.6rem">Efua Boateng</h1>
                 <p class="muted" style="margin:4px 0">Product Analyst seeking growth roles · Accra, Ghana</p>
-                <div class="row gap-sm">${['Product','SQL','Stakeholder mgmt','JA Ghana 2019'].map(t => `<span class="pill">${t}</span>`).join('')}</div>
+                <div class="row gap-sm">${['Product','SQL','Stakeholder mgmt','JA Ghana 2019'].map((x) => `<span class="pill">${x}</span>`).join('')}
+                  ${otw.on ? '<span class="pill-success pill">Open to work</span>' : ''}
+                </div>
               </div>
               <div class="row gap-sm">
                 <a class="btn btn-secondary btn-sm" href="#/profile-edit">Edit</a>
                 <a class="btn btn-primary btn-sm" href="#/privacy">Privacy</a>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:16px">
+          <div class="row between" style="flex-wrap:wrap;gap:10px">
+            <div>
+              <strong>Open to work</strong>
+              <div class="tiny">${otw.on
+                ? `Visible to employers · ${esc(otw.roles)} · ${esc(otw.places)}`
+                : 'Turned off — employers will not see availability'}</div>
+              ${otw.on && otw.types ? `<div class="row gap-sm" style="margin-top:8px">${otw.types.map((x) => `<span class="pill">${esc(x)}</span>`).join('')}</div>` : ''}
+            </div>
+            <a class="btn btn-sm btn-secondary" href="#/open-to-work">${otw.on ? 'Edit availability' : 'Declare availability'}</a>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:16px">
+          <div class="row between" style="margin-bottom:12px">
+            <strong>Work history</strong>
+            <a class="btn btn-sm btn-ghost" href="#/work-history">Add role</a>
+          </div>
+          <div class="stack">${exp.map((e) => `
+            <div class="list-card" style="cursor:default">
+              <div class="thumb img"><img src="assets/logos/mtn.jpg" alt=""></div>
+              <div class="meta">
+                <h3>${esc(e.title)}</h3>
+                <div class="tiny">${esc(e.company)} · ${esc(e.place)}</div>
+                <div class="tiny">${esc(e.from)} – ${esc(e.to)}${e.current ? ' · Current' : ''}</div>
+              </div>
+              <a class="btn btn-sm btn-ghost" href="#/work-history">Edit</a>
+            </div>`).join('') || '<p class="muted">No roles yet — add your work history.</p>'}
           </div>
         </div>
         <div class="grid-2">
@@ -290,7 +327,7 @@ JACC.Screens = {
           </div>
           <div class="card">
             <div class="row between"><h3 style="margin:0">Activity</h3><a class="tiny" href="#/applications">Applications</a></div>
-            <ul style="margin-top:10px">${JACC.ACTIVITY.map(a => `
+            <ul style="margin-top:10px">${JACC.ACTIVITY.map((a) => `
               <li class="tiny" style="padding:8px 0;border-bottom:1px solid var(--line)">${esc(a.t)} · ${esc(a.d)}</li>`).join('')}
             </ul>
           </div>
@@ -356,8 +393,8 @@ JACC.Screens = {
           </div></div>
         <div class="searchbar">${icon('search')}<input placeholder="${t('careers.searchPh')}" value="product analyst"></div>
         <div class="filters">
-          ${[t('careers.all'),t('careers.fulltime'),t('careers.internship'),t('careers.remote'),t('careers.hybrid'),t('careers.matched')].map((f,i) =>
-            `<button class="filter-chip ${i === 5 || i === 0 ? 'is-active' : ''}" type="button">${f}</button>`).join('')}
+          ${[t('careers.all'), ...JACC.JOB_TYPES, t('careers.paid'), t('careers.unpaid'), t('careers.matched')].map((f, i) =>
+            `<button class="filter-chip ${i === 0 ? 'is-active' : ''}" type="button">${f}</button>`).join('')}
         </div>
         <div class="card" style="margin-bottom:14px">
           <div class="row between" style="flex-wrap:wrap;gap:10px">
@@ -368,12 +405,15 @@ JACC.Screens = {
             <a class="btn btn-sm btn-secondary" href="#/digest">${t('common.digestPreview')}</a>
           </div>
         </div>
-        <div class="stack">${JACC.JOBS.map(j => `
+        <div class="stack">${JACC.JOBS.map((j) => `
           <a class="list-card" href="#/job">
             ${JACC.jobThumb(j)}
             <div class="meta">
-              <div class="row gap-sm"><h3 style="margin:0">${esc(j.title)}</h3><span class="pill">${esc(j.type)}</span></div>
-              <div class="tiny">${esc(j.company)} · ${esc(j.loc)}</div>
+              <div class="row gap-sm"><h3 style="margin:0">${esc(j.title)}</h3>
+                <span class="pill">${esc(j.type)}</span>
+                <span class="pill ${j.paid ? 'pill-success' : 'pill-danger'}">${j.paid ? t('careers.paid') : t('careers.unpaid')}</span>
+              </div>
+              <div class="tiny">${esc(j.company)} · ${esc(j.loc)}${j.salary ? ` · ${esc(j.salary)}` : ''}</div>
               <div class="row gap-sm" style="margin-top:6px">${j.tags.map((tag) => `<span class="pill">${esc(tag)}</span>`).join('')}</div>
             </div>
             <div class="match-ring" style="--m:${j.match}"><span>${j.match}%</span></div>
@@ -392,9 +432,10 @@ JACC.Screens = {
             <div class="row gap-sm" style="margin-bottom:8px">
               <span class="pill-match pill">${j.match}% ${t('common.match')}</span>
               <span class="pill">${esc(j.type)}</span>
+              <span class="pill ${j.paid ? 'pill-success' : 'pill-danger'}">${j.paid ? t('careers.paid') : t('careers.unpaid')}</span>
             </div>
             <h1 style="margin:0 0 6px">${esc(j.title)}</h1>
-            <p class="muted">${esc(j.company)} · ${esc(j.loc)}</p>
+            <p class="muted">${esc(j.company)} · ${esc(j.loc)}${j.salary ? ` · ${esc(j.salary)}` : ''}</p>
             <div class="row" style="gap:10px;flex-wrap:wrap;margin:16px 0">
               <a class="btn btn-primary" href="#/apply">${t('common.apply')}</a>
               <a class="btn btn-secondary" href="#/match-explain">${t('common.whyMatch', { n: j.match })}</a>
@@ -494,17 +535,26 @@ JACC.Screens = {
   'post-job'() {
     return `
       <div class="auth-panel screen-enter" style="margin:0 auto;max-width:640px">
-        <h1>Post a job</h1>
-        <p class="muted">US-10 — create listings with optional card image.</p>
-        <div class="field"><label>Job title</label><input placeholder="e.g. Product Analyst"></div>
+        <h1>Post a role</h1>
+        <p class="muted">Jobs, internships, contracts, part-time, or volunteer — mark paid or unpaid.</p>
+        <div class="field"><label>Title</label><input placeholder="e.g. Product Analyst"></div>
         <div class="grid-2">
           <div class="field"><label>Location</label><input placeholder="Accra · Hybrid"></div>
-          <div class="field"><label>Type</label><select><option>Full-time</option><option>Internship</option><option>Contract</option></select></div>
+          <div class="field"><label>Role type</label>
+            <select>${JACC.JOB_TYPES.map((x) => `<option>${x}</option>`).join('')}</select>
+          </div>
         </div>
+        <div class="grid-2">
+          <div class="field"><label>Compensation</label>
+            <select><option>Paid</option><option>Unpaid</option></select>
+          </div>
+          <div class="field"><label>Salary / stipend (optional)</label><input placeholder="e.g. GHS 6–8k / mo or Stipend"></div>
+        </div>
+        <label class="row" style="margin:0 0 14px;gap:8px"><input type="checkbox" checked> Show compensation on listing</label>
         <div class="field"><label>Description</label><textarea placeholder="Role overview, responsibilities…"></textarea></div>
         <div class="field"><label>Card image (optional)</label><input type="file"></div>
         <div class="row" style="gap:10px">
-          <button class="btn btn-primary" data-toast="Job submitted for review" data-nav="#/moderation">Publish</button>
+          <button class="btn btn-primary" data-toast="Role submitted for review" data-nav="#/moderation">Publish</button>
           <button class="btn btn-secondary" data-toast="Draft saved">Save draft</button>
         </div>
       </div>`;
