@@ -551,9 +551,9 @@ JACC.Screens = {
         <div class="hero">
           <span class="eyebrow"><i></i> Employer workspace</span>
           <h1>Hire JA talent</h1>
-          <p>Post roles, review applicants, and update hiring status — partners stay inside Moodle.</p>
+          <p>Post opportunities, review applicants, and update hiring status — partners stay inside Moodle.</p>
           <div class="actions">
-            <a class="btn btn-primary" href="#/post-job">Post a job</a>
+            <a class="btn btn-primary" href="#/post-job">Post an opportunity</a>
             <a class="btn btn-secondary" href="#/applicants">Review applicants</a>
           </div>
         </div>
@@ -582,12 +582,12 @@ JACC.Screens = {
   'post-job'() {
     return `
       <div class="auth-panel screen-enter" style="margin:0 auto;max-width:640px">
-        <h1>Post a role</h1>
-        <p class="muted">Jobs, internships, contracts, part-time, or volunteer — mark paid or unpaid.</p>
+        <h1>Post an opportunity</h1>
+        <p class="muted">Jobs, internships, apprenticeships, contracts, part-time, or volunteer — mark paid or unpaid.</p>
         <div class="field"><label>Title</label><input placeholder="e.g. Product Analyst"></div>
         <div class="grid-2">
           <div class="field"><label>Location</label><input placeholder="Accra · Hybrid"></div>
-          <div class="field"><label>Role type</label>
+          <div class="field"><label>Opportunity type</label>
             <select>${JACC.JOB_TYPES.map((x) => `<option>${x}</option>`).join('')}</select>
           </div>
         </div>
@@ -598,10 +598,10 @@ JACC.Screens = {
           <div class="field"><label>Salary / stipend (optional)</label><input placeholder="e.g. GHS 6–8k / mo or Stipend"></div>
         </div>
         <label class="row" style="margin:0 0 14px;gap:8px"><input type="checkbox" checked> Show compensation on listing</label>
-        <div class="field"><label>Description</label><textarea placeholder="Role overview, responsibilities…"></textarea></div>
+        <div class="field"><label>Description</label><textarea placeholder="Opportunity overview, responsibilities…"></textarea></div>
         <div class="field"><label>Card image (optional)</label><input type="file"></div>
         <div class="row" style="gap:10px">
-          <button class="btn btn-primary" data-toast="Role submitted for review" data-nav="#/moderation">Publish</button>
+          <button class="btn btn-primary" data-toast="Opportunity submitted for review" data-nav="#/moderation">Publish</button>
           <button class="btn btn-secondary" data-toast="Draft saved">Save draft</button>
         </div>
       </div>`;
@@ -787,7 +787,7 @@ JACC.Screens = {
         <div class="card" style="margin-top:16px">
           <strong>Quick actions</strong>
           <div class="row" style="flex-wrap:wrap;gap:8px;margin-top:12px">
-            <a class="btn btn-sm btn-primary" href="#/post-job">New job</a>
+            <a class="btn btn-sm btn-primary" href="#/post-job">New opportunity</a>
             <a class="btn btn-sm btn-secondary" href="#/create-event">New event</a>
             <a class="btn btn-sm btn-ghost" href="#/moodle-block">Moodle /my block</a>
             <a class="btn btn-sm btn-ghost" href="#/moderation">Moderation queue</a>

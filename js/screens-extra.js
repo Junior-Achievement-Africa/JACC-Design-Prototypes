@@ -399,7 +399,7 @@ Object.assign(JACC.Screens, {
             <p class="muted">Telecom · Accra · Partner employer</p>
             <div class="row gap-sm"><span class="pill-success pill">Verified partner</span><span class="pill">4 open roles</span></div>
             <p class="muted" style="margin-top:14px">We hire JA alumni into analytics, retail and digital roles across West Africa.</p>
-            <a class="btn btn-secondary" href="#/post-job">Post a role</a>
+            <a class="btn btn-secondary" href="#/post-job">Post an opportunity</a>
           </div>
         </div>
       </div>`;

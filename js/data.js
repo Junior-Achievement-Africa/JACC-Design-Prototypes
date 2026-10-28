@@ -55,7 +55,7 @@ JACC.NAV = [
 ];
 
 /** Job types mirror local_jacc job_filter::TYPES + paid/unpaid compensation */
-JACC.JOB_TYPES = ['Full-time', 'Internship', 'Contract', 'Part-time', 'Volunteer'];
+JACC.JOB_TYPES = ['Full-time', 'Internship', 'Apprenticeship', 'Contract', 'Part-time', 'Volunteer'];
 JACC.COMPENSATION = ['Paid', 'Unpaid'];
 
 JACC.JOBS = [
@@ -67,6 +67,7 @@ JACC.JOBS = [
   { id: 6, title: 'Operations Coordinator', company: 'Jumia', loc: 'Abidjan', type: 'Contract', paid: true, salary: 'XOF competitive', match: 64, tags: ['Ops', 'French'], cover: 'assets/jobs/jumia.jpg', logo: 'assets/logos/jumia.jpg' },
   { id: 7, title: 'Event Volunteer', company: 'JA Ghana', loc: 'Accra', type: 'Volunteer', paid: false, salary: 'Unpaid', match: 58, tags: ['Events', 'Community'], cover: 'assets/jobs/ja.jpg', logo: 'assets/logos/ja.jpg' },
   { id: 8, title: 'Part-time Data Tutor', company: 'Hubtel', loc: 'Accra · Remote', type: 'Part-time', paid: true, salary: 'GHS 80 / hr', match: 82, tags: ['SQL', 'Teaching'], cover: 'assets/jobs/mtn.jpg', logo: 'assets/logos/mtn.jpg' },
+  { id: 9, title: 'Digital Marketing Apprentice', company: 'MTN Ghana', loc: 'Accra · Hybrid', type: 'Apprenticeship', paid: true, salary: 'Stipend', match: 79, tags: ['Marketing', 'Social', 'Content'], cover: 'assets/jobs/mtn.jpg', logo: 'assets/logos/mtn.jpg' },
 ];
 
 /** Spaces = cohort / interest groups with Moodle forum discussions */
@@ -297,7 +298,7 @@ JACC.SCREENS = [
   ]},
   { group: 'Employer', items: [
     { id: 'employer', label: 'Employer home' },
-    { id: 'post-job', label: 'Post a job' },
+    { id: 'post-job', label: 'Post an opportunity' },
     { id: 'applicants', label: 'Applicants' },
     { id: 'employer-pipeline', label: 'Pipeline' },
     { id: 'company', label: 'Company' },
@@ -362,7 +363,7 @@ JACC.FEATURES = [
   { id: 'job-board', name: 'Job board', desc: 'Search, multi-filters, types, paid/unpaid, match %', area: 'Careers', phase: 1, proto: 'in', screen: 'careers' },
   { id: 'job-apply', name: 'Apply & save jobs', desc: 'Cover letter, CV attach, no duplicates, saved list', area: 'Careers', phase: 1, proto: 'in', screen: 'apply' },
   { id: 'job-match', name: 'Match explanation', desc: 'Why this % — skills overlap on job detail', area: 'Careers', phase: 1, proto: 'in', screen: 'match-explain' },
-  { id: 'employer-post', name: 'Employer job posting', desc: 'Create/edit jobs with cover image', area: 'Careers', phase: 1, proto: 'in', screen: 'post-job' },
+  { id: 'employer-post', name: 'Employer opportunity posting', desc: 'Create/edit opportunities with cover image · types incl. apprenticeship', area: 'Careers', phase: 1, proto: 'in', screen: 'post-job' },
   { id: 'applicants', name: 'Applicant pipeline', desc: 'Statuses: submitted → hired; notify alumni', area: 'Careers', phase: 1, proto: 'in', screen: 'applicants' },
   { id: 'events-browse', name: 'Events browse & RSVP', desc: 'Filter by category; capacity; you’re going', area: 'Events', phase: 1, proto: 'in', screen: 'events' },
   { id: 'events-ticket', name: 'Event ticket & join link', desc: 'Ticket view, calendar add, meeting link', area: 'Events', phase: 1, proto: 'in', screen: 'ticket' },
