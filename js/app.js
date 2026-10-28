@@ -121,9 +121,9 @@
               ['Moodle notifications', 'Bell + digests via core processors'],
               ['Cohort gate + plugin', 'Who sees the hub is Moodle-cohort based'],
               ['AI CV parser', 'Upload → parse → review → CV studio'],
-              ['Match explain', 'Why 94% — skills, industry, location'],
-              ['Pathway & map', 'Career timeline + Africa engagement pulse'],
-              ['Tickets & block', 'QR ticket + /my dashboard block'],
+              ['Job match explain', 'On job detail — Why 94%?'],
+              ['Pathway & endorsements', 'On profile'],
+              ['Tickets & digests', 'Events ticket · Careers digest'],
             ].map(([t, d]) => `<div class="feat-item"><strong>${t}</strong><span>${d}</span></div>`).join('')}
           </div>
         </section>

@@ -52,11 +52,13 @@ JACC.PERSONAS = [
     subnav: [
       { id: 'applications', label: 'Applications' },
       { id: 'saved', label: 'Saved' },
+      { id: 'saved-searches', label: 'Saved searches' },
       { id: 'cv-start', label: 'CV studio' },
-      { id: 'pathway', label: 'Pathway' },
-      { id: 'ticket', label: 'My ticket' },
       { id: 'stories', label: 'Stories' },
       { id: 'profile', label: 'Profile' },
+      { id: 'pathway', label: 'Pathway' },
+      { id: 'endorsements', label: 'Endorsements' },
+      { id: 'ticket', label: 'My ticket' },
       { id: 'settings', label: 'Settings' },
     ],
   },
@@ -120,6 +122,7 @@ JACC.PERSONAS = [
     subnav: [
       { id: 'cohorts-admin', label: 'Cohorts access' },
       { id: 'manage-stories', label: 'Stories' },
+      { id: 'moodle-block', label: 'Moodle /my block' },
       { id: 'approvals', label: 'Account approvals' },
     ],
   },
@@ -133,6 +136,7 @@ JACC.PERSONAS = [
     shell: true,
     nav: [
       { id: 'analytics', label: 'Impact', icon: 'calendar' },
+      { id: 'impact-map', label: 'Map', icon: 'calendar' },
       { id: 'admin', label: 'Manage', icon: 'home' },
       { id: 'home', label: 'Hub', icon: 'home' },
     ],

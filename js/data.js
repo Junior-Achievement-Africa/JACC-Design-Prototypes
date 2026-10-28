@@ -125,6 +125,8 @@ JACC.SCREENS = [
     { id: 'profile', label: 'Profile' },
     { id: 'profile-edit', label: 'Edit profile' },
     { id: 'privacy', label: 'Privacy' },
+    { id: 'pathway', label: 'Career pathway' },
+    { id: 'endorsements', label: 'Skill endorsements' },
   ]},
   { group: 'CV studio + AI', items: [
     { id: 'cv-start', label: 'CV studio' },
@@ -139,8 +141,11 @@ JACC.SCREENS = [
   { group: 'Careers', items: [
     { id: 'careers', label: 'Job board' },
     { id: 'job', label: 'Job detail' },
+    { id: 'match-explain', label: 'Why this match' },
     { id: 'apply', label: 'Apply' },
     { id: 'saved', label: 'Saved jobs' },
+    { id: 'saved-searches', label: 'Saved searches' },
+    { id: 'digest', label: 'Job digest' },
     { id: 'applications', label: 'My applications' },
   ]},
   { group: 'Employer', items: [
@@ -154,6 +159,7 @@ JACC.SCREENS = [
   { group: 'Events & organise', items: [
     { id: 'events', label: 'Events' },
     { id: 'event', label: 'Event detail' },
+    { id: 'ticket', label: 'Event ticket + QR' },
     { id: 'create-event', label: 'Create event' },
     { id: 'organise', label: 'Organise desk' },
     { id: 'organise-scan', label: 'QR scan' },
@@ -164,29 +170,21 @@ JACC.SCREENS = [
   { group: 'Admin / plugin / M&E', items: [
     { id: 'admin', label: 'Content admin' },
     { id: 'plugin-settings', label: 'Plugin settings' },
+    { id: 'moodle-block', label: 'Moodle /my block' },
     { id: 'cohorts-admin', label: 'Cohorts access' },
     { id: 'approvals', label: 'Account approvals' },
     { id: 'manage-stories', label: 'Manage stories' },
     { id: 'analytics', label: 'Analytics' },
+    { id: 'impact-map', label: 'Africa impact map' },
     { id: 'exports', label: 'Exports' },
     { id: 'settings', label: 'Settings' },
     { id: 'notifications', label: 'Notifications' },
+    { id: 'bilingual', label: 'Language EN / FR' },
+    { id: 'a11y', label: 'Accessibility' },
   ]},
   { group: 'Legacy Career Connect', items: [
     { id: 'forum', label: 'Forum' },
     { id: 'courses', label: 'Courses / skills' },
     { id: 'surveys', label: 'Surveys' },
-  ]},
-  { group: 'Ideas & Moodle-native', items: [
-    { id: 'match-explain', label: 'Why this match' },
-    { id: 'pathway', label: 'Career pathway' },
-    { id: 'impact-map', label: 'Africa impact map' },
-    { id: 'ticket', label: 'Event ticket + QR' },
-    { id: 'endorsements', label: 'Skill endorsements' },
-    { id: 'moodle-block', label: 'Moodle dashboard block' },
-    { id: 'digest', label: 'Job digest email' },
-    { id: 'a11y', label: 'Accessibility' },
-    { id: 'bilingual', label: 'EN / FR language' },
-    { id: 'saved-searches', label: 'Saved searches' },
   ]},
 ];

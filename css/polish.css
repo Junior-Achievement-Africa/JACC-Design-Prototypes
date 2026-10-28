@@ -97,40 +97,6 @@
   overflow: hidden;
 }
 
-/* Idea feature chips row */
-.idea-rail {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding: 4px 0 12px;
-  margin-bottom: 4px;
-  scroll-snap-type: x mandatory;
-}
-.idea-rail a {
-  flex: none;
-  scroll-snap-align: start;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 40px;
-  padding: 0 14px;
-  border-radius: var(--radius-pill);
-  background: var(--surface);
-  border: var(--card-border);
-  box-shadow: var(--shadow);
-  font-size: 13px;
-  font-weight: 650;
-  color: var(--ink-2);
-  transition: transform .15s ease, background .15s ease;
-}
-.idea-rail a:hover {
-  transform: translateY(-2px);
-  color: var(--ink);
-}
-.idea-rail a span.ico {
-  font-size: 15px;
-}
-
 /* Pathway timeline */
 .timeline {
   position: relative;

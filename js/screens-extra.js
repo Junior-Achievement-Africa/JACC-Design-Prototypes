@@ -94,9 +94,11 @@ Object.assign(JACC.Screens, {
             <label class="row between"><span>Show success stories on home</span><input type="checkbox" checked></label>
             <label class="row between"><span>Job match digest emails</span><input type="checkbox" checked></label>
             <label class="row between"><span>Event reminder 24h before</span><input type="checkbox" checked></label>
+            <label class="row between"><span>Show Career Hub block on Moodle /my</span><input type="checkbox" checked></label>
             <div class="field"><label>Default profile visibility</label><select><option>Alumni only</option><option>Public</option><option>Only me</option></select></div>
             <div class="field"><label>Landing page</label><select><option>Enabled (public)</option><option>Redirect to login</option></select></div>
           </div>
+          <a class="btn btn-secondary" style="margin-top:12px" href="#/moodle-block">Preview Moodle /my block →</a>
         </div>
       </div>`;
   },
@@ -497,7 +499,7 @@ Object.assign(JACC.Screens, {
         <div class="row" style="gap:10px;margin-top:16px;flex-wrap:wrap">
           <a class="btn btn-primary" href="#/apply">Apply</a>
           <a class="btn btn-secondary" href="#/job">View role</a>
-          <button class="btn btn-ghost" data-toast="Saved search created">Alert me to similar</button>
+          <a class="btn btn-ghost" href="#/saved-searches">Alert me to similar</a>
         </div>
       </div>`;
   },
