@@ -433,7 +433,7 @@ JACC.Screens = {
         </div>
       </a>`;
     return `
-      <div class="screen-enter horizon-shell" data-careers-board>
+      <div class="screen-enter horizon-shell horizon-board" data-careers-board>
         <div class="careers-toolbar">
           <div class="section-title"><h1 style="font-size:1.6rem;margin:0">${t('careers.h1')}</h1>
             <div class="row gap-sm">
@@ -651,8 +651,8 @@ JACC.Screens = {
 
   events() {
     return `
-      <div class="screen-enter horizon-shell">
-        <div class="section-title"><h1 style="font-size:1.5rem;margin:0">${t('events.h1')}</h1>
+      <div class="screen-enter horizon-shell horizon-board">
+        <div class="section-title"><h1>${t('events.h1')}</h1>
           <div class="row gap-sm">
             <a class="btn btn-sm btn-ghost" href="#/stories">${t('landing.stories')}</a>
             <a class="btn btn-sm btn-ghost" href="#/ticket">${t('common.myTicket')}</a>

@@ -77,6 +77,7 @@ JACC.SPACES = [
     kind: 'Cohort',
     members: 420,
     unread: 6,
+    cover: 'assets/events/summit.jpg',
     desc: 'Your Company Programme cohort — announcements and peer support.',
     threads: [
       { id: 't1', title: 'Anyone interviewing at Hubtel this month?', author: 'Kwame Osei', replies: 12, time: '2h', pinned: false },
@@ -90,6 +91,7 @@ JACC.SPACES = [
     kind: 'Interest',
     members: 186,
     unread: 2,
+    cover: 'assets/story.jpg',
     desc: 'Portfolio reviews, tools, and hiring tips for product & UX alumni.',
     threads: [
       { id: 't4', title: 'Figma file critique — drip campaign screens', author: 'Adaobi Nwosu', replies: 5, time: '4h', pinned: false },
@@ -102,9 +104,22 @@ JACC.SPACES = [
     kind: 'Chapter',
     members: 310,
     unread: 0,
+    cover: 'assets/events/stem.jpg',
     desc: 'Peer discussions, opportunities, and solidarity across JA countries.',
     threads: [
       { id: 't6', title: 'Women in STEM Circle — who’s going?', author: 'Fatou Diallo', replies: 9, time: '1d', pinned: false },
+    ],
+  },
+  {
+    id: 'founders-circle',
+    name: 'Founders circle',
+    kind: 'Interest',
+    members: 148,
+    unread: 1,
+    cover: 'assets/events/pitch.jpg',
+    desc: 'Early-stage founders swapping fundraising, hiring, and go-to-market notes.',
+    threads: [
+      { id: 't7', title: 'Pitch Night — dry run partners?', author: 'Chinedu Okafor', replies: 6, time: '5h', pinned: false },
     ],
   },
 ];

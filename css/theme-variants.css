@@ -271,7 +271,7 @@
 [data-theme="horizon"] .horizon-hide-when-scroll { display: none; }
 [data-theme="horizon"] .section-title { margin-top: 8px; }
 
-/* Board pages: centered shell, not edge-to-edge rows */
+/* Board pages: full-width edge padding (careers / spaces / events) */
 [data-theme="horizon"] .horizon-shell,
 [data-theme="horizon"] [data-careers-board],
 [data-theme="horizon"] .screen-enter.auth-panel {
@@ -280,6 +280,11 @@
   margin-inline: auto;
   padding: 24px var(--content-pad) 40px;
   box-sizing: border-box;
+}
+[data-theme="horizon"] .horizon-shell.horizon-board,
+[data-theme="horizon"] [data-careers-board].horizon-board {
+  max-width: none;
+  width: 100%;
 }
 [data-theme="horizon"] .screen-enter.auth-panel {
   max-width: 640px;
@@ -295,9 +300,21 @@
   width: 100%;
   max-width: none;
 }
+[data-theme="horizon"] .horizon-board .section-title h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: var(--letter-display);
+}
+[data-theme="horizon"] .horizon-board .section-title .btn {
+  font-family: var(--font-body);
+  font-weight: 650;
+  letter-spacing: 0;
+}
 
-/* Careers teaser grid — 1 / 2 / 3 columns */
-[data-theme="horizon"] [data-careers-board] .careers-grid {
+/* Careers / Spaces / Events — 1 → 2 → 3 → 4 columns, full width */
+[data-theme="horizon"] [data-careers-board] .careers-grid,
+[data-theme="horizon"] .spaces-grid,
+[data-theme="horizon"] .events-grid {
   display: grid !important;
   grid-template-columns: 1fr;
   gap: 18px;
@@ -337,7 +354,9 @@
   flex: 1;
 }
 [data-theme="horizon"] [data-careers-board] .job-teaser .meta h3 {
+  font-family: var(--font-display);
   font-size: 1.05rem;
+  font-weight: 700;
   line-height: 1.25;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -348,13 +367,6 @@
   display: none !important;
 }
 
-/* Spaces teaser grid — 1 / 2 / 3 columns */
-[data-theme="horizon"] .spaces-grid {
-  display: grid !important;
-  grid-template-columns: 1fr;
-  gap: 18px;
-  flex-direction: unset;
-}
 [data-theme="horizon"] .space-teaser {
   flex-direction: column;
   align-items: stretch;
@@ -369,47 +381,50 @@
   box-shadow: var(--shadow-float);
 }
 [data-theme="horizon"] .space-teaser-media {
-  display: grid;
+  display: block;
   position: relative;
-  height: 120px;
-  place-items: center;
-  background:
-    linear-gradient(135deg, var(--ja-boundless-blue), var(--ja-enterprise-aqua));
+  height: 168px;
+  background: var(--sunken) center/cover no-repeat;
   color: #fff;
 }
-[data-theme="horizon"] .space-teaser-media[data-kind="Interest"] {
-  background: linear-gradient(135deg, var(--ja-transforming-teal), var(--ja-startup-jade));
+[data-theme="horizon"] .space-teaser-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(34 64 77 / 8%) 0%, rgb(34 64 77 / 55%) 100%);
+  pointer-events: none;
 }
-[data-theme="horizon"] .space-teaser-media[data-kind="Chapter"] {
-  background: linear-gradient(135deg, var(--ja-adaptable-azure), var(--ja-leadership-lime));
-}
-[data-theme="horizon"] .space-initials {
-  font-size: 1.8rem;
-  font-weight: 800;
-  letter-spacing: .04em;
+[data-theme="horizon"] .space-kind {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 1;
+  background: rgb(255 255 255 / 92%);
+  color: var(--ink);
 }
 [data-theme="horizon"] .space-unread {
   position: absolute;
   top: 12px;
   right: 12px;
+  z-index: 1;
 }
 [data-theme="horizon"] .space-teaser .meta {
   padding: 14px 16px 16px;
 }
 [data-theme="horizon"] .space-teaser .meta h3 {
+  font-family: var(--font-display);
   font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
-/* Events grid — 1 / 2 / 3 columns */
-[data-theme="horizon"] .events-grid {
-  display: grid !important;
-  grid-template-columns: 1fr;
-  gap: 18px;
-}
 [data-theme="horizon"] .events-grid .media-card {
   border-radius: var(--radius-xl);
   overflow: hidden;
   height: 100%;
+}
+[data-theme="horizon"] .events-grid .media-card h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
 }
 
 /* Applications / saved / stories stay stacked inside shell */
@@ -419,7 +434,7 @@
   gap: 12px;
 }
 
-@media (min-width: 700px) {
+@media (min-width: 640px) {
   [data-theme="horizon"] [data-careers-board] .careers-grid,
   [data-theme="horizon"] .spaces-grid,
   [data-theme="horizon"] .events-grid {
@@ -434,12 +449,17 @@
   [data-theme="horizon"] .horizon-hero-stats {
     grid-template-columns: repeat(2, 1fr);
   }
-}
-@media (min-width: 1040px) {
   [data-theme="horizon"] [data-careers-board] .careers-grid,
   [data-theme="horizon"] .spaces-grid,
   [data-theme="horizon"] .events-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (min-width: 1200px) {
+  [data-theme="horizon"] [data-careers-board] .careers-grid,
+  [data-theme="horizon"] .spaces-grid,
+  [data-theme="horizon"] .events-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 @media (min-width: 1100px) {

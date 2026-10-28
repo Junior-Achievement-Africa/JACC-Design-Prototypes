@@ -437,22 +437,22 @@ Object.assign(JACC.Screens, {
   /* Spaces — Moodle forum-backed discussions (US-26, from old JACC groups/forum) */
   spaces() {
     const spaces = JACC.SPACES || [];
-    const initials = (name) => esc(name.split(' ').map((w) => w[0]).join('').slice(0, 2));
     return `
-      <div class="screen-enter horizon-shell">
+      <div class="screen-enter horizon-shell horizon-board">
         <div class="section-title">
-          <h1 style="font-size:1.6rem;margin:0">Your spaces</h1>
+          <h1>Your spaces</h1>
           <a class="btn btn-sm btn-primary" href="#/space-new">New space</a>
         </div>
         <p class="muted">Cohort, chapter, and interest groups — discussions use Moodle forums (not a separate chat app).</p>
         <div class="stack spaces-grid">${spaces.map((s) => `
           <a class="list-card space-teaser" href="#/space">
-            <div class="space-teaser-media" data-kind="${esc(s.kind)}">
-              <span class="space-initials">${initials(s.name)}</span>
+            <div class="space-teaser-media" data-kind="${esc(s.kind)}" style="background-image:url('${s.cover || 'assets/hero.jpg'}')">
+              <span class="space-teaser-scrim" aria-hidden="true"></span>
+              <span class="pill space-kind">${esc(s.kind)}</span>
               ${s.unread ? `<span class="pill-danger pill space-unread">${s.unread} new</span>` : ''}
             </div>
             <div class="meta">
-              <div class="row gap-sm"><h3 style="margin:0">${esc(s.name)}</h3><span class="pill">${esc(s.kind)}</span></div>
+              <h3 style="margin:0">${esc(s.name)}</h3>
               <div class="tiny" style="margin-top:8px">${esc(s.desc)}</div>
               <div class="tiny" style="margin-top:10px">${s.members} members · ${s.threads.length} discussions</div>
             </div>
