@@ -51,7 +51,7 @@ JACC.NAV = [
   { id: 'home', label: 'Home', icon: 'home' },
   { id: 'careers', label: 'Careers', icon: 'briefcase' },
   { id: 'events', label: 'Events', icon: 'calendar' },
-  { id: 'messages', label: 'Messages', icon: 'message' },
+  { id: 'profile', label: 'Profile', icon: 'users' },
 ];
 
 JACC.JOBS = [
@@ -179,7 +179,6 @@ JACC.SCREENS = [
     { id: 'organise-scan', label: 'QR scan' },
     { id: 'attendance', label: 'Attendance' },
     { id: 'stories', label: 'Stories' },
-    { id: 'messages', label: 'Messages' },
   ]},
   { group: 'Admin / plugin / M&E', items: [
     { id: 'admin', label: 'Content admin' },

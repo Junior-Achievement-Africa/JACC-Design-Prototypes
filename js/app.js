@@ -125,8 +125,8 @@
           <div class="feat-grid">
             ${[
               ['Same JA palette', 'Themes vary layout & width — not colour'],
-              ['Moodle messaging', 'core_message — not a parallel chat app'],
-              ['Moodle notifications', 'Bell + digests via core processors'],
+              ['Moodle messaging', 'Header message icon → core_message drawer'],
+              ['Moodle notifications', 'Header bell → Moodle notification drawer'],
               ['Cohort gate + plugin', 'Who sees the hub is Moodle-cohort based'],
               ['AI CV parser', 'Upload → parse → review → CV studio'],
               ['Job match explain', 'On job detail — Why 94%?'],
@@ -261,8 +261,8 @@
         <a class="brandmark" href="#/${state.theme}/${homeLink}"><span class="logo">JA</span> Career Hub</a>
         <nav class="navpill">${nav}</nav>
         <div class="header-actions">
-          <button class="icon-btn hide-mobile" data-toast="Search">${JACC.icon('search')}</button>
-          <a class="icon-btn" href="#/${state.theme}/messages">${JACC.icon('bell')}<span class="badge">3</span></a>
+          <button class="icon-btn" type="button" title="Moodle notifications" data-toast="Opens Moodle notification drawer">${JACC.icon('bell')}<span class="badge">2</span></button>
+          <button class="icon-btn" type="button" title="Moodle messages" data-toast="Opens Moodle messaging drawer">${JACC.icon('message')}<span class="badge">1</span></button>
           <a href="#/${state.theme}/profile" title="${p.label}" class="avatar-link">${JACC.avatar(headerPhoto)}</a>
           ${p.id === 'employer' || p.id === 'admin' || p.id === 'coordinator'
             ? `<a class="btn btn-sm btn-primary hide-mobile" href="#/${state.theme}/${p.id === 'coordinator' ? 'create-event' : p.id === 'admin' ? 'plugin-settings' : 'post-job'}">${JACC.t('common.create')}</a>`

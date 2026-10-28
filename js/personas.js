@@ -47,7 +47,7 @@ JACC.PERSONAS = [
       { id: 'home', label: 'Home', icon: 'home' },
       { id: 'careers', label: 'Careers', icon: 'briefcase' },
       { id: 'events', label: 'Events', icon: 'calendar' },
-      { id: 'messages', label: 'Messages', icon: 'message' },
+      { id: 'profile', label: 'Profile', icon: 'users' },
     ],
     subnav: [
       { id: 'applications', label: 'Applications' },
@@ -74,7 +74,6 @@ JACC.PERSONAS = [
       { id: 'employer', label: 'Dashboard', icon: 'briefcase' },
       { id: 'employer-pipeline', label: 'Pipeline', icon: 'briefcase' },
       { id: 'post-job', label: 'Post', icon: 'plus' },
-      { id: 'messages', label: 'Messages', icon: 'message' },
       { id: 'company', label: 'Company', icon: 'home' },
     ],
     subnav: [
@@ -95,7 +94,6 @@ JACC.PERSONAS = [
       { id: 'organise', label: 'Organise', icon: 'calendar' },
       { id: 'events', label: 'Public list', icon: 'calendar' },
       { id: 'attendance', label: 'Attendance', icon: 'check' },
-      { id: 'messages', label: 'Messages', icon: 'message' },
       { id: 'home', label: 'Hub', icon: 'home' },
     ],
     subnav: [
@@ -117,7 +115,6 @@ JACC.PERSONAS = [
       { id: 'moderation', label: 'Jobs queue', icon: 'briefcase' },
       { id: 'plugin-settings', label: 'Plugin', icon: 'home' },
       { id: 'analytics', label: 'Analytics', icon: 'calendar' },
-      { id: 'messages', label: 'Messages', icon: 'message' },
     ],
     subnav: [
       { id: 'cohorts-admin', label: 'Cohorts access' },

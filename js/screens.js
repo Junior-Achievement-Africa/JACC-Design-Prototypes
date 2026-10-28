@@ -189,7 +189,7 @@ JACC.Screens = {
           <div class="pull-quote">“The job board matched me to Hubtel — I landed my first product role.” — ${esc(JACC.STORIES[0].name)}</div>
 
           <div class="atlas-ops">
-            <div class="moodle-core-note"><strong>Atlas ops home</strong> — dense tables first; messaging still opens Moodle core_message.</div>
+            <div class="moodle-core-note"><strong>Atlas ops home</strong> — dense tables first. Messages &amp; notifications stay on Moodle’s header icons.</div>
             <div class="stat-grid">
               <div class="stat"><div class="n">12</div><div class="l">Matches</div></div>
               <div class="stat"><div class="n">3</div><div class="l">Apps</div></div>
@@ -250,10 +250,6 @@ JACC.Screens = {
             <strong>${t('common.upcoming')}</strong>
             <p style="margin:10px 0 0;font-size:14px"><strong>Sat 14 Mar</strong> — Regional Alumni Summit</p>
             <a class="btn btn-sm btn-secondary" style="margin-top:12px" href="#/ticket">Ticket</a>
-          </div>
-          <div class="card">
-            <strong>${t('home.moodleNotif')}</strong>
-            <div class="tiny" style="margin-top:8px">Bell uses core notification drawer · <a href="#/notifications">prefs</a></div>
           </div>
           <div class="card">
             <strong>${t('common.activity')}</strong>
@@ -669,38 +665,13 @@ JACC.Screens = {
 
   messages() {
     return `
-      <div class="screen-enter">
+      <div class="auth-panel screen-enter" style="margin:0 auto;max-width:560px">
+        <h1>Messages live in Moodle</h1>
         <div class="moodle-core-note">
-          <div><strong>Moodle core messaging</strong> — JACC does not ship a separate chat stack. Threads, requests, muting, and privacy use <code>core_message</code>. This screen is a Career Hub skin over Moodle’s messenger (respects profile messaging prefs).</div>
+          <div><strong>No Career Hub Messages menu</strong> — use Moodle’s header message icon (with unread badge). Threads, requests, muting, and privacy stay in <code>core_message</code>.</div>
         </div>
-        <div class="msg-layout">
-          <div class="card msg-list" style="padding:8px">
-            <div class="tiny" style="padding:8px 10px 4px">Inbox · Moodle</div>
-            ${JACC.MESSAGES.map((m, i) => `
-              <div class="item ${i === 0 ? 'is-active' : ''}">
-                ${JACC.avatar(m)}
-                <div style="flex:1;min-width:0">
-                  <div class="row between"><strong style="font-size:14px">${esc(m.name)}</strong><span class="tiny">${esc(m.time)}</span></div>
-                  <div class="tiny" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(m.preview)}</div>
-                </div>
-                ${m.unread ? `<span class="pill-danger pill">${m.unread}</span>` : ''}
-              </div>`).join('')}
-            <a class="btn btn-sm btn-ghost btn-block" href="#/messages" data-toast="Opens Moodle message requests">Message requests</a>
-          </div>
-          <div class="msg-thread">
-            <div class="row between" style="margin-bottom:8px">
-              <div class="row">${JACC.avatar("Kwame Osei")}<div><strong>Kwame Osei</strong><div class="tiny">Alumni peer · via Moodle messaging</div></div></div>
-              <button class="btn btn-sm btn-ghost" data-toast="Moodle conversation info">Info</button>
-            </div>
-            <div class="bubble them">Saw you applied to Andela — how’s it going?</div>
-            <div class="bubble me">Shortlisted! Prepping for the product case round.</div>
-            <div class="bubble them">Congrats on the Andela shortlist — you’ve got this!</div>
-            <div style="margin-top:auto;display:flex;gap:8px">
-              <input style="flex:1;min-height:44px;border-radius:var(--radius-pill);border:1px solid var(--line-strong);padding:0 16px;background:var(--sunken)" placeholder="Message via Moodle…">
-              <button class="btn btn-primary btn-sm" data-toast="Sent through core_message">Send</button>
-            </div>
-          </div>
-        </div>
+        <p class="muted">Same pattern for alerts: the Moodle bell opens the notification drawer. Career Hub does not duplicate a notifications card on the dashboard.</p>
+        <a class="btn btn-primary btn-block" href="#/home">Back to Career Hub</a>
       </div>`;
   },
 
@@ -778,19 +749,18 @@ JACC.Screens = {
       <div class="auth-panel screen-enter" style="margin:0 auto;max-width:560px">
         <h1>Notification preferences</h1>
         <div class="moodle-core-note">
-          <div><strong>${t('home.moodleNotif')}</strong> — job digests, application updates, and event reminders use Moodle’s notification drawer and email channels.</div>
+          <div><strong>Moodle header icons</strong> — unread counts show on the bell (notifications) and message bubble. Digests and event reminders use Moodle processors + email; Career Hub only stores preference toggles here.</div>
         </div>
         ${[
           ['New jobs matching my skills', 'Email digest · Moodle processor'],
           ['Application status changes', 'Popup + email'],
           ['Saved-search alerts', 'Email digest'],
           ['Event reminder (24h before)', 'Moodle + calendar'],
-          ['Moodle site messages', 'Core messaging (not duplicated)'],
           ['Marketing from JA Africa', 'Off'],
         ].map(([t, s], i) => `
           <label class="row between" style="padding:14px 0;border-bottom:1px solid var(--line)">
             <span><strong>${t}</strong><div class="tiny">${s}</div></span>
-            <input type="checkbox" ${i < 5 ? 'checked' : ''}>
+            <input type="checkbox" ${i < 4 ? 'checked' : ''}>
           </label>`).join('')}
         <a class="btn btn-secondary btn-block" style="margin-top:12px" href="#/digest">Preview weekly job digest</a>
         <a class="btn btn-ghost btn-block" href="#/saved-searches">Manage saved searches</a>
