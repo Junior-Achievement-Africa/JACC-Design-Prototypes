@@ -8,7 +8,7 @@ Public, clickable **Career Hub** design review for JA Africa stakeholders.
 ## What’s in this review build
 
 - **Shared JA colours** across every theme — only layout / type / density change  
-- **Baobab** — soft 3-column foundations · **Horizon / Pulse / Atlas** — full-width layouts · **Verdant** — centred editorial  
+- **Baobab** — soft 3-column foundations · **Horizon / Pulse** — full-width layouts · **Verdant** — centred editorial · **Spark** — lively motion-first  
 - **Persona switcher**, Moodle **cohort gate**, **AI CV studio**, organise / employer flows  
 - **Feedback pins** for client comments → GitHub Issues  
 

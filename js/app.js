@@ -21,6 +21,7 @@
   }
 
   function setTheme(id) {
+    if (id === 'atlas') id = 'spark'; // Atlas replaced by Spark
     if (!JACC.THEMES.some((t) => t.id === id)) id = DEFAULT_THEME;
     state.theme = id;
     document.documentElement.setAttribute('data-theme', id);
@@ -289,7 +290,7 @@
           <div class="eyebrow"><span style="width:8px;height:8px;border-radius:50%;background:var(--ja-enterprise-aqua);display:inline-block"></span>
             JACC 3.0 · Moodle Career Hub · client review</div>
           <h1>Themes, personas<br><em>&amp; real access rules</em></h1>
-          <p>All themes share the <strong>official JA colours</strong>. They differ by <strong>layout, width, and type</strong> only. Assume a persona for role-true nav. Try AI CV, cohort gates, and full-width Horizon / Pulse / Atlas.</p>
+          <p>All themes share the <strong>official JA colours</strong>. They differ by <strong>layout, width, and motion</strong> only — five themes max. Try <strong>Spark</strong> for lively animation, plus Horizon / Pulse full-width layouts.</p>
           <div class="gallery-cta">
             <a class="btn btn-primary" href="#/baobab/home" style="background:var(--ja-enterprise-aqua);color:#22404D">Enter as Alumni (Baobab)</a>
             <a class="btn btn-secondary" href="#/baobab/plugin-settings" style="border-color:rgba(255,255,255,.25);color:#fff;background:transparent">Plugin cohort settings</a>

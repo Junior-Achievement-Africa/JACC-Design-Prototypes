@@ -194,23 +194,12 @@ JACC.Screens = {
 
           <div class="pull-quote">“The job board matched me to Hubtel — I landed my first product role.” — ${esc(JACC.STORIES[0].name)}</div>
 
-          <div class="atlas-ops">
-            <div class="moodle-core-note"><strong>Atlas ops home</strong> — dense tables first. Messages &amp; notifications stay on Moodle’s header icons.</div>
-            <div class="stat-grid">
-              <div class="stat"><div class="n">12</div><div class="l">Matches</div></div>
-              <div class="stat"><div class="n">3</div><div class="l">Apps</div></div>
-              <div class="stat"><div class="n">2</div><div class="l">RSVPs</div></div>
-              <div class="stat"><div class="n">82</div><div class="l">CV health</div></div>
-            </div>
-            <div class="table-wrap">
-              <table>
-                <thead><tr><th>Next action</th><th>Type</th><th>When</th><th></th></tr></thead>
-                <tbody>
-                  <tr><td>Apply · Product Analyst</td><td>Job</td><td>Today</td><td><a href="#/apply">Open</a></td></tr>
-                  <tr><td>Polish CV · health 82</td><td>CV</td><td>This week</td><td><a href="#/cv-health">Open</a></td></tr>
-                  <tr><td>RSVP · Alumni Summit</td><td>Event</td><td>14 Mar</td><td><a href="#/event">Open</a></td></tr>
-                </tbody>
-              </table>
+          <div class="spark-energy">
+            <div class="spark-chip-row">
+              <span class="spark-chip"><span class="spark-dot"></span> 12 fresh matches</span>
+              <span class="spark-chip"><span class="spark-dot"></span> Summit this month</span>
+              <span class="spark-chip"><span class="spark-dot"></span> CV health 82</span>
+              <span class="spark-chip"><span class="spark-dot"></span> 3 spaces buzzing</span>
             </div>
           </div>
 

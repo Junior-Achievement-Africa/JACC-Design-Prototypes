@@ -1,7 +1,7 @@
 # Prompt for Figma / Google Stitch — JACC Career Hub
 
 Copy the block below into **Figma AI**, **Google Stitch**, or a similar design tool.  
-Adjust the theme name (Baobab / Horizon / Verdant / Pulse / Atlas) per generation run.
+Adjust the theme name (Baobab / Horizon / Verdant / Pulse / Spark) per generation run.
 
 ---
 
@@ -92,4 +92,4 @@ Clean, accessible, African alumni career community — no purple, no generic Mat
 
 **Pulse:** Full-width feed with live ticker and kinetic lists — same JA colour tokens, more motion.
 
-**Atlas:** Full-width sharp tables and ops chrome — same JA colour tokens, denser type.
+**Spark:** Lively motion-first feed — bouncing chips, staggered cards, animated ticker and hero orbs; same JA colour tokens.

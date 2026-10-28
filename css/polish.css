@@ -77,10 +77,11 @@
   to { opacity: 1; transform: none; }
 }
 
-[data-theme="atlas"] .stack > .list-card,
-[data-theme="atlas"] .stack > .card,
-[data-theme="atlas"] .msg-list .item {
-  animation: none;
+[data-theme="spark"] .msg-list .item {
+  transition: transform .18s ease, background .18s ease;
+}
+[data-theme="spark"] .msg-list .item:hover {
+  transform: translateX(4px);
 }
 
 /* Quieter chrome */

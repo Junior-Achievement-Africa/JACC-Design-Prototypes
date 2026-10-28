@@ -129,24 +129,27 @@
   --card-border: 1px solid color-mix(in srgb, var(--ja-enterprise-aqua) 22%, var(--line));
 }
 
-/* ── Atlas — full-width ops / dense tables ── */
-[data-theme="atlas"] {
-  --theme-name: "Atlas";
-  --theme-tagline: "Full-width · tables · sharp";
+/* ── Spark — lively motion-first feed ── */
+[data-theme="spark"] {
+  --theme-name: "Spark";
+  --theme-tagline: "Lively · animated · playful";
   --content-max: 100%;
-  --content-pad: 20px;
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 10px;
-  --radius-pill: 6px;
-  --shadow: none;
-  --shadow-float: none;
-  --shell-blur: none;
-  --shell-bg: var(--bg);
-  --font-display: "IBM Plex Sans", system-ui, sans-serif;
-  --font-body: "IBM Plex Sans", system-ui, sans-serif;
-  --letter-display: -0.01em;
-  --density: 0.94;
-  --card-border: 1px solid var(--line);
+  --content-pad: 24px;
+  --radius-sm: 14px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-xl: 36px;
+  --radius-pill: 999px;
+  --font-display: "Outfit", system-ui, sans-serif;
+  --font-body: "Outfit", system-ui, sans-serif;
+  --letter-display: -0.03em;
+  --shadow: 0 4px 14px rgba(34, 64, 77, .08);
+  --shadow-float: 0 16px 40px rgba(0, 192, 202, .22);
+  --card-border: 1px solid color-mix(in srgb, var(--ja-enterprise-aqua) 30%, var(--line));
+  --shell-blur: saturate(180%) blur(18px);
+  --shell-bg: color-mix(in srgb, var(--white) 82%, transparent);
+  --pattern:
+    radial-gradient(ellipse 60% 40% at 10% 0%, color-mix(in srgb, var(--ja-enterprise-aqua) 22%, transparent), transparent 55%),
+    radial-gradient(ellipse 50% 35% at 90% 10%, color-mix(in srgb, var(--ja-empowered-yellow) 28%, transparent), transparent 50%),
+    radial-gradient(ellipse 45% 30% at 50% 100%, color-mix(in srgb, var(--ja-leadership-lime) 16%, transparent), transparent 55%);
 }
