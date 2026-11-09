@@ -161,6 +161,12 @@ JACC.EVENTS = [
 JACC.jobThumb = (j) =>
   `<div class="thumb img"><img src="${j.logo || j.cover}" alt="" loading="lazy" decoding="async"></div>`;
 
+/** Same cutoff as the job board “Matched” filter. */
+JACC.MATCH_MIN = 80;
+
+/** CV health score shown on the home card and the CV health screen. */
+JACC.CV_HEALTH = 82;
+
 /** Filter jobs by search query + chip key (all | type | paid | unpaid | matched) */
 JACC.filterJobs = (jobs, { query = '', filter = 'all' } = {}) => {
   const q = String(query || '').trim().toLowerCase();
@@ -168,7 +174,7 @@ JACC.filterJobs = (jobs, { query = '', filter = 'all' } = {}) => {
   return list.filter((j) => {
     if (filter === 'paid' && !j.paid) return false;
     if (filter === 'unpaid' && j.paid) return false;
-    if (filter === 'matched' && (j.match || 0) < 80) return false;
+    if (filter === 'matched' && (j.match || 0) < JACC.MATCH_MIN) return false;
     if (filter && filter !== 'all' && filter !== 'paid' && filter !== 'unpaid' && filter !== 'matched') {
       if (String(j.type).toLowerCase() !== filter.toLowerCase()) return false;
     }
@@ -200,6 +206,14 @@ JACC.APPLICATIONS = [
   { job: 'Marketing Intern · Flutterwave', status: 'submitted', date: '8 Feb' },
   { job: 'Finance Associate · Equity', status: 'not selected', date: '2 Feb' },
 ];
+
+/** Counts behind the home stat cards — same records those screens list. */
+JACC.homeStats = () => ({
+  jobMatches: JACC.filterJobs(JACC.JOBS, { filter: 'matched' }).length,
+  applications: (JACC.APPLICATIONS || []).length,
+  cvHealth: JACC.CV_HEALTH,
+  rsvps: (JACC.EVENTS || []).filter((e) => e.rsvp).length,
+});
 
 JACC.APPLICANTS = [
   { name: 'Adaobi Nwosu', match: 92, status: 'submitted', skills: 'SQL, Python' },

@@ -55,7 +55,9 @@
   }
 
   function parseRoute() {
-    const raw = (location.hash || '#/gallery').replace(/^#\/?/, '');
+    const hash = location.hash || '#/gallery';
+    const qIndex = hash.indexOf('?');
+    const raw = (qIndex >= 0 ? hash.slice(0, qIndex) : hash).replace(/^#\/?/, '');
     const parts = raw.split('/').filter(Boolean);
     if (!parts.length || parts[0] === 'gallery') return { theme: state.theme, screen: 'gallery' };
     if (JACC.THEMES.some((t) => t.id === parts[0])) {
@@ -660,7 +662,7 @@
         if (ok && wantPaid && !wantUnpaid) ok = paid;
         if (ok && wantUnpaid && !wantPaid) ok = !paid;
         // both paid+unpaid selected → no compensation constraint
-        if (ok && wantMatched) ok = match >= 80;
+        if (ok && wantMatched) ok = match >= (JACC.MATCH_MIN ?? 80);
         if (ok && q) ok = hay.includes(q);
         card.hidden = !ok;
         if (ok) {
@@ -713,6 +715,18 @@
       chips().forEach((c) => c.classList.toggle('is-active', c.dataset.careersFilter === 'all'));
       apply();
     });
+
+    const initial = new URLSearchParams((location.hash.split('?')[1] || '')).get('filter');
+    if (initial && initial !== 'all') {
+      const chip = chips().find((c) => (c.dataset.careersFilter || '').toLowerCase() === initial.toLowerCase());
+      if (chip) {
+        chips().forEach((c) => {
+          const on = c === chip;
+          c.classList.toggle('is-active', on);
+          c.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+      }
+    }
 
     syncAllChip();
     apply();

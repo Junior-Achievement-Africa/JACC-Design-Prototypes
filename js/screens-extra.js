@@ -301,8 +301,8 @@ Object.assign(JACC.Screens, {
   'cv-health'() {
     return `
       <div class="auth-panel screen-enter" style="margin:0 auto;max-width:520px">
-        <h1>CV health · 82</h1>
-        <div class="bar-track" style="height:12px;margin:12px 0 20px"><div class="bar-fill" style="width:82%"></div></div>
+        <h1>CV health · ${JACC.CV_HEALTH}</h1>
+        <div class="bar-track" style="height:12px;margin:12px 0 20px"><div class="bar-fill" style="width:${JACC.CV_HEALTH}%"></div></div>
         ${[['Add metrics to Hubtel role','+6'],['Include a project link','+4'],['Tighten headline to 8 words','+3']].map(([t, s]) => `
           <div class="row between" style="padding:12px 0;border-bottom:1px solid var(--line)">
             <span>${t}</span><span class="pill-accent pill">${s}</span>

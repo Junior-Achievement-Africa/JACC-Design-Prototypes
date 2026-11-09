@@ -146,9 +146,10 @@ JACC.Screens = {
         </div>
         <div class="match-ring" style="--m:${j.match}"><span>${j.match}%</span></div>
       </a>`;
-    const jobs = JACC.JOBS.slice(0, 3).map(jobCard).join('');
-    const jobsWide = JACC.JOBS.slice(0, 6).map(jobCard).join('');
+    const matchedJobs = JACC.filterJobs(JACC.JOBS, { filter: 'matched' });
+    const jobs = matchedJobs.map(jobCard).join('');
     const top = JACC.JOBS[0];
+    const stats = JACC.homeStats();
 
     return `
       <div class="baobab-home screen-enter">
@@ -164,10 +165,10 @@ JACC.Screens = {
             </div>
           </div>
           <div class="horizon-hero-stats">
-            <div><strong>12</strong><span>${t('home.jobMatches')}</span></div>
-            <div><strong>3</strong><span>${t('home.apps')}</span></div>
-            <div><strong>82</strong><span>${t('home.cvHealth')}</span></div>
-            <div><strong>2</strong><span>${t('home.rsvps')}</span></div>
+            <a href="#/careers?filter=matched"><strong>${stats.jobMatches}</strong><span>${t('home.jobMatches')}</span></a>
+            <a href="#/applications"><strong>${stats.applications}</strong><span>${t('home.apps')}</span></a>
+            <a href="#/cv-health"><strong>${stats.cvHealth}</strong><span>${t('home.cvHealth')}</span></a>
+            <a href="#/events"><strong>${stats.rsvps}</strong><span>${t('home.rsvps')}</span></a>
           </div>
         </section>
 
@@ -219,10 +220,10 @@ JACC.Screens = {
           </div>
 
           <div class="bento">
-            <a class="bento-tile t1" href="#/careers"><span class="n">12</span><span class="l">${t('home.jobMatches')}</span></a>
-            <a class="bento-tile t2" href="#/applications"><span class="n">3</span><span class="l">${t('home.apps')}</span></a>
-            <a class="bento-tile t3" href="#/cv-health"><span class="n">82</span><span class="l">${t('home.cvHealth')}</span></a>
-            <a class="bento-tile t4" href="#/events"><span class="n">2</span><span class="l">${t('home.rsvps')}</span></a>
+            <a class="bento-tile t1" href="#/careers?filter=matched"><span class="n">${stats.jobMatches}</span><span class="l">${t('home.jobMatches')}</span></a>
+            <a class="bento-tile t2" href="#/applications"><span class="n">${stats.applications}</span><span class="l">${t('home.apps')}</span></a>
+            <a class="bento-tile t3" href="#/cv-health"><span class="n">${stats.cvHealth}</span><span class="l">${t('home.cvHealth')}</span></a>
+            <a class="bento-tile t4" href="#/events"><span class="n">${stats.rsvps}</span><span class="l">${t('home.rsvps')}</span></a>
           </div>
 
           <div class="pull-quote">“The job board matched me to Hubtel — I landed my first product role.” — ${esc(JACC.STORIES[0].name)}</div>
@@ -246,8 +247,8 @@ JACC.Screens = {
             </div>
           </div>
 
-          <div class="section-title"><h2>${t('common.forYou')}</h2><a href="#/careers">${t('common.jobBoard')}</a></div>
-          <div class="h-scroll">${jobsWide}</div>
+          <div class="section-title"><h2>${t('common.forYou')}</h2><a href="#/careers?filter=matched">${t('common.jobBoard')}</a></div>
+          <div class="h-scroll">${jobs}</div>
           <div class="stack horizon-hide-when-scroll">${jobs}</div>
 
           <div class="section-title" style="margin-top:22px"><h2>${t('common.cohortWins')}</h2></div>
